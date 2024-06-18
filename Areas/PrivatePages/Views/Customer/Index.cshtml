@@ -1,0 +1,87 @@
+﻿@using ShopTechNoLoGy.Models
+@{
+    ViewBag.Title = "Index";
+    List<donHang> ds = ViewData["DanhSachDonHang"] as List<donHang>;
+}
+<style>
+    form {
+        display: inline;
+    }
+
+    .font_size_TSP {
+        width: 350px;
+    }
+</style>
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>Danh sách khách hàng đang đặt hàng</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="#">Quản trị</a></li>
+                    <li class="breadcrumb-item active">Danh sách sản phẩm đã duyệt</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="content">
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title"></h3>
+            <div class="card-tools">
+                <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+                    <i class="fas fa-minus"></i>
+                </button>
+            </div>
+        </div>
+        <div class="card-body">
+            <table id="example2" class="table table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th>Số đơn hàng</th>
+                        <th>Mã khách hàng</th>
+                        <th>Đã duyệt</th>
+                        <th>Họ & tên</th>
+                        <th>Địa chỉ giao hàng</th>
+                        <th>Hành động</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (ds != null)
+                    {
+                        foreach (var order in ds)
+                        {
+                            <tr>
+                                <td>@order.soDH</td>
+                                <td>@order.maKH</td>
+                                <td>@order.daKichHoat</td>
+                                <td>@order.taiKhoanTV.hoDem @order.taiKhoanTV.tenTV</td>
+                                <td>@order.diaChiGH</td>
+                                <td>
+                                    @using (Html.BeginForm("Active", "Customer", FormMethod.Post))
+                                    {
+                                        <input type="hidden" name="maDonHang" value="@order.soDH" />
+                                        <button class="btn btn-success" title="Cho phép hiển thị trên tất cả các trang công khai">Cấm</button>
+                                    }
+                                    
+                                    @using (Html.BeginForm("Delete", "Customer", FormMethod.Post))
+                                    {
+                                        <input type="hidden" name="maDonHang" value="@order.soDH" />
+                                        <button class="btn btn-danger" title="Xóa đơn hàng">Xóa</button>
+                                    }
+                                </td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+        <div class="card-footer">
+            footer
+        </div>
+    </div>
+</section>

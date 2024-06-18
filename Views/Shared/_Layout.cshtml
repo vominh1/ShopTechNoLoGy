@@ -1,0 +1,307 @@
+﻿<style>
+    .trang_chu img {
+        max-width: 30px;
+        padding-bottom: 4px;
+    }
+
+    .icon_cart_shop img {
+        max-width: 30px;
+        padding-bottom: 4px;
+    }
+
+    .icon_manager img {
+        max-width: 30px;
+        padding-bottom: 4px;
+    }
+
+    .icon_review img {
+        max-width: 30px;
+        padding-bottom: 4px;
+    }
+
+    .icon_contact img {
+        max-width: 30px;
+    }
+    .bradcam_area {
+        height: 100px;
+    }
+</style>
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- CSS here -->
+    <link href="~/Scripts/vendor/Style.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/Content/bootstrap.min.css">
+    <link rel="stylesheet" href="~/Content/owl.carousel.min.css">
+    <link rel="stylesheet" href="~/Content/magnific-popup.css">
+    <link rel="stylesheet" href="~/Content/font-awesome.min.css">
+    <link rel="stylesheet" href="~/Content/themify-icons.css">
+    <link rel="stylesheet" href="~/Content/nice-select.css">
+    <link rel="stylesheet" href="~/Content/flaticon.css">
+    <link rel="stylesheet" href="~/Content/gijgo.css">
+    <link rel="stylesheet" href="~/Content/animate.css">
+    <link rel="stylesheet" href="~/Content/slicknav.css">
+    <link rel="stylesheet" href="~/Content/styles.css">
+    <link rel="manifest" href="site.webmanifest">
+    <link rel="shortcut icon" type="image/x-icon" href="~/images/favicon.png">
+    <style>
+        .slider_bg_1 {
+            background-image: url(../images/banner/banner2.jpg);
+        }
+
+        .courses_details_banner {
+            background-image: url(../images/banner/banner2.jpg);
+        }
+
+        body {
+            background-color: #bec0d3;
+        }
+
+        .header-area .main-header-area.sticky {
+            background: linear-gradient(to right, #14071e 0%, #c07511 100%);
+        }
+
+        .footer_bg_1 {
+            background-image: url(../images/banner/banner3.jpg);
+        }
+
+        element.style {
+        }
+
+        .subscribe_newsletter {
+            background: #d2b404;
+        }
+    </style>
+
+</head>
+<body>
+    <header>
+        <div class="header-area">
+            <div id="sticky-header" class="main-header-area">
+                <div class="container-fluid p-0">
+                    <div class="row align-items-center no-gutters">
+                        <div class="col-xl-1 col-lg-1" style="width:20%">
+                            <div class="logo-img">
+                                <a href="@Url.Action("Index","Home")">
+                                    <img src="~/Dulieu/Images/logo_minhday.png" alt="" height="90px" width="90px">
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-xl-10 col-lg-10" style="width:50%">
+                            <div class="main-menu d-none d-lg-block">
+                                <nav>
+                                    <ul id="navigation">
+                                        <li class="trang_chu">
+                                            <img src="~/images/about/house.png">@Html.ActionLink("Trang chủ", "Index", "Home")
+                                        </li>
+                                        <li class="icon_cart_shop">
+                                            <img src="~/images/about/carts.png">@Html.ActionLink("Giỏ Hàng", "Index", "CartShop")
+                                        </li>
+                                        <li class="icon_manager">
+                                            <img src="~/images/about/process.png">@Html.ActionLink("Người quản trị", "Index", "AboutUs")
+                                        </li>
+                                        <li class="icon_review">
+                                            <img src="~/images/about/popularity.png">@Html.ActionLink("Giới thiệu", "Index", "ReviewWebSite")
+                                        </li>
+                                        <li class="icon_contact">
+                                            <img src="~/images/about/contact-us.png"/> @Html.ActionLink("Liên hệ", "Index", "Contact")
+                                        </li>
+                                        <li class="icon_login">
+                                            <img src="~/images/about/icons8-login.gif">@Html.ActionLink("Đăng nhập", "Index", "Login")
+                                        </li>
+                                    </ul>
+                                </nav>
+                            </div>
+                            <div class="hamburger-menu d-lg-none">
+                                <button class="hamburger-button" onclick="toggleMenu()">
+                                    <span class="bar"></span>
+                                    <span class="bar"></span>
+                                    <span class="bar"></span>
+                                </button>
+                                <nav class="mobile-menu">
+                                    <ul id="mobile-navigation">
+                                        <li><a href="@Url.Action("Index","Home")">Trang chủ</a></li>
+                                        <li><a href="@Url.Action("Index","CartShop")">Giỏ hàng</a></li>
+                                        <li><a href="@Url.Action("Index","AboutUs")">Người quản trị</a></li>
+                                        <li><a href="@Url.Action("Index","ReviewWebSite")">Giới thiệu</a></li>
+                                        <li><a href="@Url.Action("Index","Contact")">Liên hệ</a></li>
+                                        <li><a href="@Url.Action("Index","Login")">Đăng nhập</a></li>
+                                    </ul>
+                                </nav>
+                            </div>
+                        </div>
+                        <div class="col-xl-1 col-lg-1" style="width:20%; "  >
+                            <div class="live_chat_btn">
+                                <a class="boxed_btn_orange" href="#">
+                                    <i style="width:auto; " class="fa fa-phone"></i>
+                                    <span>  0363066401</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+
+    <!-- header-end -->
+
+    @RenderSection("QuangCao", required: false)
+   
+    @RenderBody()
+    <!-- footer -->
+    <footer class="footer footer_bg_1">
+        <div class="footer_top">
+
+            <div class="container">
+                <div class="row">
+                    <div class="col-xl-4 col-md-6 col-lg-4">
+                        <div class="footer_widget">
+                            <div class="footer_logo">
+                                <a href="#">
+                                    <img src="~/Dulieu/Images/logo_minhday.png" alt="" height="100px" width="100px">
+                                </a>
+                            </div>
+                            <p style="color:black;">
+                                Firmament morning sixth subdue darkness creeping gathered divide our let god moving.
+                                Moving in fourth air night bring upon it beast let you dominion likeness open place day
+                                great.
+                            </p>
+                            <div class="socail_links">
+                                <ul>
+                                    <li>
+                                        <a href="#">
+                                            <i class="ti-facebook"></i>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <i class="ti-twitter-alt"></i>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <i class="fa fa-instagram"></i>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <i class="fa fa-youtube-play"></i>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="col-xl-2 offset-xl-1 col-md-6 col-lg-3">
+                        <div class="footer_widget">
+                            <h3 class="footer_title" style="color:black;">
+                                Courses
+                            </h3>
+                            <p style="color:black;">
+                                Wordpress
+                                Photoshop
+                                Illustrator
+                                Adobe XD
+                            </p>
+
+
+                        </div>
+                    </div>
+                    <div class="col-xl-2 col-md-6 col-lg-2" style="color:black;">
+                        <div class="footer_widget">
+                            <h3 class="footer_title" style="color:black;">
+                                Resourches
+                            </h3>
+                            <p style="color:black;">
+                                Free Adobe XD<br>
+                                Tutorials<br>
+                                About</br>
+                                Contact Us
+
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-md-6 col-lg-3">
+                        <div class="footer_widget">
+                            <h3 class="footer_title" style="color:black;">
+                                Address
+                            </h3>
+                            <p style="color:black;">
+                                123,Hồ Chí Minh,Q12<br>
+                                0363066401 <br>
+                                shopTechNoLogy@gmail.com
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="copy-right_text">
+            <div class="container">
+                <div class="footer_border"></div>
+                <div class="row">
+                    <div class="col-xl-12">
+                        <p class="copy_right text-center" style="color:black;">
+                            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                            Copyright &copy;
+                            <script>document.write(new Date().getFullYear());</script>
+                            All rights reserved | This template is made with
+                            <i class="fa fa-heart-o" aria-hidden="true"></i> by
+                            <a href="https://colorlib.com" target="_blank" style="color:aqua    ">VoMinhDay</a>
+                            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- footer -->
+
+
+
+    <script src="~/Scripts/vendor/modernizr-3.5.0.min.js"></script>
+    <script src="~/Scripts/vendor/jquery-1.12.4.min.js"></script>
+    <script src="~/Scripts/popper.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/owl.carousel.min.js"></script>
+    <script src="~/Scripts/isotope.pkgd.min.js"></script>
+    <script src="~/Scripts/ajax-form.js"></script>
+    <script src="~/Scripts/waypoints.min.js"></script>
+    <script src="~/Scripts/jquery.counterup.min.js"></script>
+    <script src="~/Scripts/imagesloaded.pkgd.min.js"></script>
+    <script src="~/Scripts/scrollIt.js"></script>
+    <script src="~/Scripts/jquery.scrollUp.min.js"></script>
+    <script src="~/Scripts/wow.min.js"></script>
+    <script src="~/Scripts/nice-select.min.js"></script>
+    <script src="~/Scripts/jquery.slicknav.min.js"></script>
+    <script src="~/Scripts/jquery.magnific-popup.min.js"></script>
+    <script src="~/Scripts/plugins.js"></script>
+    <script src="~/Scripts/gijgo.min.js"></script>
+
+    <!--contact js-->
+    <script src="~/Scripts/contact.js"></script>
+    <script src="~/Scripts/jquery.ajaxchimp.min.js"></script>
+    <script src="~/Scripts/jquery.form.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/mail-script.js"></script>
+
+    <script src="~/Scripts/main.js"></script>
+    <script>
+        function toggleMenu() {
+            var mobileMenu = document.querySelector('.mobile-menu');
+            mobileMenu.classList.toggle('open');
+        }
+
+    </script>
+</body>
+</html>

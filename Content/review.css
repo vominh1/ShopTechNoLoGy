@@ -1,0 +1,58 @@
+﻿<style >
+/* Trang giới thiệu */
+.container {
+    max-width: 1500px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+h1 {
+    font-size: 40px;
+}
+
+h2 {
+    color: orangered;
+    font-size: 40px;
+    margin-bottom: 20px;
+}
+
+h3 {
+    color: #666;
+    font-size: 30px;
+    margin-top: 30px;
+    margin-bottom: 10px;
+}
+
+p {
+    color: #666;
+    font-size: 25px;
+    line-height: 1.5;
+    font-style: italic;
+}
+
+ul {
+    color: #666;
+    font-size: 16px;
+    line-height: 1.5;
+    margin-bottom: 20px;
+}
+
+li {
+    margin-bottom: 5px;
+}
+
+/* Liên kết */
+a {
+    color: #337ab7;
+    text-decoration: none;
+}
+
+    a:hover {
+        text-decoration: underline;
+    }
+
+</style >
+s

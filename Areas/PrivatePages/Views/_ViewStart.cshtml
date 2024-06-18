@@ -1,0 +1,9 @@
+﻿@using ShopTechNoLoGy.Models;
+@{
+    taiKhoanTV x = (taiKhoanTV)Session["ttDangNhap"];
+    if (x == null)
+    {
+        Response.Redirect("~/Login");
+    }
+    Layout = "~/Areas/PrivatePages/Views/Shared/_Layout.cshtml";
+}

@@ -1,0 +1,150 @@
+﻿@using ShopTechNoLoGy.Models
+@{
+    ViewBag.Title = "Thông Tin Sản Phẩm";
+    sanPham i = ViewData["spcanxem"] as sanPham;
+}
+<style>
+    .courses_details_banner {
+        background-image: url(../images/banner/banner2.jpg);
+    }
+   
+    .breadcam_bg {
+        background-image: url(../images/banner/banner2.jpg);
+    }
+    .slider_bg_1 {
+        background-image: url(../images/banner/banner2.jpg);
+    }
+    .bradcam_area {
+        height: 100px;
+    }
+</style>
+
+<link rel="stylesheet" href="~/Content/style.css">
+<!-- bradcam_area_start -->
+<div class="courses_details_banner" >
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-6">
+                <div class="course_text">
+                    <h3>@i.tenSP</h3>
+                    <div class="prise">
+                        <span class="active">@String.Format("{0:#,##0 VNĐ}", @i.giaBan)</span>
+                    
+                        @using (Html.BeginForm("AddToCart", "Home", FormMethod.Post))
+                        {
+                            <input name="maSP" type="hidden" value="@i.maSP" />
+                            <button class="btn btn-primary">Chọn mua </button>
+                        }
+                    </div>
+
+                    @*<div class="rating">
+                            <i class="flaticon-mark-as-favorite-star"></i>
+                            <i class="flaticon-mark-as-favorite-star"></i>
+                            <i class="flaticon-mark-as-favorite-star"></i>
+                            <i class="flaticon-mark-as-favorite-star"></i>
+                            <i class="flaticon-mark-as-favorite-star"></i>
+                            <span>(4.5)</span>
+                        </div>*@
+
+                    @*<div class="hours">
+                            <div class="video">
+                                <div class="single_video">
+                                   <img src="@i.hinhDD alt="@i.tenSP />
+                                </div>
+
+
+                            </div>
+                        </div>*@
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- bradcam_area_end -->
+
+<div class="courses_details_info" >
+    <div class="container">
+        <div class="row" >
+            <div class="col-xl-7 col-lg-7">
+                <div class="single_courses">
+                    <h3>@i.tenSP</h3>
+                    <p>
+                        @i.ndTomTat
+                    </p>
+                </div>
+                <div class="outline_courses_info">
+                    @i.noiDung
+                </div>
+            </div>
+            <div class="col-xl-5 col-lg-1">
+                <div class="courses_sidebar">
+                    <div class="video_thumb">
+                        <img src="@i.hinhDD" alt="@i.tenSP" />
+
+                    </div>
+                    <div class="author_info">
+                        <div class="auhor_header">
+                            <aside class="single_sidebar_widget post_category_widget">
+                                <h4 class="widget_title" style="text-align:center">Thông tin liên quan</h4>
+                                <ul class="list cat-list">
+                                    <li>
+                                        <a href="#" class="d-flex">
+                                            <p>- Tên sản phẩm: @i.tenSP </p>
+
+                                        </a>
+                                    </li>
+                                    <br />
+                                    <li>
+                                        <a href="#" class="d-flex">
+                                            <p>- Nhà sản xuất: @i.nhaSanXuat</p>
+
+                                        </a>
+                                    </li>
+                                    <br />
+                                    <li>
+                                        <a href="#" class="d-flex">
+                                            <p>- Đơn vị tính: @i.dvt </p>
+
+                                        </a>
+                                    </li>
+                                    </br>
+                                    <li>
+                                        <a href="#" class="d-flex">
+                                            <p>- Loại sản phẩm: @i.loaiHang </p>
+
+                                        </a>
+                                    </li>
+                                    @*<li>
+            <a href="#" class="d-flex">
+                <p>Product</p>
+                <p>(11)</p>
+            </a>
+        </li>
+        <li>
+            <a href="#" class="d-flex">
+                <p>Inspiration</p>
+                <p>(21)</p>
+            </a>
+        </li>
+        <li>
+            <a href="#" class="d-flex">
+                <p>Health Care</p>
+                <p>(21)</p>
+            </a>
+        </li>*@
+                                </ul>
+                            </aside>
+                        </div>
+                    </div>
+                    @using (Html.BeginForm("AddToCart", "Home", FormMethod.Post))
+                    {
+                        <input name="maSP" type="hidden" value="@i.maSP" />
+                        <button class="btn btn-primary">Chọn mua </button>
+                    }
+                   
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

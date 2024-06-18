@@ -1,0 +1,141 @@
+﻿
+@model ShopTechNoLoGy.Models.khachHang
+@using ShopTechNoLoGy.Models
+
+@{
+    ViewBag.Title = "Đặt hàng thàng công";
+    string soDH = ViewData["SoDH"] as string;
+    CartShop1 cart = ViewData["Cart"] as CartShop1;
+}
+<style>
+    .courses_details_banner {
+        background-image: url(../images/banner/banner2.jpg);
+    }
+
+    .breadcam_bg {
+        background-image: url(../images/banner/banner2.jpg);
+    }
+</style>
+<div class="bradcam_area breadcam_bg overlay1">
+    <h3 style="margin-top:0">Đặt hàng thành công</h3>
+</div>
+
+<!-- Main content -->
+<div class="invoice p-3 mb-3">
+    <!-- title row -->
+    <div class="row">
+        <div class="col-12">
+            <h4>
+                @*<i class="fas fa-globe"></i>*@
+                <small class="float-right">Date: @cart.NgayDat</small>
+            </h4>
+        </div>
+    </div>
+
+    <!-- info row -->
+    <div class="row invoice-info">
+        <div class="col-sm-5 invoice-col">
+            <address>
+                <strong>Thông tin khách hàng:</strong><br>
+                Họ và tên khách hàng: @cart.TenKH<br>
+                Số điện thoại : @cart.SoDT<br>
+                Email: @cart.Email
+            </address>
+        </div>
+
+        <div class="col-sm-3 invoice-col">
+
+            <address>
+                <strong>Thông tin đơn hàng: </strong><br>
+                Mã khách hàng: @cart.MaKH<br>
+                Số đơn hàng : @soDH<br />
+                Tài khoản: @cart.TaiKhoan<br>
+                Ngày đặt: @cart.NgayDat <br />
+                Ngày giao: @cart.NgayGiao<br>
+                Địa chỉ: @cart.DiaChi
+
+            </address>
+        </div>
+    </div>
+
+    <!-- Table row -->
+    <div class="row">
+        <div class="col-12 table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr class="cart_menu">
+                        <td class="image">Sản phẩm</td>
+                        <td class="description"></td>
+                        <td class="price">Giá bán</td>
+                        <td class="quantity" style="width: 249px; text-align:center;">Số lượng</td>
+                        <td class="total">Thành tiền</td>
+                        <td></td>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in cart.SanPhamDC.Values)
+                    {
+                        <tr>
+                            <td class="cart_product">
+                                <a href="#"><img src="@Common.getImagesOfProductById(item.maSP)" width="50%" height="50%" /></a>
+                            </td>
+                            <td class="cart_description">
+                                <h4><a href="#">@Common.getNameOfProductById(item.maSP)</a></h4>
+                                <p>Product ID: @item.maSP</p>
+                            </td>
+                            <td class="cart_price">
+                                <p>@string.Format("{0:#,##0đ}", item.giaBan)</p>
+                            </td>
+                            <td class="cart_quantity" style="text-align: center">
+
+                                <p class="cart_quantity_input" type="text" name="quantity" value="@item.soLuong" autocomplete="off" size="1" />
+
+                            </td>
+                            <td class="cart_total">
+                                <p class="cart_total_price">@cart.moneyOfOneProduct(item)</p>
+                            </td>
+
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-6">
+            <p class="lead">Amount Due 2/22/2014</p>
+            <div class="table-responsive">
+                <table class="table">
+                    <tr>
+                        <th style="width:50%">Tổng trị giá:</th>
+                        <td>@cart.totalOfCartShop()</td>
+                    </tr>
+                    <tr>
+                        <th>Thuế VAT 10% </th>
+                        <td>@((cart.totalOfCartShop() * 10) / 100)</td>
+                    </tr>
+                    <tr>
+                        <th>Phí giao hàng:</th>
+                        <td>Free</td>
+                    </tr>
+                    <tr>
+                        <th>Tổng thành tiền:</th>
+                        <td>@(cart.totalOfCartShop() + (cart.totalOfCartShop() * 10 / 100))</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="row no-print">
+        <div class="col-12">
+          
+            <a href="@Url.Action("Index", "Home")" class="btn btn-success float-right">
+                Tiếp tục mua sắm
+            </a>
+            
+        </div>
+    </div>
+
+</div>

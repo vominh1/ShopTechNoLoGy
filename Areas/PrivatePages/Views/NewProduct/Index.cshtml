@@ -1,0 +1,135 @@
+﻿
+@model ShopTechNoLoGy.Models.sanPham
+
+@{
+    ViewBag.Title = "Index";
+}
+<section class="content">
+    <div class="container-fluid">
+        @using (Html.BeginForm("Index", "NewProduct", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            <div class="row">
+                <!-- left columm-->
+                <div class="col-md-8">
+                    <!-- general form elements -->
+                    <div class="card card-primary">
+                        <div class="card-header">
+                            <h3 class="card-title">Thông tin chính </h3>
+                        </div>
+                        <!-- /.card-header -->
+                        <!-- form start -->
+
+                        <div class="card-body">
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Tên sản Phẩm</label>
+                                @Html.TextBoxFor(m => m.tenSP, new { @class = "form-control", @placeholder = "Vui lòng nhập tên sản phẩm !" })
+                            </div>
+                            <div class="form-group">
+                                <label>Nội dung tóm tắt</label>
+                                @Html.TextAreaFor(m => m.ndTomTat, new { @rows = "3", @class = "form-control", @placeholder = "Vui lòng nhập nội dung tóm tắt !" })
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label>Ngày đăng</label>
+                                        @Html.TextBoxFor(m => m.ngayDang, new { @class = "form-control", @placeholder = "Name of article", @disable = "disable" })
+
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label>Tài khoản</label>
+                                        @Html.TextBoxFor(m => m.taiKhoan, new { @class = "form-control", @disable = "disable" })
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label>Mã loại</label>
+                                        @Html.TextBoxFor(m => m.maLoai, new { @class = "form-control", @disable = "disable" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- right columm-->
+                <div class="col-md-4">
+                    <!-- general form elements disabled -->
+                    <div class="card card-warning">
+                        <div class="card-header">
+                            <h3 class="card-title">Hình đại diện</h3>
+                            <div class="cart-tools">
+                                <button type="button" class="btn btn tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+                                    <i class="fas fa-minus"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <!-- /.card-header -->
+                        <div class="card-body">
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <!-- đường dẫn từ controller vào view  gửi từ hình ảnh vào trong sql-->
+                                    <img src="@ViewBag.ddhinh" class="img-thumbnail" style="width:100%" />
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputFile">Input picture</label>
+                                    <div class="input-group">
+                                        <div class="custom-file">
+                                            <input type="file" class="custom-file-input" id="exampleInputFile" name="hinhdaidien">
+                                            <label class="custom-file-label" for="exampleInputFile">Choose file</label>
+                                        </div>
+                                        <div class="input-group-append">
+                                            <button class="input-group-text" disabled>Upload</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- /.card-body -->
+                            </div>
+                            <!-- /.card -->
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-12">
+                    <div class="card card-primary">
+                        <div class="card-header">
+                            <h3 class="card-title">
+                                Nội dung sản phẩm
+                            </h3>
+
+                        </div>
+                        <div class="card-body">
+                            <div class="mb-3">
+                                @Html.TextAreaFor(m => m.noiDung, new
+                                {
+                                    @class = "textarea",
+                                    @placeholder = "Vui lòng nhập nội dung chính !",
+                                    @id = "VungSoanThao",
+                                                                    @style = "width:100%; height:600px;line-height:18px;border:1px solid #dddddd,font-size:14px;padding:10px"
+                                })
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-footer">
+                    <button type="submit" class="btn btn-primary">Đăng sản phẩm</button>
+                </div>
+
+            </div>
+
+        }
+    </div>
+</section>
+
+<script src="https://cdn.tiny.cloud/1/fjcooba1vfg612933j5b6q3p0rsxpkc2rf3c2umuzuymms1n/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+<script>
+    tinymce.init({
+        selector: 'textarea',
+        plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount',
+        toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table | align lineheight | numlist bullist indent outdent | emoticons charmap | removeformat',
+    });
+</script>

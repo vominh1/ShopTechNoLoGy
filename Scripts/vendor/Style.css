@@ -1,0 +1,108 @@
+﻿/* Reset some default styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+
+.header-area {
+
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Đổ bóng cho header */
+}
+
+.main-header-area {
+    padding: 10px 0; /* Khoảng cách padding cho header */
+}
+
+.logo-img img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+}
+
+.main-menu ul {
+    list-style-type: none;
+    display: flex;
+    justify-content: flex-end;
+}
+
+    .main-menu ul li {
+        margin-right: 20px;
+    }
+
+        .main-menu ul li a {
+            text-decoration: none;
+            color: #333;
+            display: inline-block;
+            padding: 10px;
+        }
+
+.hamburger-menu {
+    display: none;
+}
+
+.hamburger-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+}
+
+    .hamburger-button .bar {
+        display: block;
+        width: 20px;
+        height: 2px;
+        background-color: #000;
+        margin: 4px auto;
+        transition: all 0.3s ease-in-out;
+    }
+
+.mobile-menu {
+    display: none;
+    position: absolute;
+    top: 100%; /* Menu di động hiển thị dưới menu chính */
+    left: 0;
+    width: 100%;
+    background-color: #ffffff;
+    z-index: 1000; /* Đảm bảo menu hiển thị trên top */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Đổ bóng cho menu */
+   
+}
+
+    .mobile-menu.open {
+        display: block;
+    }
+
+    .mobile-menu ul {
+        list-style-type: none;
+    }
+
+        .mobile-menu ul li {
+            margin-bottom: 10px;
+        }
+
+            .mobile-menu ul li a {
+                display: block;
+                padding: 10px;
+                color: #333;
+                text-decoration: none;
+            }
+
+@media screen and (max-width: 992px) {
+    .main-menu {
+        display: none;
+      
+    }
+
+    .hamburger-menu {
+        display: block;
+    }
+
+    .mobile-menu {
+        display: none;
+    }
+    
+
+}

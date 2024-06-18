@@ -1,0 +1,193 @@
+﻿@model ShopTechNoLoGy.Models.khachHang
+@using ShopTechNoLoGy.Models;
+@{
+    ViewBag.Title = "Đặt Hàng";
+
+    CartShop1 x = ViewData["Cart"] as CartShop1;
+}
+<style>
+    .slider_bg_1 {
+        background-image: url(../images/banner/banner2.jpg);
+    }
+    .breadcam_bg {
+        background-image: url(../images/banner/banner2.jpg);
+    }
+    #cart_items .cart_info .cart_menu {
+        background: #FE980F;
+        color: #fff;
+        font-size: 16px;
+        font-family: 'Roboto', sans-serif;
+        font-weight: normal;
+    }
+    .bradcam_area {
+        height: 100px;
+    }
+</style>
+<link rel="shortcut icon" href="~/images/ico/favicon.ico">
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="~/images/ico/apple-touch-icon-144-precomposed.png">
+<link rel="apple-touch-icon-precomposed" sizes="114x114" href="~/images/ico/apple-touch-icon-114-precomposed.png">
+<link rel="apple-touch-icon-precomposed" sizes="72x72" href="~/images/ico/apple-touch-icon-72-precomposed.png">
+<link rel="apple-touch-icon-precomposed" href="~/images//ico/apple-touch-icon-57-precomposed.png">
+
+
+
+
+<div class="bradcam_area breadcam_bg overlay1">
+    <h3 style="margin-top:0">Check out</h3>
+</div>
+<section class="blog_area section-padding">
+    <div class="container">
+        <div class="shopper-informations">
+            @using (Html.BeginForm("SaveToDataDase", "CheckOut", FormMethod.Post))
+            {
+
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="shopper-info">
+                            <p>Thông tin khách hàng</p>
+                            <div class="form-group">
+                                <label for="hoTen">Họ tên khách hàng</label>
+
+                                @Html.TextBoxFor(m => m.tenKH, new { @class = "form-control", @placeholder = "Display Name" })
+                            </div>
+                            <div class="form-group" style="margin-bottom: 0">
+                                <label class="radio-inline">@Html.RadioButtonFor(m => m.gioiTinh, new { @name = "gioiTinh" })Nam</label>
+                                <label class="radio-inline">@Html.RadioButton("gioiTinh", false)Nữ</label>
+                            </div>
+                            <div class="form-group">
+
+                                <label class="for- ngay Sinh">Ngày sinh</label>
+                                @Html.TextBoxFor(m => m.ngaySinh, new { @type = "date", @class = "form-control" })
+                            </div>
+                            <div class="form-group">
+                                <a href=" @Url.Action("Index", "CartShop")" class="btn btn-default">&lt;&lt;Quay lại giỏ hàng</a>
+                                <button class="btn btn-success" href="@Url.Action("Index", "CheckOut")">Thanh toán</button>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="col-md-4">
+                        <div class="bill-to">
+                            <p>Thông tin liên lạc</p>
+                            <div class="form-one">
+                                <div class="form-group">
+
+                                    <label for="soDt">Số điện thoại</label>
+                                    @Html.TextBoxFor(m => m.soDT, new { @class = "form-control", @placeholder = "Your number name" })
+                                </div>
+                                <div class="form-group">
+                                    <label for="mail">Email address</label>
+                                    @Html.TextBoxFor(m => m.email, new { @class = "form-control", @placeholder = "Email address" })
+                                </div>
+                                <div class="form-group">
+                                    <label for="addr">Địa chỉ giao hàng</label>
+                                    @Html.TextBoxFor(m => m.diaChi, new { @class = "form-control", @placeholder = "Custumer address" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="order-message">
+                            <p>Thông tin khác</p>
+                            <div class="form-group">
+                                <label for-"ghiChu">Thông tin ghi chú</label>
+                                @Html.TextAreaFor(m => m.ghiChu, new { @class = "form-control", @placeholder = "Thông tin ghi chú cần nhà bán hàng ghi nhận", @rows = " 8", @style = "padding-bottom: 5px;height:300px" })
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+           
+                    <h4><a href="">Products </a></h4>
+                    <p>Information Products</p>
+                  
+                    <div class="row">
+                        <div class="table-responsive cart_info">
+                            <table class="table] table-condensed">
+                                <thead>
+                                    <tr class="cart_menu" style="background: #FE980F ;color: #fff; font-size: 16px;height:50px;">
+                                        
+                                        <td class="image">Item</td>
+                                        <td class="description"></td>
+                                        <td class="price">Price</td>
+                                        <td class="quantity">Quantity</td>
+                                        <td class="total">Total</td>
+                                        <td></td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @{
+                                        foreach (ctDonHang i in x.SanPhamDC.Values)
+                                        {
+                                            <tr>
+                                                <td class="cart_product">
+                                                    <a href=""><img src="@Common.getImagesOfProductById(i.maSP)" width="50%" height="50%" /></a>
+                                                </td>
+                                                <td class="cart_description">
+                                                    <h4><a href="">@Common.getNameOfProductById(i.maSP)</a></h4>
+                                                    <p>Product ID: @i.maSP</p>
+                                                </td>
+                                                <td class="cart_price">
+                                                    <p>@string.Format("{0:# VNĐ}", i.giaBan)</p>
+                                                </td>
+                                                <td class="cart_quantity">
+                                                    <div class="cart_quantity_button">
+
+                                                        <input class="cart_quantity_input" type="text" name="quantity" value="@i.soLuong" autocomplete="off" size="2" />
+
+                                                    </div>
+                                                </td>
+                                                <td class="cart_total">
+                                                    <p class="cart_total_price">@x.moneyOfOneProduct(i)</p>
+                                                </td>
+                                                <td class="cart_delete">
+                                                </td>
+                                            </tr>
+                                        }
+
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="row gach">
+                        <div class="heading">
+                            <h3>Tổng trị giá - Thuế - Phí giao hàng - Tổng tiền</h3>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12 col-md-12 col-lg-12">
+                            <div class="total_area">
+                                <div class="total_area">
+                                    <ul>
+                                        <li>Tổng trị giá <span>@x.totalOfCartShop()</span></li>
+                                        <li> Thuế VAT 10%<span> @((x.totalOfCartShop()*10)/100)</span></li>
+                                        <li>Phí giao hàng <span>Free</span></li>
+                                        <li>Tổng thành tiền <span>@(x.totalOfCartShop()+(x.totalOfCartShop()*10/100))</span></li>
+                                    </ul>
+                                   
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+    </div>
+</section>
+
+
+
+
+
+<link href="~/Content/Cart2/bootstrap.min.css" rel="stylesheet">
+<link href="~/Content/cart2/font-awesome.min.css" rel="stylesheet">
+<link href="~/Content/prettyPhoto.css" rel="stylesheet">
+<link href="~/Content/Cart2/price-range.css" rel="stylesheet">
+<link href="~/Content/Cart2/animate.css" rel="stylesheet">
+<link href="~/Content/Cart2/main.css" rel="stylesheet">
+<link href="~/Content/Cart2/responsive.css" rel="stylesheet">
+<link href="~/Content/cart2/main.css" rel="stylesheet">
+
+
