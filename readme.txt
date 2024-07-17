@@ -1,1 +1,2 @@
-
+ - thay đổi  1 : thêm một vài chức năng (controller )
+-  thay đổi 2 : tạo thêm models
