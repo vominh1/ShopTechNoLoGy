@@ -1,0 +1,45 @@
+﻿@model List<ShopTechNoLoGy.Models.CustomerModel>
+
+@{
+    ViewBag.Title = "Danh Sách Khách Hàng";
+    Layout = "~/Areas/PrivatePages/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Danh Sách Khách Hàng</h2>
+
+@using (Html.BeginForm("Search", "Customer", FormMethod.Post))
+{
+    <div class="form-group">
+        @Html.Label("Tìm kiếm theo tên hoặc mã khách hàng:")
+        @Html.TextBox("searchString", null, new { @class = "form-control" })
+    </div>
+    <button type="submit" class="btn btn-primary">Tìm kiếm</button>
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Mã Khách Hàng</th>
+            <th>Họ Tên</th>
+            <th>Email</th>
+            <th>Số Điện Thoại</th>
+            <th>Hành động</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var customer in Model)
+        {
+            <tr>
+                <td>@customer.MaKH</td>
+                <td>@customer.TenKH</td>
+                <td>@customer.email</td>
+                <td>@customer.soDT</td>
+                <td>
+                    @Html.ActionLink("Chi tiết", "OrderDetails", new { id = customer.MaKH }, new { @class = "btn btn-info" })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+

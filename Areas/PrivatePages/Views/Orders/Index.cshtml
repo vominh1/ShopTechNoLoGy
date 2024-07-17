@@ -1,6 +1,6 @@
 ﻿@using ShopTechNoLoGy.Models
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Danh sách đơn hàng";
     List<donHang> ds = ViewData["DanhSachDonHang1"] as List<donHang>;
 }
 <style>
@@ -16,14 +16,9 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1>Danh sách khách hàng đang đặt hàng</h1>
+                <h1>Danh sách đơn hàng của bạn</h1>
             </div>
-            <div class="col-sm-6">
-                <ol class="breadcrumb float-sm-right">
-                    <li class="breadcrumb-item"><a href="#">Quản trị</a></li>
-                    <li class="breadcrumb-item active">Danh sách sản phẩm đã duyệt</li>
-                </ol>
-            </div>
+          
         </div>
     </div>
 </section>
@@ -52,7 +47,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @if (ds != null)
+                    @if (ds != null && ds.Count > 0)
                     {
                         foreach (var order in ds)
                         {
@@ -69,15 +64,26 @@
                                         <input type="hidden" name="maDonHang" value="@order.soDH" />
                                         <button class="btn btn-success" title="Cho phép hiển thị trên tất cả các trang công khai">Kích hoạt</button>
                                     }
-                                   
+
                                     @using (Html.BeginForm("Delete", "Orders", FormMethod.Post))
                                     {
                                         <input type="hidden" name="maDonHang" value="@order.soDH" />
                                         <button class="btn btn-danger" title="Xóa đơn hàng">Xóa</button>
                                     }
+                                    @using (Html.BeginForm("OrderDetails", "Orders", FormMethod.Post))
+                                    {
+                                        <input type="hidden" name="maDonHang" value="@order.soDH" />
+                                        <button class="btn btn-info" title="Xem chi tiết đơn hàng">Chi tiết</button>
+                                    }
                                 </td>
                             </tr>
                         }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="7">Không có đơn hàng nào để hiển thị.</td>
+                        </tr>
                     }
                 </tbody>
             </table>

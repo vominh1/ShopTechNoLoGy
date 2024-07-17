@@ -67,11 +67,16 @@
                                         <input type="hidden" name="maDonHang" value="@order.soDH" />
                                         <button class="btn btn-success" title="Cho phép hiển thị trên tất cả các trang công khai">Cấm</button>
                                     }
-                                    
+
                                     @using (Html.BeginForm("Delete", "Customer", FormMethod.Post))
                                     {
                                         <input type="hidden" name="maDonHang" value="@order.soDH" />
                                         <button class="btn btn-danger" title="Xóa đơn hàng">Xóa</button>
+                                    }
+                                    @using (Html.BeginForm("OrderDetailsT", "Orders", FormMethod.Post))
+                                    {
+                                        <input type="hidden" name="maDonHang" value="@order.soDH" />
+                                        <button class="btn btn-info" title="Xem chi tiết đơn hàng">Chi tiết</button>
                                     }
                                 </td>
                             </tr>

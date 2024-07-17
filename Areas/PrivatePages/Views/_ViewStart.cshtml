@@ -3,7 +3,7 @@
     taiKhoanTV x = (taiKhoanTV)Session["ttDangNhap"];
     if (x == null)
     {
-        Response.Redirect("~/Login");
+        Response.Redirect("~/Loginadmin");
     }
     Layout = "~/Areas/PrivatePages/Views/Shared/_Layout.cshtml";
 }

@@ -18,6 +18,7 @@
           <Property Name="taiKhoan" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="daDuyet" Type="bit" />
           <Property Name="maLoai" Type="int" />
+          <Property Name="solandoc" Type="int" />
         </EntityType>
         <EntityType Name="ctDonHang">
           <Key>
@@ -29,6 +30,7 @@
           <Property Name="soLuong" Type="int" />
           <Property Name="giaBan" Type="bigint" />
           <Property Name="giamGia" Type="bigint" />
+          <Property Name="ThanhTien" Type="decimal" Precision="18" Scale="2" />
         </EntityType>
         <EntityType Name="donHang">
           <Key>
@@ -100,6 +102,7 @@
           <Property Name="maLoai" Type="int" />
           <Property Name="nhaSanXuat" Type="nvarchar" MaxLength="89" />
           <Property Name="dvt" Type="nvarchar" MaxLength="12" />
+          <Property Name="SoLuongTonKho" Type="int" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -336,6 +339,7 @@
           <Property Name="maLoai" Type="Int32" />
           <NavigationProperty Name="loaiSP" Relationship="Self.FK__baiViet__maLoai__37A5467C" FromRole="baiViet" ToRole="loaiSP" />
           <NavigationProperty Name="taiKhoanTV" Relationship="Self.FK__baiViet__taiKhoa__38996AB5" FromRole="baiViet" ToRole="taiKhoanTV" />
+          <Property Name="solandoc" Type="Int32" />
         </EntityType>
         <EntityType Name="ctDonHang">
           <Key>
@@ -349,6 +353,7 @@
           <Property Name="giamGia" Type="Int64" />
           <NavigationProperty Name="sanPham" Relationship="Self.FK__ctDonHang__maSP__398D8EEE" FromRole="ctDonHang" ToRole="sanPham" />
           <NavigationProperty Name="donHang" Relationship="Self.FK__ctDonHang__soDH__3A81B327" FromRole="ctDonHang" ToRole="donHang" />
+          <Property Name="ThanhTien" Type="Decimal" Precision="18" Scale="2" />
         </EntityType>
         <EntityType Name="donHang">
           <Key>
@@ -433,6 +438,7 @@
           <NavigationProperty Name="ctDonHangs" Relationship="Self.FK__ctDonHang__maSP__398D8EEE" FromRole="sanPham" ToRole="ctDonHang" />
           <NavigationProperty Name="loaiSP" Relationship="Self.FK__sanPham__maLoai__3E52440B" FromRole="sanPham" ToRole="loaiSP" />
           <NavigationProperty Name="taiKhoanTV" Relationship="Self.FK__sanPham__taiKhoa__3F466844" FromRole="sanPham" ToRole="taiKhoanTV" />
+          <Property Name="SoLuongTonKho" Type="Int32" />
         </EntityType>
         <EntityType Name="taiKhoanTV">
           <Key>
@@ -664,6 +670,7 @@
           <EntitySetMapping Name="baiViets">
             <EntityTypeMapping TypeName="Models.baiViet">
               <MappingFragment StoreEntitySet="baiViet">
+                <ScalarProperty Name="solandoc" ColumnName="solandoc" />
                 <ScalarProperty Name="maBV" ColumnName="maBV" />
                 <ScalarProperty Name="tenBV" ColumnName="tenBV" />
                 <ScalarProperty Name="hinhDD" ColumnName="hinhDD" />
@@ -679,6 +686,7 @@
           <EntitySetMapping Name="ctDonHangs">
             <EntityTypeMapping TypeName="Models.ctDonHang">
               <MappingFragment StoreEntitySet="ctDonHang">
+                <ScalarProperty Name="ThanhTien" ColumnName="ThanhTien" />
                 <ScalarProperty Name="soDH" ColumnName="soDH" />
                 <ScalarProperty Name="maSP" ColumnName="maSP" />
                 <ScalarProperty Name="soLuong" ColumnName="soLuong" />
@@ -747,6 +755,7 @@
           <EntitySetMapping Name="sanPhams">
             <EntityTypeMapping TypeName="Models.sanPham">
               <MappingFragment StoreEntitySet="sanPham">
+                <ScalarProperty Name="SoLuongTonKho" ColumnName="SoLuongTonKho" />
                 <ScalarProperty Name="maSP" ColumnName="maSP" />
                 <ScalarProperty Name="tenSP" ColumnName="tenSP" />
                 <ScalarProperty Name="hinhDD" ColumnName="hinhDD" />

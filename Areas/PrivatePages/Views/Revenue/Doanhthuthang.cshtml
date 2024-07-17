@@ -1,0 +1,113 @@
+﻿@model IEnumerable<ShopTechNoLoGy.Models.DoanhThuThangModel>
+
+@{
+    ViewBag.Title = "Báo cáo doanh thu theo tháng";
+    Layout = "~/Areas/PrivatePages/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Báo cáo doanh thu theo tháng</h2>
+
+<div class="table-responsive">
+    <table class="table table-striped table-bordered">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">Tháng</th>
+                <th scope="col">Năm</th>
+                <th scope="col">Doanh thu</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Thang</td>
+                    <td>@item.Nam</td>
+                    <td>@item.DoanhThu.ToString("C")</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<style>
+    #monthlyRevenueChart {
+        max-width: auto !important;
+        max-height: 400px !important;
+    }
+</style>
+<!-- Nút để mở hoặc đóng biểu đồ -->
+<button id="toggleChartButton" class="btn btn-primary">Xem biểu đồ</button>
+
+<!-- Phần tử canvas để vẽ biểu đồ -->
+<canvas id="monthlyRevenueChart" width="500" height="300" style="display: none;"></canvas>
+
+<!-- JavaScript để vẽ và điều khiển biểu đồ -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Biến để lưu trạng thái hiển thị của biểu đồ
+        var chartVisible = false;
+
+        // Lắng nghe sự kiện click của nút để hiển thị hoặc đóng biểu đồ
+        document.getElementById('toggleChartButton').addEventListener('click', function () {
+            // Đảo ngược trạng thái hiển thị của biểu đồ
+            chartVisible = !chartVisible;
+
+            // Lấy phần tử canvas để vẽ biểu đồ
+            var chartCanvas = document.getElementById('monthlyRevenueChart');
+
+            if (chartVisible) {
+                // Hiển thị biểu đồ
+                chartCanvas.style.display = 'block';
+
+                // Chuẩn bị dữ liệu cho biểu đồ
+                var labels = [];
+                var data = [];
+
+                @foreach (var item in Model)
+                {
+                    @:labels.push('@item.Thang/@item.Nam'); // Kết hợp tháng và năm thành nhãn
+                    @:data.push(@item.DoanhThu);
+                }
+
+                // Lấy context của phần tử canvas để vẽ biểu đồ
+                var ctx = chartCanvas.getContext('2d');
+
+                // Tạo một instance mới của biểu đồ Bar
+                var monthlyRevenueChart = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: labels,
+                        datasets: [{
+                            label: 'Doanh thu theo tháng',
+                            data: data,
+                            backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                            borderColor: 'rgba(255, 99, 132, 1)',
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                ticks: {
+                                    callback: function(value, index, values) {
+                                        return value.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
+
+                // Đổi nút sang trạng thái "Đóng biểu đồ"
+                document.getElementById('toggleChartButton').textContent = 'Đóng biểu đồ';
+            } else {
+                // Ẩn biểu đồ
+                chartCanvas.style.display = 'none';
+
+                // Đổi nút sang trạng thái "Xem biểu đồ"
+                document.getElementById('toggleChartButton').textContent = 'Xem biểu đồ';
+            }
+        });
+    });
+</script>

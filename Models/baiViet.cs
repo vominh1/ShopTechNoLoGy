@@ -23,6 +23,7 @@ namespace ShopTechNoLoGy.Models
         public string taiKhoan { get; set; }
         public Nullable<bool> daDuyet { get; set; }
         public Nullable<int> maLoai { get; set; }
+        public Nullable<int> solandoc { get; set; }
     
         public virtual loaiSP loaiSP { get; set; }
         public virtual taiKhoanTV taiKhoanTV { get; set; }

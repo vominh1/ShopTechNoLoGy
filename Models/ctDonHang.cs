@@ -19,6 +19,7 @@ namespace ShopTechNoLoGy.Models
         public Nullable<int> soLuong { get; set; }
         public Nullable<long> giaBan { get; set; }
         public Nullable<long> giamGia { get; set; }
+        public Nullable<decimal> ThanhTien { get; set; }
     
         public virtual sanPham sanPham { get; set; }
         public virtual donHang donHang { get; set; }

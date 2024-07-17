@@ -13,6 +13,7 @@
   justify-content: start;
 }
 
+
 /* line 22, C:/Users/SPN Graphics/Desktop/CL September/Edu mark/207 Education/HTML/scss/_extend.scss */
 .header-area .main-header-area.sticky {
     /* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#a64eee+0,3c35ce+100 */
@@ -1886,12 +1887,12 @@ h3 {
 
 /* line 7, C:/Users/SPN Graphics/Desktop/CL September/Edu mark/207 Education/HTML/scss/_bradcam.scss */
 .bradcam_area {
-  padding: 170px;
+  padding: 170px !important;
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center center;
   text-align: center;
-  padding: 269px 0 159px 0;
+ /* padding: 269px 0 159px 0;*/
 }
 
 @media (max-width: 767px) {

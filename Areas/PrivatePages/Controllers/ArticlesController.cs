@@ -40,7 +40,6 @@ namespace ShopTechNoLoGy.Areas.PrivatePages.Controllers
         {
             List<baiViet> l = db.baiViets.Where(x => x.daDuyet == true).ToList<baiViet>();
             ViewData["DanhSachBV"] = l;
-      
         }
     }
 }

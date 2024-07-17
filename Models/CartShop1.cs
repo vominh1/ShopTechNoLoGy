@@ -7,7 +7,7 @@ namespace ShopTechNoLoGy.Models
 {
     public class CartShop1
     {
-        public List<CartItem> Items { get; set; }
+       
         public string MaKH { get; set; }
         public string TaiKhoan { get; set; }
         public DateTime NgayDat { get; set; }
@@ -18,7 +18,12 @@ namespace ShopTechNoLoGy.Models
         public string SoDT { get; set; }
         public string Email { get; set; }
         public string soDH { get; set; }
+        public string ghiChu { get; set; }
+        public string taiKhoan { get; set; }
         public SortedList<string, ctDonHang> SanPhamDC { get; set; }
+        /// <summary>
+        /// sử dụng contractor để khởi tạo giá trị ban đầu
+        /// </summary>
         public CartShop1()
         {
             this.MaKH = "";
@@ -26,9 +31,8 @@ namespace ShopTechNoLoGy.Models
             this.soDH = "";
             this.NgayDat = DateTime.Now; 
             this.NgayGiao = DateTime.Now.AddDays(2);
-            this.DiaChi = ""; 
+            this.DiaChi = "";
             this.SanPhamDC = new SortedList<string, ctDonHang>();
-
         }
         public bool IsEmpty()
         {
@@ -44,7 +48,6 @@ namespace ShopTechNoLoGy.Models
                 ctDonHang x = SanPhamDC.Values[SanPhamDC.IndexOfKey(maSP)];
                 x.soLuong++;
                 updateOneItem(x);
-
             }
             else {
                 ctDonHang i = new ctDonHang();
@@ -56,6 +59,7 @@ namespace ShopTechNoLoGy.Models
                 SanPhamDC.Add(maSP, i);
             }
         }
+
         public void updateOneItem(ctDonHang x)
         {
             this.SanPhamDC.Remove(x.maSP);
@@ -65,7 +69,6 @@ namespace ShopTechNoLoGy.Models
         {
             if (SanPhamDC.Keys.Contains(maSP)) {
                 SanPhamDC.Remove(maSP);
-
             }
 
         }
@@ -89,7 +92,15 @@ namespace ShopTechNoLoGy.Models
         {
             return (long)(x.giaBan * x.soLuong - ( x.soLuong * (x.giamGia*1000)));
         }
-
+        /// <summary>
+        /// Hiễn thị số lượng thông qua chi tiết đơn hàng 
+        /// </summary>
+        /// <param name="x"></param>
+        /// <returns></returns>
+        public int quatilyofoneproduct (ctDonHang x)
+        {
+            return (int)x.soLuong;
+        }
         /// <summary>
         /// tính tổng tiền cho toàn bộ giỏ hàng
         /// </summary>

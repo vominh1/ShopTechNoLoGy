@@ -9,18 +9,17 @@
     .slider_bg_1 {
         background-image: url(../images/banner/banner2.jpg);
     }
+
     .breadcam_bg {
         background-image: url(../images/banner/banner2.jpg);
     }
+
     #cart_items .cart_info .cart_menu {
         background: #FE980F;
         color: #fff;
         font-size: 16px;
         font-family: 'Roboto', sans-serif;
         font-weight: normal;
-    }
-    .bradcam_area {
-        height: 100px;
     }
 </style>
 <link rel="shortcut icon" href="~/images/ico/favicon.ico">
@@ -32,162 +31,189 @@
 
 
 
-<div class="bradcam_area breadcam_bg overlay1">
-    <h3 style="margin-top:0">Check out</h3>
-</div>
-<section class="blog_area section-padding">
-    <div class="container">
-        <div class="shopper-informations">
-            @using (Html.BeginForm("SaveToDataDase", "CheckOut", FormMethod.Post))
-            {
 
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="shopper-info">
-                            <p>Thông tin khách hàng</p>
+<div class="bradcam_area breadcam_bg overlay1">
+    <h3 style="margin-top:0">Thanh toán</h3>
+</div>
+<section class="checkout-area py-5">
+    <div class="container">
+        <h2 class="mb-4 text-center">Thông tin thanh toán</h2>
+        @using (Html.BeginForm("SaveToDataDase", "CheckOut", FormMethod.Post, new { @class = "checkout-form" }))
+        {
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100">
+                        <div class="card-header bg-primary text-white">
+                            <h5 class="mb-0">Thông tin khách hàng</h5>
+                        </div>
+                        <div class="card-body">
                             <div class="form-group">
                                 <label for="hoTen">Họ tên khách hàng</label>
-
-                                @Html.TextBoxFor(m => m.tenKH, new { @class = "form-control", @placeholder = "Display Name" })
-                            </div>
-                            <div class="form-group" style="margin-bottom: 0">
-                                <label class="radio-inline">@Html.RadioButtonFor(m => m.gioiTinh, new { @name = "gioiTinh" })Nam</label>
-                                <label class="radio-inline">@Html.RadioButton("gioiTinh", false)Nữ</label>
+                                @Html.TextBoxFor(m => m.tenKH, new { @class = "form-control", @placeholder = "Nhập họ tên" })
+                                @Html.ValidationMessageFor(m => m.tenKH, "", new { @class = "text-danger" })
                             </div>
                             <div class="form-group">
-
-                                <label class="for- ngay Sinh">Ngày sinh</label>
+                                <label>Giới tính</label>
+                                <div>
+                                    <div class="form-check form-check-inline">
+                                        @Html.RadioButtonFor(m => m.gioiTinh, true, new { @class = "form-check-input", @id = "male" })
+                                        <label class="form-check-label" for="male">Nam</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        @Html.RadioButtonFor(m => m.gioiTinh, false, new { @class = "form-check-input", @id = "female" })
+                                        <label class="form-check-label" for="female">Nữ</label>
+                                    </div>
+                                </div>
+                                @Html.ValidationMessageFor(m => m.gioiTinh, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="form-group">
+                                <label for="ngaySinh">Ngày sinh</label>
                                 @Html.TextBoxFor(m => m.ngaySinh, new { @type = "date", @class = "form-control" })
-                            </div>
-                            <div class="form-group">
-                                <a href=" @Url.Action("Index", "CartShop")" class="btn btn-default">&lt;&lt;Quay lại giỏ hàng</a>
-                                <button class="btn btn-success" href="@Url.Action("Index", "CheckOut")">Thanh toán</button>
-                            </div>
-                        </div>
-                    </div>
-
-
-                    <div class="col-md-4">
-                        <div class="bill-to">
-                            <p>Thông tin liên lạc</p>
-                            <div class="form-one">
-                                <div class="form-group">
-
-                                    <label for="soDt">Số điện thoại</label>
-                                    @Html.TextBoxFor(m => m.soDT, new { @class = "form-control", @placeholder = "Your number name" })
-                                </div>
-                                <div class="form-group">
-                                    <label for="mail">Email address</label>
-                                    @Html.TextBoxFor(m => m.email, new { @class = "form-control", @placeholder = "Email address" })
-                                </div>
-                                <div class="form-group">
-                                    <label for="addr">Địa chỉ giao hàng</label>
-                                    @Html.TextBoxFor(m => m.diaChi, new { @class = "form-control", @placeholder = "Custumer address" })
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="order-message">
-                            <p>Thông tin khác</p>
-                            <div class="form-group">
-                                <label for-"ghiChu">Thông tin ghi chú</label>
-                                @Html.TextAreaFor(m => m.ghiChu, new { @class = "form-control", @placeholder = "Thông tin ghi chú cần nhà bán hàng ghi nhận", @rows = " 8", @style = "padding-bottom: 5px;height:300px" })
-
-
+                                @Html.ValidationMessageFor(m => m.ngaySinh, "", new { @class = "text-danger" })
                             </div>
                         </div>
                     </div>
                 </div>
-            }
-           
-                    <h4><a href="">Products </a></h4>
-                    <p>Information Products</p>
-                  
-                    <div class="row">
-                        <div class="table-responsive cart_info">
-                            <table class="table] table-condensed">
-                                <thead>
-                                    <tr class="cart_menu" style="background: #FE980F ;color: #fff; font-size: 16px;height:50px;">
-                                        
-                                        <td class="image">Item</td>
-                                        <td class="description"></td>
-                                        <td class="price">Price</td>
-                                        <td class="quantity">Quantity</td>
-                                        <td class="total">Total</td>
-                                        <td></td>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @{
-                                        foreach (ctDonHang i in x.SanPhamDC.Values)
-                                        {
-                                            <tr>
-                                                <td class="cart_product">
-                                                    <a href=""><img src="@Common.getImagesOfProductById(i.maSP)" width="50%" height="50%" /></a>
-                                                </td>
-                                                <td class="cart_description">
-                                                    <h4><a href="">@Common.getNameOfProductById(i.maSP)</a></h4>
-                                                    <p>Product ID: @i.maSP</p>
-                                                </td>
-                                                <td class="cart_price">
-                                                    <p>@string.Format("{0:# VNĐ}", i.giaBan)</p>
-                                                </td>
-                                                <td class="cart_quantity">
-                                                    <div class="cart_quantity_button">
-
-                                                        <input class="cart_quantity_input" type="text" name="quantity" value="@i.soLuong" autocomplete="off" size="2" />
-
-                                                    </div>
-                                                </td>
-                                                <td class="cart_total">
-                                                    <p class="cart_total_price">@x.moneyOfOneProduct(i)</p>
-                                                </td>
-                                                <td class="cart_delete">
-                                                </td>
-                                            </tr>
-                                        }
-
-                                    }
-                                </tbody>
-                            </table>
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100">
+                        <div class="card-header bg-success text-white">
+                            <h5 class="mb-0">Thông tin liên lạc</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="form-group">
+                                <label for="soDt">Số điện thoại</label>
+                                @Html.TextBoxFor(m => m.soDT, new { @class = "form-control", @placeholder = "Nhập số điện thoại" })
+                                @Html.ValidationMessageFor(m => m.soDT, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="form-group">
+                                <label for="mail">Email</label>
+                                @Html.TextBoxFor(m => m.email, new { @class = "form-control", @placeholder = "Nhập địa chỉ email" })
+                                @Html.ValidationMessageFor(m => m.email, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="form-group">
+                                <label for="addr">Địa chỉ giao hàng</label>
+                                @Html.TextBoxFor(m => m.diaChi, new { @class = "form-control", @placeholder = "Nhập địa chỉ giao hàng" })
+                                @Html.ValidationMessageFor(m => m.diaChi, "", new { @class = "text-danger" })
+                            </div>
                         </div>
                     </div>
-                    <div class="row gach">
-                        <div class="heading">
-                            <h3>Tổng trị giá - Thuế - Phí giao hàng - Tổng tiền</h3>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100">
+                        <div class="card-header bg-info text-white">
+                            <h5 class="mb-0">Thông tin khác</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="form-group">
+                                <label for="ghiChu">Ghi chú</label>
+                                @Html.TextAreaFor(m => m.ghiChu, new { @class = "form-control", @placeholder = "Nhập ghi chú (nếu có)", @rows = "8" })
+                            </div>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-sm-12 col-md-12 col-lg-12">
-                            <div class="total_area">
-                                <div class="total_area">
-                                    <ul>
-                                        <li>Tổng trị giá <span>@x.totalOfCartShop()</span></li>
-                                        <li> Thuế VAT 10%<span> @((x.totalOfCartShop()*10)/100)</span></li>
-                                        <li>Phí giao hàng <span>Free</span></li>
-                                        <li>Tổng thành tiền <span>@(x.totalOfCartShop()+(x.totalOfCartShop()*10/100))</span></li>
-                                    </ul>
+                </div>
+            </div>
+
+            <div class="row mt-4">
+                <div class="col-12">
+                    <h4 class="mb-3">Thông tin sản phẩm</h4>
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th>Sản phẩm</th>
+                                    <th>Tên sản phẩm</th>
+                                    <th>Giá</th>
+                                    <th>Số lượng</th>
+                                    <th>Tổng</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (ctDonHang i in x.SanPhamDC.Values)
+                                {
+                                <tr>
+                                    <td><img src="@Common.getImagesOfProductById(i.maSP)" alt="@Common.getNameOfProductById(i.maSP)" class="img-thumbnail" style="max-width: 100px;"></td>
+                                    <td>
+                                        <h5>@Common.getNameOfProductById(i.maSP)</h5>
+                                        <small class="text-muted">Mã SP: @i.maSP</small>
+                                    </td>
+                                    <td>@string.Format("{0:#,##0 VNĐ}", i.giaBan)</td>
+                                    <td>@i.soLuong</td>
+                                    <td>@x.moneyOfOneProduct(i)</td>
                                    
-                                </div>
-                            </div>
-                        </div>
+                                </tr>
+                                }
+                            </tbody>
+                        </table>
                     </div>
                 </div>
+            </div>
+
+            <div class="row mt-4">
+                <div class="col-md-6 offset-md-6">
+                    <div class="card">
+                        <div class="card-header bg-dark text-white">
+                            <h5 class="mb-0 text-white" >Tổng kết đơn hàng</h5>
+                        </div>
+                        <div class="card-body">
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    Tổng trị giá
+                                    <span>@string.Format("{0:#,##0 VNĐ}", x.totalOfCartShop())</span>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    Thuế VAT (10%)
+                                    <span>@string.Format("{0:#,##0 VNĐ}", (x.totalOfCartShop() * 10) / 100)</span>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    Phí giao hàng
+                                    <span class="text-success">Miễn phí</span>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    <strong>Tổng thành tiền</strong>
+                                    <strong>@string.Format("{0:#,##0 VNĐ}", (x.totalOfCartShop() + (x.totalOfCartShop() * 10 / 100)))</strong>
+                                </li>
+                            </ul>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mt-4">
+                <div class="col-12 text-right">
+                    <a href="@Url.Action("Index", "CartShop")" class="btn btn-secondary mr-2">
+                        <i class="fa fa-arrow-left"></i> Quay lại giỏ hàng
+                    </a>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fa fa-credit-card"></i> Thanh toán
+                    </button>
+                </div>
+            </div>
+        }
     </div>
 </section>
 
+<style>
+    .checkout-area {
+        background-color: #f8f9fa;
+    }
 
+    .card {
+        box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+    }
 
+    .card-header {
+        font-weight: bold;
+    }
 
+    .btn-primary {
+        background-color: #FE980F;
+        border-color: #FE980F;
+    }
 
-<link href="~/Content/Cart2/bootstrap.min.css" rel="stylesheet">
-<link href="~/Content/cart2/font-awesome.min.css" rel="stylesheet">
-<link href="~/Content/prettyPhoto.css" rel="stylesheet">
-<link href="~/Content/Cart2/price-range.css" rel="stylesheet">
-<link href="~/Content/Cart2/animate.css" rel="stylesheet">
-<link href="~/Content/Cart2/main.css" rel="stylesheet">
-<link href="~/Content/Cart2/responsive.css" rel="stylesheet">
-<link href="~/Content/cart2/main.css" rel="stylesheet">
-
+        .btn-primary:hover {
+            background-color: #e88a0c;
+            border-color: #e88a0c;
+        }
+</style>
 

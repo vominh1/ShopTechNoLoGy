@@ -1,0 +1,51 @@
+﻿@model List<ShopTechNoLoGy.Models.OrderDetailsModel>
+
+@{
+    ViewBag.Title = "Chi Tiết Đơn Hàng";
+    Layout = "~/Areas/PrivatePages/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Chi Tiết Đơn Hàng</h2>
+
+@if (!Model.Any())
+{
+    <p>Không có đơn hàng nào.</p>
+}
+else
+{
+    foreach (var order in Model)
+    {
+        <h3>Đơn hàng: @order.soDH</h3>
+        <p>Ngày đặt: @order.NgayDat.ToShortDateString()</p>
+
+        <h4>Chi tiết sản phẩm</h4>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Mã Sản Phẩm</th>
+                    <th>Tên Sản Phẩm</th>
+                    <th>Số Lượng</th>
+                    <th>Giá Bán</th>
+                    <th>Giảm Giá</th>
+                    <th>Thành Tiền</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in order.OrderItems)
+                {
+                <tr>
+                    <td>@item.MaSP</td>
+                    <td>@item.TenSP</td>
+                    <td>@item.SoLuong</td>
+                    <td>@item.GiaBan.ToString("C")</td>
+                    <td>@item.GiamGia.ToString("C")</td>
+                    <td>@item.ThanhTien.ToString("C")</td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    }
+}
+<div class="form-group">
+    <a href="@Url.Action("CustomerList", "Customer")" class="btn btn-primary">Quay lại danh sách khách hàng</a>
+</div>

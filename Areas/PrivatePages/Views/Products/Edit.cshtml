@@ -1,0 +1,182 @@
+﻿@model ShopTechNoLoGy.Models.sanPham
+@{
+    ViewBag.Title = "Chỉnh sửa sản phẩm";
+    Layout = "~/Areas/PrivatePages/Views/Shared/_Layout.cshtml";
+
+}
+<!-- Hiển thị thông báo thành công nếu có -->
+
+<section class="content">
+    <div class="container-fluid">
+        @using (Html.BeginForm("Edit", "Products", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            @Html.AntiForgeryToken()
+            <div class="row">
+                <!-- left column -->
+                <div class="col-md-8">
+                    <!-- general form elements -->
+                    <div class="card card-primary">
+                        <div class="card-header">
+                            <h3 class="card-title">Thông tin chính</h3>
+                        </div>
+                        <!-- /.card-header -->
+                        <!-- form start -->
+                        <div class="card-body">
+                            <!-- Thêm trường ẩn cho maSP -->
+                            @Html.HiddenFor(m => m.maSP)
+
+                            <div class="form-group">
+                                <label for="tenSP">Tên sản phẩm</label>
+                                @Html.TextBoxFor(m => m.tenSP, new { @class = "form-control", @placeholder = "Nhập tên sản phẩm" })
+                                @Html.ValidationMessageFor(m => m.tenSP, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="form-group">
+                                <label for="ndTomTat">Nội dung tóm tắt</label>
+                                @Html.TextAreaFor(m => m.ndTomTat, new { @rows = "3", @class = "form-control", @placeholder = "Nhập nội dung tóm tắt" })
+                                @Html.ValidationMessageFor(m => m.ndTomTat, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label for="giaBan">Giá bán</label>
+                                        @Html.TextBoxFor(m => m.giaBan, new { @class = "form-control", @placeholder = "Nhập giá bán" })
+                                        @Html.ValidationMessageFor(m => m.giaBan, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label for="giamGia">Giảm giá</label>
+                                        @Html.TextBoxFor(m => m.giamGia, new { @class = "form-control", @placeholder = "Nhập giảm giá" })
+                                        @Html.ValidationMessageFor(m => m.giamGia, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label for="nhaSanXuat">Nhà sản xuất</label>
+                                        @Html.TextBoxFor(m => m.nhaSanXuat, new { @class = "form-control", @placeholder = "Nhập nhà sản xuất" })
+                                        @Html.ValidationMessageFor(m => m.nhaSanXuat, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label for="dvt">Đơn vị tính</label>
+                                        @Html.TextBoxFor(m => m.dvt, new { @class = "form-control", @placeholder = "Nhập đơn vị tính" })
+                                        @Html.ValidationMessageFor(m => m.dvt, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label for="SoLuongTonKho">Số lượng tồn kho</label>
+                                        @Html.TextBoxFor(m => m.SoLuongTonKho, new { @class = "form-control", @placeholder = "Nhập số lượng tồn kho" })
+                                        @Html.ValidationMessageFor(m => m.SoLuongTonKho, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label for="ngayDang">Ngày đăng</label>
+                                        @Html.TextBoxFor(m => m.ngayDang, new { @class = "form-control", @readonly = "readonly" })
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label for="taiKhoan">Tài khoản</label>
+                                        @Html.TextBoxFor(m => m.taiKhoan, new { @class = "form-control", @readonly = "readonly" })
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label for="maLoai">Loại sản phẩm</label>
+                                        @Html.DropDownListFor(m => m.maLoai, (IEnumerable<SelectListItem>)ViewBag.MaLoaiList, "Chọn loại sản phẩm", new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(m => m.maLoai, "", new { @class = "text-danger" })
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /.card-body -->
+                    </div>
+                    <!-- /.card -->
+                </div>
+                <!-- /.col-md-8 -->
+                <!-- right column -->
+                <div class="col-md-4">
+                    <!-- general form elements disabled -->
+                    <div class="card card-warning">
+                        <div class="card-header">
+                            <h3 class="card-title">Hình đại diện</h3>
+                            <div class="cart-tools">
+                                <button type="button" class="btn btn tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+                                    <i class="fas fa-minus"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <!-- /.card-header -->
+                        <div class="card-body">
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <!-- Hiển thị hình ảnh đã chọn -->
+                                    <img id="imgPreview" src="@Model.hinhDD" class="img-thumbnail" style="width:100%" />
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputFile">Chọn hình ảnh</label>
+                                    <div class="input-group">
+                                        <div class="custom-file">
+                                            <input type="file" class="custom-file-input" id="exampleInputFile" name="hinhdaidien" onchange="previewImage(this)">
+                                            <label class="custom-file-label" for="exampleInputFile">Chọn tệp</label>
+                                        </div>
+                                    </div>
+                                    @Html.ValidationMessageFor(m => m.hinhDD, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /.card-body -->
+                    </div>
+                    <!-- /.card -->
+                </div>
+                <!-- /.col-md-4 -->
+            </div>
+            <!-- /.row -->
+            <div class="col-md-12">
+                <div class="card card-primary">
+                    <div class="card-header">
+                        <h3 class="card-title">Nội dung sản phẩm</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="mb-3">
+                            @Html.TextAreaFor(m => m.noiDung, new
+                            {
+                                @class = "textarea",
+                                @placeholder = "Vui lòng nhập nội dung chính !",
+                                @id = "VungSoanThao",
+                                @style = "width:100%; height:400px;line-height:18px;border:1px solid #dddddd,font-size:14px;padding:10px"
+                            })
+                            @Html.ValidationMessageFor(m => m.noiDung, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer">
+                <button type="submit" class="btn btn-primary">Lưu thay đổi</button>
+            </div>
+        }
+    </div>
+    <!-- /.container-fluid -->
+</section>
+
+<script type="text/javascript">
+    // Hàm JavaScript để xem trước hình ảnh
+    function previewImage(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#imgPreview').attr('src', e.target.result);
+            }
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+</script>
+
+

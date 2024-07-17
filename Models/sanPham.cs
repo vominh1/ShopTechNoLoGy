@@ -34,6 +34,7 @@ namespace ShopTechNoLoGy.Models
         public Nullable<int> maLoai { get; set; }
         public string nhaSanXuat { get; set; }
         public string dvt { get; set; }
+        public Nullable<int> SoLuongTonKho { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ctDonHang> ctDonHangs { get; set; }

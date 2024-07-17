@@ -1,0 +1,74 @@
+﻿@{
+    ViewBag.Title = "Đăng nhập";
+    Layout = "~/Areas/PrivatePages/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid bg-gradient min-vh-100 d-flex align-items-center">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6 col-lg-5">
+                <div class="card shadow-lg border-0 rounded-lg mt-5">
+                    <div class="card-header bg-primary text-white text-center py-4">
+                        <h3 class="font-weight-light my-2">Đăng nhập</h3>
+                    </div>
+                    <div class="card-body">
+                        @using (Html.BeginForm("Index", "Loginadmin", FormMethod.Post, new { @class = "needs-validation", novalidate = "novalidate" }))
+                        {
+                            @Html.AntiForgeryToken()
+                            <div class="form-floating mb-3">
+                                @Html.TextBox("Acc", "", new { @class = "form-control", @placeholder = "Email", required = "required" })
+                                <label for="Acc">Email</label>
+                            </div>
+                            <div class="form-floating mb-3">
+                                @Html.Password("Pass", "", new { @class = "form-control", @placeholder = "Mật khẩu", required = "required" })
+                                <label for="Pass">Mật khẩu</label>
+                            </div>
+                            @Html.Hidden("returnUrl", (string)ViewBag.ReturnUrl)
+                            <div class="form-check mb-3">
+                                <input class="form-check-input" id="remember" type="checkbox" />
+                                <label class="form-check-label" for="remember">Ghi nhớ đăng nhập</label>
+                            </div>
+                            <div class="d-grid">
+                                <button class="btn btn-primary btn-lg" type="submit">Đăng nhập</button>
+                            </div>
+                        }
+                    </div>
+                    <div class="card-footer text-center py-3">
+                        <div class="small"><a href="@Url.Action("Index", "Register")">Chưa có tài khoản? Đăng ký ngay!</a></div>
+                        <div class="small mt-2"><a href="forgot-password.html">Quên mật khẩu?</a></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<style>
+    .bg-gradient {
+        background: linear-gradient(120deg, #007bff, #00ffcc);
+    }
+
+    .card {
+        backdrop-filter: blur(10px);
+        background-color: rgba(255, 255, 255, 0.8);
+    }
+</style>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    (function () {
+        'use strict'
+        var forms = document.querySelectorAll('.needs-validation')
+        Array.prototype.slice.call(forms)
+            .forEach(function (form) {
+                form.addEventListener('submit', function (event) {
+                    if (!form.checkValidity()) {
+                        event.preventDefault()
+                        event.stopPropagation()
+                    }
+                    form.classList.add('was-validated')
+                }, false)
+            })
+    })()
+</script>

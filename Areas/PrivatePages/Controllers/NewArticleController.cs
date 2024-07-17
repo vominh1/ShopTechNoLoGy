@@ -34,7 +34,7 @@ namespace ShopTechNoLoGy.Areas.PrivatePages.Controllers
             x.daDuyet = true;
             x.ngayDang = DateTime.Now;
             x.taiKhoan = ThuongDung.getTentaiKhoan();
-       
+            
             
             x.maLoai = 1;
             //------------lưu hình vào thư mục chứa bài viết 

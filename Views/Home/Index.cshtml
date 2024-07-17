@@ -1,4 +1,5 @@
-﻿@using ShopTechNoLoGy.Models
+﻿
+@using ShopTechNoLoGy.Models
 
 @{
     ViewBag.Title = "Trang chủ";
@@ -7,13 +8,20 @@
     .slider_bg_1 {
         background-image: url(../images/banner/banner2.jpg);
     }
+
     .btn-primary {
         color: #fff;
-        background-color:  #dc3545;
+        background-color: #dc3545;
         border-color: #dc3545;
     }
+
     .footer_bg_1 {
         background-image: url(../images/banner/banner3.jpg);
+    }
+
+    .out-of-stock {
+        color: red;
+        font-weight: bold;
     }
 </style>
 <!-- about_area_start -->
@@ -21,68 +29,68 @@
 
     <div class="container">
         <div class="row">-->
-            @*<div class="col-xl-5 col-lg-6">
-                <div class="single_about_info">
-                    <h3>
-                        Over 3000 Tutorials <br>
-                        from 12 Courses
-                    </h3>
-                    <p>
-                        Our set he for firmament morning sixth subdue darkness creeping gathered divide our let god
-                        moving. Moving in fourth air night bring upon you’re it beast let you dominion likeness open
-                        place day great wherein heaven sixth lesser subdue fowl
-                    </p>
-                    <a href="#" class="boxed_btn">Enroll a Course</a>
-                </div>
-            </div>*@
-            @*<div class="col-xl-6 offset-xl-1 col-lg-6">
-                <div class="about_tutorials">
-                    <div class="courses">
-                        <div class="inner_courses">
-                            <div class="text_info">
-                                <span>50+</span>
-                                <p> Courses</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="courses-blue">
-                        <div class="inner_courses">
-                            <div class="text_info">
-                                <span>1234</span>
-                                <p> Courses</p>
-                            </div>
-
-                        </div>
-                    </div>
-                    <div class="courses-sky">
-                        <div class="inner_courses">
-                            <div class="text_info">
-                                <span>123+</span>
-                                <p> Courses</p>
-                            </div>
-
-                        </div>
+@*<div class="col-xl-5 col-lg-6">
+        <div class="single_about_info">
+            <h3>
+                Over 3000 Tutorials <br>
+                from 12 Courses
+            </h3>
+            <p>
+                Our set he for firmament morning sixth subdue darkness creeping gathered divide our let god
+                moving. Moving in fourth air night bring upon you’re it beast let you dominion likeness open
+                place day great wherein heaven sixth lesser subdue fowl
+            </p>
+            <a href="#" class="boxed_btn">Enroll a Course</a>
+        </div>
+    </div>*@
+@*<div class="col-xl-6 offset-xl-1 col-lg-6">
+        <div class="about_tutorials">
+            <div class="courses">
+                <div class="inner_courses">
+                    <div class="text_info">
+                        <span>50+</span>
+                        <p> Courses</p>
                     </div>
                 </div>
-            </div>*@
-        <!--</div>
+            </div>
+            <div class="courses-blue">
+                <div class="inner_courses">
+                    <div class="text_info">
+                        <span>1234</span>
+                        <p> Courses</p>
+                    </div>
+
+                </div>
+            </div>
+            <div class="courses-sky">
+                <div class="inner_courses">
+                    <div class="text_info">
+                        <span>123+</span>
+                        <p> Courses</p>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>*@
+<!--</div>
     </div>
 </div>-->
 <!-- about_area_end -->
 <!-- popular_courses_start -->
 <div class="popular_courses">
     <div class="container">
-       <div class="row">
+        <div class="row">
             <div class="col-xl-12">
                 <div class="section_title text-center mb-100">
-                    <h3>List Products </h3>
+                    <h3>List Products</h3>
                     <p>
                         We provide more than 2 kinds of technology products most of the world
                     </p>
                 </div>
             </div>
         </div>
-         
+
         <div class="row">
             <div class="col-xl-12">
                 <div class="course_nav">
@@ -104,7 +112,6 @@
                 </div>
             </div>
         </div>
-
     </div>
     <div class="all_courses">
         <div class="container">
@@ -122,35 +129,46 @@
                                         <div class="col-xl-3 col-lg-3 col-md-6">
                                             <div class="single_courses">
                                                 <div class="thumb">
-                                                    <a href="@Url.Action("Index","ProductDetails", new { maSP = j.maSP })">
+                                                    <a href="@Url.Action("Index", "ProductDetails", new { maSP = j.maSP })">
                                                         <img src="@j.hinhDD" alt="">
                                                     </a>
                                                 </div>
-                                                <div class="courses_info">
+                                                <div class="courses_info" style="max-height:300px">
                                                     <span>@i.loaiSP1</span>
-                                                    <h3><a href="@Url.Action("Index", "ProductDetails", new { maSP = j.maSP })">@j.tenSP</a></h3>
-
+                                                    <h3>
+                                                        <a href="@Url.Action("Index", "ProductDetails", new { maSP = j.maSP })">
+                                                            @((j.tenSP.Length > 30) ? j.tenSP.Substring(0, 25) + "..." : j.tenSP)
+                                                        </a>
+                                                    </h3>
                                                     <div class="star_prise d-flex justify-content-between">
-                                                        <div class="star">
-                                                            <i class="flaticon-mark-as-favorite-star"></i>
-                                                            <span>(4.5)</span>
+                                                        <div class="star ">
+
+                                                            <b><a>Kho: (@j.SoLuongTonKho)</a></b>
                                                         </div>
                                                         <div class="prise">
-                                                            
                                                             <span class="active_prise">
-                                                                @String.Format("{0:# VND}", @j.giaBan )
+                                                                @String.Format("{0:# VND}", @j.giaBan)
                                                             </span>
-                                                            @using (Html.BeginForm("AddToCart", "Home", FormMethod.Post))
+                                                            <br>
+                                                            @*Kiểm tra số lượng tồn kho nếu >0 thì cho mua else thông báo hết hàng *@
+                                                            @if (j.SoLuongTonKho > 0)
                                                             {
-                                                                <input name="maSP" type="hidden" value="@j.maSP" />
-                                                                <button class="btn btn-primary">Chọn mua </button>
+                                                                using (Html.BeginForm("AddToCart", "Home", FormMethod.Post))
+                                                                {
+                                                                    <input name="maSP" type="hidden" value="@j.maSP" />
+                                                                    <button class="btn btn-primary">Chọn mua</button>
+                                                                }
+                                                            }
+                                                            else
+                                                            {
+                                                                <span class="out-of-stock">Hết hàng</span>
                                                             }
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                        if (n++ >= 10 )
+                                        if (n++ >= 10)
                                         {
                                             break;
                                         }
@@ -164,98 +182,99 @@
         </div>
     </div>
 </div>
+
 <!-- popular_courses_end-->
 <!-- testimonial_area_start -->
-@*<div class="testimonial_area testimonial_bg_1 overlay" style=" background-image: url(../images/anh_CN.jpg);" 
-   
->
-    <div class="testmonial_active owl-carousel">
-        <div class="single_testmoial">
-            <div class="container">
-                <div class="row">
-                    <div class="col-xl-12">
-                        <div class="testmonial_text text-center">
-                            <div class="author_img">
-                                <img src="~/images/man.jpg" alt="">
-                            </div>
-                            <p>
-                                ShopTechnology gives you quick and convenient access and offers all products worldwide.
+@*<div class="testimonial_area testimonial_bg_1 overlay" style=" background-image: url(../images/anh_CN.jpg);"
 
-                            </p>
-                            <span>Minh Đầy</span>
-                        </div>  
+    >
+        <div class="testmonial_active owl-carousel">
+            <div class="single_testmoial">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xl-12">
+                            <div class="testmonial_text text-center">
+                                <div class="author_img">
+                                    <img src="~/images/man.jpg" alt="">
+                                </div>
+                                <p>
+                                    ShopTechnology gives you quick and convenient access and offers all products worldwide.
+
+                                </p>
+                                <span>Minh Đầy</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-</div>*@
+    </div>*@
 <!-- testimonial_area_end -->
 <!-- our_courses_start -->
 @*<div class="our_courses">
-    <div class="container">
-        <div class="row">
-            <div class="col-xl-12">
-                <div class="section_title text-center mb-100">
-                    <h3>Tấn Khang</h3>
-                    <p>
-                        Enthusiastic support, providing products, reasonable prices for users
-                    </p>
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-12">
+                    <div class="section_title text-center mb-100">
+                        <h3>Tấn Khang</h3>
+                        <p>
+                            Enthusiastic support, providing products, reasonable prices for users
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xl-3 col-md-6 col-lg-6">
+                    <div class="single_course text-center">
+                        <div class="icon">
+                            <i class="flaticon-art-and-design"></i>
+                        </div>
+                        <h3>Premium Quality</h3>
+                        <p>
+                            Your domain control panel is designed for ease-of-use <br> and <br>
+                            allows for all aspects of
+                        </p>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-md-6 col-lg-6">
+                    <div class="single_course text-center">
+                        <div class="icon blue">
+                            <i class="flaticon-business-and-finance"></i>
+                        </div>
+                        <h3>Premium Quality</h3>
+                        <p>
+                            Your domain control panel is designed for ease-of-use <br> and <br>
+                            allows for all aspects of
+                        </p>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-md-6 col-lg-6">
+                    <div class="single_course text-center">
+                        <div class="icon">
+                            <i class="flaticon-premium"></i>
+                        </div>
+                        <h3>Premium Quality</h3>
+                        <p>
+                            Your domain control panel is designed for ease-of-use <br> and <br>
+                            allows for all aspects of
+                        </p>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-md-6 col-lg-6">
+                    <div class="single_course text-center">
+                        <div class="icon gradient">
+                            <i class="flaticon-crown"></i>
+                        </div>
+                        <h3>Premium Quality</h3>
+                        <p>
+                            Your domain control panel is designed for ease-of-use <br> and <br>
+                            allows for all aspects of
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col-xl-3 col-md-6 col-lg-6">
-                <div class="single_course text-center">
-                    <div class="icon">
-                        <i class="flaticon-art-and-design"></i>
-                    </div>
-                    <h3>Premium Quality</h3>
-                    <p>
-                        Your domain control panel is designed for ease-of-use <br> and <br>
-                        allows for all aspects of
-                    </p>
-                </div>
-            </div>
-            <div class="col-xl-3 col-md-6 col-lg-6">
-                <div class="single_course text-center">
-                    <div class="icon blue">
-                        <i class="flaticon-business-and-finance"></i>
-                    </div>
-                    <h3>Premium Quality</h3>
-                    <p>
-                        Your domain control panel is designed for ease-of-use <br> and <br>
-                        allows for all aspects of
-                    </p>
-                </div>
-            </div>
-            <div class="col-xl-3 col-md-6 col-lg-6">
-                <div class="single_course text-center">
-                    <div class="icon">
-                        <i class="flaticon-premium"></i>
-                    </div>
-                    <h3>Premium Quality</h3>
-                    <p>
-                        Your domain control panel is designed for ease-of-use <br> and <br>
-                        allows for all aspects of
-                    </p>
-                </div>
-            </div>
-            <div class="col-xl-3 col-md-6 col-lg-6">
-                <div class="single_course text-center">
-                    <div class="icon gradient">
-                        <i class="flaticon-crown"></i>
-                    </div>
-                    <h3>Premium Quality</h3>
-                    <p>
-                        Your domain control panel is designed for ease-of-use <br> and <br>
-                        allows for all aspects of
-                    </p>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>*@
+    </div>*@
 <!-- our_courses_end -->
 <!-- subscribe_newsletter_Start -->
 <div class="subscribe_newsletter">
@@ -286,7 +305,7 @@
         <div class="row">
             <div class="col-xl-12">
                 <div class="section_title text-center mb-100">
-                    <h3>Bài viết</h3>
+                    <h3>Một số bài viết nỗi bật</h3>
                 </div>
             </div>
         </div>
@@ -297,17 +316,18 @@
                     <div class="col-xl-4 col-md-4">
                         <div class="single_latest_blog">
                             <div class="thumb">
-                                <img src="@k.hinhDD" alt="">
+                                <a href="@Url.Action("Index", "ArticleContent", new { maBV = k.maBV })"><img style="max-height:300px" src="@k.hinhDD" alt=""> </a>
                             </div>
                             <div class="content_blog">
                                 <div class="date">
                                     <p>
                                         @string.Format("{0:MMM dd yyyy}", k.ngayDang) in
-                                        <a href="#">@(k.loaiSP.Equals("QuangCao")?"Quảng Cáo":"Tin tức")</a>
+                                        <a href="#">@(k.loaiSP.Equals("QuangCao")?"Quảng Cáo":"Tin tức")</a> <i class="fas fa-eye"></i> @k.solandoc
                                     </p>
+
                                 </div>
                                 <div class="blog_meta">
-                                    <h3><a href="@Url.Action("Index","ArticleContent",new {maBV =k.maBV})">@k.tenBV</a></h3>
+                                    <h3><a href="@Url.Action("Index", "ArticleContent", new { maBV = k.maBV })">@k.tenBV</a></h3>
                                 </div>
                                 <p class="blog_text">
 
@@ -321,28 +341,52 @@
     </div>
 </div>
 <!-- our_latest_blog_end -->
-@section QuangCao{
+@section QuangCao {
     <!-- slider_area_start -->
-    <div class="slider_area ">
+    <div class="slider_area">
         <div class="single_slider d-flex align-items-center justify-content-center slider_bg_1">
             <div class="container">
                 <div class="row align-items-center justify-content-center">
-                    <div class="col-xl-6 col-md-6">
-                        <div class="illastrator_png">
-
-                            <img src="~/images/banner/anh_KM.jpg" />
+                    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                        <ol class="carousel-indicators">
+                            <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                            <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                            <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+                        </ol>
+                        <div class="carousel-inner">
+                            <div class="carousel-item active">
+                                <img class="d-block img-fluid" src="~/images/banner/anh_KM.jpg" alt="First slide">
+                                <div class="carousel-caption d-none d-md-block">
+                                    <h5>Đón chào mùa hè</h5>
+                                    <p>Giảm giá đặc biệt 30% cho tất cả các sản phẩm mới</p>
+                                    <a href="#" class="boxed_btn">Mua ngay</a>
+                                </div>
+                            </div>
+                            <div class="carousel-item">
+                                <img class="d-block img-fluid" src="~/Dulieu/Images/hinh1.jpg" alt="Second slide">
+                                <div class="carousel-caption d-none d-md-block">
+                                    <h5>Săn ngay ưu đãi</h5>
+                                    <p>Mua 1 tặng 1 cho sản phẩm mới</p>
+                                    <a href="#" class="boxed_btn">Xem ngay</a>
+                                </div>
+                            </div>
+                            <div class="carousel-item">
+                                <img class="d-block img-fluid" src="~/Dulieu/Images/hinh10.jpg" alt="Third slide">
+                                <div class="carousel-caption d-none d-md-block">
+                                    <h5>Khuyến mãi hấp dẫn</h5>
+                                    <p>Đặt hàng online giảm giá 20%</p>
+                                    <a href="#" class="boxed_btn">Chi tiết</a>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-xl-6 col-md-6">
-                        <div class="slider_info">
-                            <h3>
-                            
-                                Nhanh tay mua sắm <br>
-                                Giảm giá tất cả các mặc hàng 40% <br>
-                              
-                            </h3>
-                            <a href="#" class="boxed_btn">Browse Our Courses</a>
-                        </div>
+                        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                        <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Next</span>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -350,3 +394,10 @@
     </div>
     <!-- slider_area_end -->
 }
+
+<style>
+    .slider_area .single_slider {
+        height: 125vh !important;
+    }
+</style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">

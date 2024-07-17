@@ -1,0 +1,51 @@
+﻿@model ShopTechNoLoGy.Models.OrderDetailsModel
+
+@{
+    ViewBag.Title = "Chi Tiết Đơn Hàng";
+    Layout = "~/Areas/PrivatePages/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Chi Tiết Đơn Hàng</h2>
+
+@if (Model == null)
+{
+    <p>Không có đơn hàng nào.</p>
+}
+else
+{
+    <h3>Đơn hàng: @Model.soDH</h3>
+    <p>Ngày đặt: @Model.NgayDat.ToShortDateString()</p>
+
+    <h4>Chi tiết sản phẩm</h4>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Mã Sản Phẩm</th>
+                <th>Tên Sản Phẩm</th>
+                <th>Số Lượng</th>
+                <th>Giá Bán</th>
+                <th>Giảm Giá</th>
+                <th>Thành Tiền</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.OrderItems)
+            {
+                <tr>
+                    <td>@item.MaSP</td>
+                    <td>@item.TenSP</td>
+                    <td>@item.SoLuong</td>
+                    <td>@string.Format("{0:#,##0 VNĐ}", item.GiaBan)</td>
+                    <td>@string.Format("{0:#,##0 VNĐ}", item.GiamGia)</td>
+                    <td>@string.Format("{0:#,##0 VNĐ}", item.ThanhTien)</td>
+                </tr>
+
+            }
+        </tbody>
+    </table>
+}
+
+
+<div class="form-group">
+    <a href="@Url.Action("Index", "Customer")" class="btn btn-primary">Quay lại danh sách đơn hàng</a>
+</div>

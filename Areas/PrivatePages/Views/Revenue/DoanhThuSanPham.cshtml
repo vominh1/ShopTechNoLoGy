@@ -1,0 +1,113 @@
+﻿@model IEnumerable<ShopTechNoLoGy.Models.DoanhThuSanPhamModel>
+
+@{
+    ViewBag.Title = "Doanh Thu Theo Sản Phẩm";
+    Layout = "~/Areas/PrivatePages/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Doanh Thu Theo Sản Phẩm</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Tên Sản Phẩm</th>
+            <th>Doanh Thu</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.TenSanPham</td>
+                <td>@item.DoanhThu.ToString("C")</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<!-- Nút để mở hoặc đóng biểu đồ -->
+<button id="toggleProductChartButton" class="btn btn-primary">Xem biểu đồ</button>
+
+<!-- Phần tử canvas để vẽ biểu đồ -->
+<canvas id="productRevenueChart" width="400" height="400" style="display: none;"></canvas>
+
+<!-- Style để điều chỉnh kích thước biểu đồ -->
+<style>
+    #productRevenueChart {
+        max-width: 1000px !important;
+        max-height: 700px !important;
+    }
+</style>
+
+<!-- Include Chart.js library -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var productChartVisible = false;
+        var productChartCanvas = document.getElementById('productRevenueChart');
+        var productChartButton = document.getElementById('toggleProductChartButton');
+
+        productChartButton.addEventListener('click', function () {
+            productChartVisible = !productChartVisible;
+
+            if (productChartVisible) {
+                productChartCanvas.style.display = 'block';
+
+                var productLabels = [];
+                var productData = [];
+                var productBackgroundColors = [];
+
+                @foreach (var item in Model)
+                {
+                    @:productLabels.push('@item.TenSanPham');
+                    @:productData.push(@item.DoanhThu);
+                    @:productBackgroundColors.push(getRandomColor());
+                }
+
+                function getRandomColor() {
+                    var letters = '0123456789ABCDEF';
+                    var color = '#';
+                    for (var i = 0; i < 6; i++) {
+                        color += letters[Math.floor(Math.random() * 16)];
+                    }
+                    return color;
+                }
+
+                var productChartCtx = productChartCanvas.getContext('2d');
+
+                var productRevenueChart = new Chart(productChartCtx, {
+                    type: 'pie',
+                    data: {
+                        labels: productLabels,
+                        datasets: [{
+                            label: 'Doanh thu theo sản phẩm',
+                            data: productData,
+                            backgroundColor: productBackgroundColors
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        plugins: {
+                            legend: {
+                                position: 'right',
+                            },
+                            tooltip: {
+                                callbacks: {
+                                    label: function(tooltipItem) {
+                                        return tooltipItem.label + ': ' + tooltipItem.raw.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
+
+                productChartButton.textContent = 'Đóng biểu đồ';
+            } else {
+                productChartCanvas.style.display = 'none';
+                productChartButton.textContent = 'Xem biểu đồ';
+            }
+        });
+    });
+</script>

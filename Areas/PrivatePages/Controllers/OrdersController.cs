@@ -48,10 +48,63 @@ namespace ShopTechNoLoGy.Areas.PrivatePages.Controllers
             HienThiDonHangChuaXuLy();
             return View("Index");
         }
+        public ActionResult OrderDetails(string maDonHang)
+        {
+            var order = db.donHangs.Find(maDonHang);
+            if (order == null) {
+                return HttpNotFound();
+            }
 
+            var orderDetails = db.ctDonHangs
+                .Where(ct => ct.soDH == maDonHang)
+                .Select(ct => new OrderItemDetailsModel {
+                    MaSP = ct.maSP,
+                    TenSP = ct.sanPham.tenSP,
+                    SoLuong = (int)ct.soLuong,
+                    GiaBan = (int)ct.giaBan,
+                    GiamGia = (decimal)ct.giamGia,
+                    ThanhTien = (decimal)ct.ThanhTien
+                })
+                .ToList();
+
+            var model = new OrderDetailsModel {
+                soDH = order.soDH,
+                NgayDat = (DateTime)order.ngayDat,
+                OrderItems = orderDetails
+            };
+
+            return View(model);
+        }
+        public ActionResult OrderDetailsT(string maDonHang)
+        {
+            var order = db.donHangs.Find(maDonHang);
+            if (order == null) {
+                return HttpNotFound();
+            }
+
+            var orderDetails = db.ctDonHangs
+                .Where(ct => ct.soDH == maDonHang)
+                .Select(ct => new OrderItemDetailsModel {
+                    MaSP = ct.maSP,
+                    TenSP = ct.sanPham.tenSP,
+                    SoLuong = (int)ct.soLuong,
+                    GiaBan = (int)ct.giaBan,
+                    GiamGia = (decimal)ct.giamGia,
+                    ThanhTien = (decimal)ct.ThanhTien
+                })
+                .ToList();
+
+            var model = new OrderDetailsModel {
+                soDH = order.soDH,
+                NgayDat = (DateTime)order.ngayDat,
+                OrderItems = orderDetails
+            };
+
+            return View(model);
+        }
         private void HienThiDonHangChuaXuLy()
         {
-            List<donHang> l = db.donHangs.Where(x => x.daKichHoat == false).ToList<donHang>();
+            List<donHang> l = db.donHangs.Where(x => x.daKichHoat == false ).OrderBy(x => x.ngayDat).ToList<donHang>();
             ViewData["DanhSachDonHang1"] = l;
         }
     }

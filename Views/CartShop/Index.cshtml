@@ -1,10 +1,9 @@
 ﻿@using ShopTechNoLoGy.Models
 
-@{
+@{ Layout = "~/Views/Shared/_Layout.cshtml";
     ViewBag.Title = "Mua hàng";
+    CartShop1 x = ViewData["Cart"] as CartShop1; }
 
-    CartShop1 x = ViewData["Cart"] as CartShop1;
-}
 <style>
     .courses_details_banner {
         background-image: url(../images/banner/banner2.jpg);
@@ -13,149 +12,111 @@
     .breadcam_bg {
         background-image: url(../images/banner/banner2.jpg);
     }
-    .bradcam_area{
-        height:100px;
+
+    .bradcam_area {
+        max-height: 100px;
+        margin: 0;
+    }
+
+</style>
+<style>
+    #cart_items {
+        background-color: #f8f9fa;
+    }
+
+    .table th {
+        font-weight: 600;
+    }
+
+    .btn-outline-secondary:hover {
+        background-color: #6c757d;
+        color: white;
     }
 </style>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <div class="bradcam_area breadcam_bg overlay1">
-    <h3 style="margin-top:0">Shopping cart</h3>
+    <h3 style="margin-top:0 ;margin-bottom:0">Giỏ hàng</h3>
 </div>
-<section id="cart_items">
+<section id="cart_items" class="py-5">
     <div class="container">
-        <div class="row">
-            <div class="table-responsive cart_info">
-                <table class="table table-condensed">
-                    <thead>
-                        <tr class="cart_menu">
-                            <td class="image">Sản phẩm </td>
-                            <td class="description"></td>
-                            <td class="price">Giá bán </td>
-                            <td class="quantity" 
-                                style="width: 249px;
-                                text-align:center;">
-                                Số lượng
+       
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>Sản phẩm</th>
+                        <th>Tên sản phẩm</th>
+                        <th>Giá bán</th>
+                        <th class="text-center">Số lượng</th>
+                        <th>Thành tiền</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (ctDonHang i in x.SanPhamDC.Values)
+                    {
+                        <tr>
+                            <td>
+                                <img src="@Common.getImagesOfProductById(i.maSP)" class="img-thumbnail" width="100" alt="@Common.getNameOfProductById(i.maSP)">
                             </td>
-                            <td class="total">Thành tiền</td>
-                            <td></td>
+                            <td>
+                                <h5><a href="#" class="text-dark">@Common.getNameOfProductById(i.maSP)</a></h5>
+                                <small class="text-muted">Mã SP: @i.maSP</small>
+                            </td>
+                            <td>@string.Format("{0:#,##0đ}", i.giaBan)</td>
+                            <td>
+                                <div class="d-flex justify-content-center align-items-center">
+                                    @using (Html.BeginForm("decrease", "CartShop", FormMethod.Post, new { @class = "d-inline" }))
+                                    {
+                                        <input type="hidden" name="maSP" value="@i.maSP" />
+                                        <button class="btn btn-sm btn-outline-secondary" type="submit">-</button>
+                                    }
+                                    <input class="form-control form-control-sm text-center mx-2" type="text" name="quantity" value="@i.soLuong" readonly style="width: 50px;">
+                                    @using (Html.BeginForm("increase", "CartShop", FormMethod.Post, new { @class = "d-inline" }))
+                                    {
+                                        <input type="hidden" name="maSP" value="@i.maSP" />
+                                        <button class="btn btn-sm btn-outline-secondary" type="submit">+</button>
+                                    }
+                                </div>
+                            </td>
+                            <td>@x.moneyOfOneProduct(i)</td>
                         </tr>
-                    </thead>
-                    <tbody>
-                        @{
-                            foreach (ctDonHang i in x.SanPhamDC.Values)
-                            {
-                                                <tr>
-                                                    <td class="cart_product">
-                                                        <a href=""><img src="@Common.getImagesOfProductById(i.maSP)" width="50%" height="50%" /></a>
-                                                    </td>
-                                                    <td class="cart_description">
-                                                        <h4><a href="">@Common.getNameOfProductById(i.maSP)</a></h4>
-                                                        <p>Product ID: @i.maSP</p>
-                                                    </td>
-                                                    <td class="cart_price">
-                                                        <p>@string.Format("{0:#,##0đ}", i.giaBan)</p>
-                                                    </td>
-                                                    <td class="cart_quantity" style="text-align: center; vertical-align: middle;">
-                                                        <div class="cart_quantity_button d-flex justify-content-center align-items-center">
-                                                            @using (Html.BeginForm("increase", "CartShop", FormMethod.Post, new { @class = "d-inline" }))
-                                                            {
-                                                    <input type="hidden" name="maSP" value="@i.maSP" />
-                                                                        <button class="btn btn-outline-secondary" type="submit" style="width: 40px; height: 40px;">+</button>}
-                                                            <input class="form-control text-center mx-2" type="text" name="quantity" value="@i.soLuong" autocomplete="off" size="1" style="width: 60px;" readonly />
-                                                            @using (Html.BeginForm("decrease", "CartShop", FormMethod.Post, new { @class = "d-inline" }))
-                                                            {
-                                                    <input type="hidden" name="maSP" value="@i.maSP" />
-                                                                        <button class="btn btn-outline-secondary" type="submit" style="width: 40px; height: 40px;">-</button>}
-                                                        </div>
-                                                    </td>
-
-                                                    <td class="cart_total">
-                                                        <p class="cart_total_price">@x.moneyOfOneProduct(i)</p>
-                                                    </td>
-
-                                                </tr>
-                            }
-
-                        }
-
-                    </tbody>
-                </table>
-            </div>
+                    }
+                </tbody>
+            </table>
         </div>
 
-        <div class="row gach">
-            <div class="heading">
-                <h3>Tổng trị giá - Thuế - Phí giao hàng - Tổng tiền</h3>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-sm-12 col-md-12 col-lg-12">
-                <div class="total_area">
-                    <ul>
-                        <li>Tổng trị giá <span>@x.totalOfCartShop()</span></li>
-                        <li> Thuế VAT 10%<span> @((x.totalOfCartShop()* 10 )/ 100 )</span></li>
-                        <li>Phí giao hàng <span>Free</span></li>
-                        <li>Tổng thành tiền <span>@(x.totalOfCartShop()+(x.totalOfCartShop()*10/100))</span></li>
-                    </ul>
-                    <a class="btn btn-default update" href="#">Cập nhật giỏ hàng</a>
-                    <a class="btn btn-default check_out" href="@Url.Action("Index", "Checkout")">Thanh toán &gt;&gt;</a>
+        <div class="row mt-5">
+            <div class="col-md-6 offset-md-6">
+                <div class="card">
+                    <div class="card-header bg-dark ">
+                        <h4 class="mb-0 text-white ">Tổng kết đơn hàng</h4>
+                    </div>
+                    <div class="card-body">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                Tổng trị giá
+                                <span>@x.totalOfCartShop()</span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                Thuế VAT 10%
+                                <span>@((x.totalOfCartShop() * 10) / 100)</span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                Phí giao hàng
+                                <span class="text-success">Miễn phí</span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                <strong>Tổng thành tiền</strong>
+                                <strong>@(x.totalOfCartShop() + (x.totalOfCartShop() * 10 / 100))</strong>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="card-footer">
+                        <a class="btn btn-outline-secondary" href="#">Cập nhật giỏ hàng</a>
+                        <a class="btn btn-primary float-right" href="@Url.Action("Index", "Checkout")">Thanh toán</a>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </section>
-<style>
-    .cart_quantity_input {
-        color: #696763;
-        float: left;
-        font-size: 16px;
-        text-align: center;
-        font-family: 'Roboto', sans-serif;
-    }
-
-    .cart_quantity_up {
-        background: #F0F0E9;
-        color: #696763;
-        display: inline-block;
-        font-size: 16px;
-        height: 28px;
-        overflow: hidden;
-        text-align: center;
-        width: 35px;
-        float: left;
-        line-height: 28px;
-        margin-left: 80px;
-    }
-
-    .cart_quantity_down {
-        background: #F0F0E9;
-        color: #696763;
-        display: inline-block;
-        font-size: 16px;
-        height: 28px;
-        overflow: hidden;
-        text-align: center;
-        width: 35px;
-        float: left;
-        line-height: 28px;
-    }
-</style>
-<link href="~/Content/Cart2/bootstrap.min.css" rel="stylesheet">
-<link href="~/Content/Cart2/font-awesome.min.css" rel="stylesheet">
-
-<link href="~/Content/Cart2/price-range.css" rel="stylesheet">
-<link href="~/Content/Cart2/animate.css" rel="stylesheet">
-<link href="~/Content/Cart2/main.css" rel="stylesheet">
-<link href="~/Content/Cart2/responsive.css" rel="stylesheet">
-
-<script src="~/Scripts2/vandor/jquery.js"></script>
-<script src="~/Scripts2/vandor/bootstrap.min.js"></script>
-<script src="~/Stripts2/vendor/price-range.js"></script>
-<script src="~/Stripts2/vendor/modernizr-3.5.0.min.js"></script>
-<script src="~/Stripts2/vendor/jquery-1.12.4.min.js"></script>
-<script src="~/Stripts2/vendor/jquery.prettyPhoto.js"></script>
-<script src="~/Stripts2/vendor/main.js"></script>
-<script src="~/Stripts2/vendor/jquery.scrollUp.min.js"></script>
-<script src="~/Stripts2/vendor/contact.js"></script>
-<script src="~/Stripts2/vendor/html5shiv.js"></script>
-<script src="~/Stripts2/vendor/bootstrap.min.js"></script>

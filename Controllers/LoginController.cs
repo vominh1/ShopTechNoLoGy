@@ -1,35 +1,49 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using ShopTechNoLoGy.Models;
+
 namespace ShopTechNoLoGy.Controllers
 {
     public class LoginController : Controller
     {
         [HttpGet]
-
-        public ActionResult Index()
+        public ActionResult Index(string returnUrl)
         {
+            ViewBag.ReturnUrl = returnUrl;
             return View();
         }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Index(string Acc, string Pass)
+        public ActionResult Index(string Acc, string Pass, string returnUrl)
         {
-            // Không cần mã hóa mật khẩu ở đây
-            //string mk = MaHoa.encryptSHA256(Pass);
-            taiKhoanTV ttdn = new BanBanhOnline().taiKhoanTVs.FirstOrDefault(x => x.taiKhoan.Equals(Acc.ToLower().Trim()) && x.matKhau.Equals(Pass));
+            var context = new BanBanhOnline();
+            taiKhoanTV ttdn = context.taiKhoanTVs.FirstOrDefault(x => x.taiKhoan.Equals(Acc.ToLower().Trim()) && x.matKhau.Equals(Pass));
             bool isAuthentic = ttdn != null && ttdn.taiKhoan.Equals(Acc.ToLower().Trim()) && ttdn.matKhau.Equals(Pass);
             if (isAuthentic) {
                 Session["ttDangNhap"] = ttdn;
-                return RedirectToAction("Index", "Dashbroad", new { Area = "PrivatePages" });
+
+                if (Url.IsLocalUrl(returnUrl) && !string.IsNullOrEmpty(returnUrl)) {
+                    return Redirect(returnUrl);
+                }
+                else {
+                    return RedirectToAction("Index", "Home");
+                }
             }
 
+            ViewBag.ReturnUrl = returnUrl;
             return View();
         }
 
-
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Logout()
+        {
+            Session["ttDangNhap"] = null;
+            Session.Abandon();
+            return RedirectToAction("Index", "Home");
+        }
     }
 }

@@ -6,55 +6,99 @@
 <style>
     .courses_details_banner {
         background-image: url(../images/banner/banner2.jpg);
+        height: 300px;
+        display: flex;
+        align-items: center;
     }
-   
-    .breadcam_bg {
-        background-image: url(../images/banner/banner2.jpg);
+
+    .course_text h3 {
+        color: #fff;
+        font-size: 2.5rem;
     }
-    .slider_bg_1 {
-        background-image: url(../images/banner/banner2.jpg);
+
+    .prise span.active {
+        font-size: 1.5rem;
+        color: #ff4d4d;
     }
+
+    .out-of-stock {
+        color: red;
+        font-weight: bold;
+    }
+
     .bradcam_area {
         height: 100px;
     }
+
+    .single_courses h3 {
+        font-size: 2rem;
+        margin-bottom: 20px;
+    }
+
+    .outline_courses_info {
+        font-size: 1rem;
+        color: #555;
+    }
+
+    .courses_sidebar img {
+        width: 100%;
+        height: auto;
+        border-radius: 8px;
+    }
+
+    .author_info .widget_title {
+        font-size: 1.5rem;
+        margin-bottom: 20px;
+    }
+
+    .cat-list p {
+        margin: 0;
+        font-size: 1rem;
+    }
+
+    .cat-list li {
+        margin-bottom: 10px;
+    }
+
+    .courses_sidebar {
+        position: relative;
+    }
+
+    .zoom {
+        transition: transform 0.2s;
+    }
+
+        .zoom:hover {
+            transform: scale(1.2);
+            z-index: 1000;
+        }
 </style>
 
 <link rel="stylesheet" href="~/Content/style.css">
+
 <!-- bradcam_area_start -->
-<div class="courses_details_banner" >
+<div class="courses_details_banner">
     <div class="container">
         <div class="row">
             <div class="col-xl-6">
                 <div class="course_text">
                     <h3>@i.tenSP</h3>
                     <div class="prise">
-                        <span class="active">@String.Format("{0:#,##0 VNĐ}", @i.giaBan)</span>
-                    
-                        @using (Html.BeginForm("AddToCart", "Home", FormMethod.Post))
+                        <span class="active">@String.Format("{0:#,##0 VNĐ}", i.giaBan)</span>
+                        <br>
+                        @if (i.SoLuongTonKho <= 0)
                         {
-                            <input name="maSP" type="hidden" value="@i.maSP" />
-                            <button class="btn btn-primary">Chọn mua </button>
+                            <span class="out-of-stock">Hết hàng</span>
+                        }
+                        else
+                        {
+                            using (Html.BeginForm("AddToCart", "Home", FormMethod.Post))
+                            {
+                                <input name="maSP" type="hidden" value="@i.maSP" />
+                                <button class="btn btn-primary">Chọn mua</button>
+                            }
                         }
                     </div>
-
-                    @*<div class="rating">
-                            <i class="flaticon-mark-as-favorite-star"></i>
-                            <i class="flaticon-mark-as-favorite-star"></i>
-                            <i class="flaticon-mark-as-favorite-star"></i>
-                            <i class="flaticon-mark-as-favorite-star"></i>
-                            <i class="flaticon-mark-as-favorite-star"></i>
-                            <span>(4.5)</span>
-                        </div>*@
-
-                    @*<div class="hours">
-                            <div class="video">
-                                <div class="single_video">
-                                   <img src="@i.hinhDD alt="@i.tenSP />
-                                </div>
-
-
-                            </div>
-                        </div>*@
                 </div>
             </div>
         </div>
@@ -62,25 +106,22 @@
 </div>
 <!-- bradcam_area_end -->
 
-<div class="courses_details_info" >
+<div class="courses_details_info">
     <div class="container">
-        <div class="row" >
+        <div class="row">
             <div class="col-xl-7 col-lg-7">
                 <div class="single_courses">
                     <h3>@i.tenSP</h3>
-                    <p>
-                        @i.ndTomTat
-                    </p>
+                    <p>@i.ndTomTat</p>
                 </div>
                 <div class="outline_courses_info">
                     @i.noiDung
                 </div>
             </div>
-            <div class="col-xl-5 col-lg-1">
+            <div class="col-xl-5 col-lg-5">
                 <div class="courses_sidebar">
                     <div class="video_thumb">
-                        <img src="@i.hinhDD" alt="@i.tenSP" />
-
+                        <img class="zoom" src="@i.hinhDD" alt="@i.tenSP" />
                     </div>
                     <div class="author_info">
                         <div class="auhor_header">
@@ -89,62 +130,58 @@
                                 <ul class="list cat-list">
                                     <li>
                                         <a href="#" class="d-flex">
-                                            <p>- Tên sản phẩm: @i.tenSP </p>
-
+                                            <p>- Tên sản phẩm: @i.tenSP</p>
                                         </a>
                                     </li>
-                                    <br />
                                     <li>
                                         <a href="#" class="d-flex">
                                             <p>- Nhà sản xuất: @i.nhaSanXuat</p>
-
                                         </a>
                                     </li>
-                                    <br />
                                     <li>
                                         <a href="#" class="d-flex">
-                                            <p>- Đơn vị tính: @i.dvt </p>
-
+                                            <p>- Đơn vị tính: @i.dvt</p>
                                         </a>
                                     </li>
-                                    </br>
                                     <li>
                                         <a href="#" class="d-flex">
-                                            <p>- Loại sản phẩm: @i.loaiHang </p>
-
+                                            <p>- Loại sản phẩm: @i.loaiHang</p>
                                         </a>
                                     </li>
-                                    @*<li>
-            <a href="#" class="d-flex">
-                <p>Product</p>
-                <p>(11)</p>
-            </a>
-        </li>
-        <li>
-            <a href="#" class="d-flex">
-                <p>Inspiration</p>
-                <p>(21)</p>
-            </a>
-        </li>
-        <li>
-            <a href="#" class="d-flex">
-                <p>Health Care</p>
-                <p>(21)</p>
-            </a>
-        </li>*@
                                 </ul>
                             </aside>
                         </div>
                     </div>
-                    @using (Html.BeginForm("AddToCart", "Home", FormMethod.Post))
+                    @if (i.SoLuongTonKho <= 0)
                     {
-                        <input name="maSP" type="hidden" value="@i.maSP" />
-                        <button class="btn btn-primary">Chọn mua </button>
+                        <button class="btn btn-primary" disabled>Hết hàng</button>
                     }
-                   
+                    else
+                    {
+                        using (Html.BeginForm("AddToCart", "Home", FormMethod.Post))
+                        {
+                            <input name="maSP" type="hidden" value="@i.maSP" />
+                            <button class="btn btn-primary">Chọn mua</button>
+                        }
+                    }
                 </div>
             </div>
         </div>
     </div>
 </div>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const img = document.querySelector('.video_thumb img');
+    img.addEventListener('mousemove', function (e) {
+        const width = img.offsetWidth;
+        const height = img.offsetHeight;
+        const mouseX = e.offsetX;
+        const mouseY = e.offsetY;
 
+        const bgPosX = (mouseX / width) * 100;
+        const bgPosY = (mouseY / height) * 100;
+
+        img.style.transformOrigin = `${bgPosX}% ${bgPosY}%`;
+    });
+});
+</script>

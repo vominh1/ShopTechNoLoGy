@@ -18,6 +18,12 @@ namespace ShopTechNoLoGy
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
             );
+            routes.MapRoute(
+    name: "OrderList",
+    url: "orders/{maKH}",
+    defaults: new { controller = "OrderDetails", action = "List" }
+);
+
         }
     }
 }

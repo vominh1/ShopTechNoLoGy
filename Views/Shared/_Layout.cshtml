@@ -1,6 +1,12 @@
-﻿<style>
+﻿@using ShopTechNoLoGy.Models; 
+
+<style>
     .trang_chu img {
         max-width: 30px;
+        padding-bottom: 4px;
+    }
+    .logo-img {
+       
         padding-bottom: 4px;
     }
 
@@ -22,9 +28,52 @@
     .icon_contact img {
         max-width: 30px;
     }
+
     .bradcam_area {
         height: 100px;
+        padding: 170px !important;
     }
+    /* Style for icon_review item */
+    .icon_review {
+        position: relative;
+    }
+
+        .icon_review .submenu {
+            display: none;
+            list-style: none;
+            padding: 0;
+            margin-left:60px;
+            position: absolute;
+            left: 0;
+            top: 100%;
+            background: #f8f8f8;
+            border: 1px solid #ddd;
+            z-index: 1000;
+        }
+
+            .icon_review .submenu li {
+                padding: 10px;
+                width: 230px; /* Set the width as per your requirement */
+            }
+
+                .icon_review .submenu li a {
+                    color: #333;
+                    text-decoration: none;
+                    display: block;
+                }
+
+        .icon_review:hover .submenu {
+            display: block;
+        }
+
+        
+       
+        .icon_review .submenu li a:hover,
+        .icon_review .submenu li a:focus {
+            background: #ddd;
+            color: #000;
+        }
+
 </style>
 <!DOCTYPE html>
 <html>
@@ -35,6 +84,7 @@
     <title>@ViewBag.Title - My ASP.NET Application</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+
 
     <!-- CSS here -->
     <link href="~/Scripts/vendor/Style.css" rel="stylesheet" />
@@ -85,7 +135,7 @@
     <header>
         <div class="header-area">
             <div id="sticky-header" class="main-header-area">
-                <div class="container-fluid p-0">
+                <div class="container-fluid">
                     <div class="row align-items-center no-gutters">
                         <div class="col-xl-1 col-lg-1" style="width:20%">
                             <div class="logo-img">
@@ -99,48 +149,116 @@
                                 <nav>
                                     <ul id="navigation">
                                         <li class="trang_chu">
-                                            <img src="~/images/about/house.png">@Html.ActionLink("Trang chủ", "Index", "Home")
+                                            <img src="~/images/about/house.png" />@Html.ActionLink("Trang chủ", "Index", "Home")
                                         </li>
                                         <li class="icon_cart_shop">
-                                            <img src="~/images/about/carts.png">@Html.ActionLink("Giỏ Hàng", "Index", "CartShop")
-                                        </li>
-                                        <li class="icon_manager">
-                                            <img src="~/images/about/process.png">@Html.ActionLink("Người quản trị", "Index", "AboutUs")
+                                            <img src="~/images/about/carts.png" />@Html.ActionLink("Giỏ Hàng", "Index", "CartShop")
                                         </li>
                                         <li class="icon_review">
-                                            <img src="~/images/about/popularity.png">@Html.ActionLink("Giới thiệu", "Index", "ReviewWebSite")
+                                            <img src="~/images/about/icon_order.png" />@Html.ActionLink("Đơn hàng", "Index", "OrderDetails")
+                                            <ol class="submenu">
+                                                <li>
+                                                    @Html.ActionLink("Đơn hàng đã xử lý", "Index", "OrderDetails")
+                                                </li>
+                                                <li>
+                                                    @Html.ActionLink("Đơn hàng chưa xử lý", "ChuaXuLy", "OrderDetails")
+                                                </li>
+                                            </ol>
+                                        </li>
+
+                                        <li class="icon_manager">
+                                            <img src="~/images/about/process.png" />@Html.ActionLink("Người quản trị", "Index", "AboutUs")
                                         </li>
                                         <li class="icon_contact">
-                                            <img src="~/images/about/contact-us.png"/> @Html.ActionLink("Liên hệ", "Index", "Contact")
+                                            <img src="~/images/about/contact-us.png" />@Html.ActionLink("Liên hệ", "Index", "Contact")
                                         </li>
-                                        <li class="icon_login">
-                                            <img src="~/images/about/icons8-login.gif">@Html.ActionLink("Đăng nhập", "Index", "Login")
+                                        <li class="dropdown">
+                                            @{
+                                                var loggedInUser = Session["ttDangNhap"] as taiKhoanTV;
+                                            }
+                                            @if (loggedInUser != null)
+                                            {
+                                                <a href="#" id="dropdownMenuLink" class="dropdown-toggle" data-toggle="dropdown">
+                                                    <img src="~/images/about/icon_login.png" style="max-width:30px" /> <span> @loggedInUser.tenTV</span>
+                                                </a>
+                                                <ul id="dropdownMenu" class="dropdown-menu" aria-labelledby="dropdownMenuLink" style="padding:0 !important">
+                                                    <li class="personal-info no-padding">
+                                                        @Html.ActionLink("Thông tin cá nhân", "Index", "InforCustomer", null, new { @class = "dropdown-item text-dark" })
+                                                    </li>
+                                                    <li class="logout no-padding">
+                                                        @using (Html.BeginForm("Logout", "Login", FormMethod.Post, new { id = "logoutForm" }))
+                                                        {
+                                                            @Html.AntiForgeryToken()
+                                                            <a href="#" onclick="document.getElementById('logoutForm').submit(); return false;" class="dropdown-item text-dark">Đăng xuất</a>
+                                                        }
+                                                    </li>
+                                                </ul>
+                                            }
+                                            else
+                                            {
+                                                <a href="@Url.Action("Index", "Login")">
+                                                    <img src="~/images/about/icon_login.png" style="max-width:30px" /> Đăng nhập
+                                                </a>
+                                            }
                                         </li>
                                     </ul>
                                 </nav>
                             </div>
-                            <div class="hamburger-menu d-lg-none">
+
+
+
+                            <div class="hamburger-menu d-lg-none d-flex align-items-center justify-content-between">
                                 <button class="hamburger-button" onclick="toggleMenu()">
                                     <span class="bar"></span>
                                     <span class="bar"></span>
                                     <span class="bar"></span>
                                 </button>
-                                <nav class="mobile-menu">
-                                    <ul id="mobile-navigation">
-                                        <li><a href="@Url.Action("Index","Home")">Trang chủ</a></li>
-                                        <li><a href="@Url.Action("Index","CartShop")">Giỏ hàng</a></li>
-                                        <li><a href="@Url.Action("Index","AboutUs")">Người quản trị</a></li>
-                                        <li><a href="@Url.Action("Index","ReviewWebSite")">Giới thiệu</a></li>
-                                        <li><a href="@Url.Action("Index","Contact")">Liên hệ</a></li>
-                                        <li><a href="@Url.Action("Index","Login")">Đăng nhập</a></li>
-                                    </ul>
-                                </nav>
+                                <div class="dropdown">
+                                    @{
+                                        var loggedInUser2 = Session["ttDangNhap"] as taiKhoanTV;
+                                    }
+
+                                    @if (loggedInUser2 != null)
+                                    {
+                                        <a href="#" id="dropdownMenuLink" class="dropdown-toggle" data-toggle="dropdown">
+                                            <img src="~/images/about/icon_login.png" style="max-width:30px" /> <span>  @loggedInUser2.tenTV</span>
+                                        </a>
+                                        <ul id="dropdownMenu " class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                            <li class="personal-info">
+                                                @Html.ActionLink("Thông tin cá nhân", "Index", "InforCustomer", null, new { @class = "dropdown-item text-dark" })
+                                            </li>
+                                            <li class="logout">
+                                                @using (Html.BeginForm("Logout", "Login", FormMethod.Post, new { id = "logoutForm" }))
+                                                {
+                                                    @Html.AntiForgeryToken()
+                                                    <a href="#" onclick="document.getElementById('logoutForm').submit(); return false;" class="dropdown-item text-dark">Đăng xuất</a>
+                                                }
+                                            </li>
+                                        </ul>
+                                    }
+                                    else
+                                    {
+                                        <a href="@Url.Action("Index", "Login")">
+                                            <img src="~/images/about/icon_login.png" style="max-width:30px" /> Đăng nhập
+                                        </a>
+                                    }
+                                </div>
                             </div>
+                            <nav class="mobile-menu">
+                                <ul id="mobile-navigation">
+                                    <li><a href="@Url.Action("Index","Home")">Trang chủ</a></li>
+                                    <li><a href="@Url.Action("Index","CartShop")">Giỏ hàng</a></li>
+                                    <li><a href="@Url.Action("Index","AboutUs")">Người quản trị</a></li>
+                                    <li><a href="@Url.Action("Index","ReviewWebSite")">Giới thiệu</a></li>
+                                    <li><a href="@Url.Action("Index","Contact")">Liên hệ</a></li>
+                                </ul>
+                            </nav>
+
                         </div>
-                        <div class="col-xl-1 col-lg-1" style="width:20%; "  >
+                        <div class="col-xl-1 col-lg-1" style="width:20%; ">
                             <div class="live_chat_btn">
                                 <a class="boxed_btn_orange" href="#">
-                                    <i style="width:auto; " class="fa fa-phone"></i>
+                                    <i style="width:15%; " class="fa fa-phone"></i>
                                     <span>  0363066401</span>
                                 </a>
                             </div>
@@ -153,9 +271,9 @@
 
 
     <!-- header-end -->
-
+    @RenderSection("Scripts", required: false)
     @RenderSection("QuangCao", required: false)
-   
+
     @RenderBody()
     <!-- footer -->
     <footer class="footer footer_bg_1">
@@ -295,6 +413,7 @@
     <script src="~/Scripts/jquery.validate.min.js"></script>
     <script src="~/Scripts/mail-script.js"></script>
 
+   
     <script src="~/Scripts/main.js"></script>
     <script>
         function toggleMenu() {
@@ -303,5 +422,35 @@
         }
 
     </script>
+    <script>
+        // JavaScript to handle dropdown toggle
+        $(document).ready(function () {
+            // Hide dropdown menu initially
+            $('#dropdownMenu').hide();
+
+            // Toggle dropdown menu when clicking on dropdown toggle
+            $('#dropdownMenuLink').on('click', function (e) {
+                e.preventDefault();
+                $('#dropdownMenu').toggle();
+            });
+
+            // Close dropdown menu when clicking outside of it
+            $(document).on('click', function (e) {
+                if (!$(e.target).closest('.dropdown').length) {
+                    $('#dropdownMenu').hide();
+                }
+            });
+        });
+    </script>
+    <script>
+        // JavaScript to handle form submission for logout
+        function submitLogoutForm() {
+            document.getElementById('logoutForm').submit();
+            return false;
+        }
+    </script>
+
+
+
 </body>
 </html>

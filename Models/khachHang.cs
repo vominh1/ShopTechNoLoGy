@@ -14,6 +14,8 @@ namespace ShopTechNoLoGy.Models
     
     public partial class khachHang
     {
+       
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public khachHang()
         {

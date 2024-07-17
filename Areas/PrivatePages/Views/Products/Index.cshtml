@@ -1,51 +1,46 @@
 ﻿@using ShopTechNoLoGy.Models
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Danh sách sản phẩm";
     List<sanPham> ds = ViewData["DanhSachSP"] as List<sanPham>;
-
 }
-<style>
-    form {
-        display: inline;
-    }
-    .font_size_TSP{
-        width:350px;
-    }
-</style>
+
 <section class="content-header">
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1>Danh sách sản phẩm của hệ thống </h1>
+                <h1>Danh sách sản phẩm của hệ thống</h1>
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
-                    <li class="breadcrumb-item"><a href="#">Quản trị </a></li>
+                    <li class="breadcrumb-item"><a href="#">Quản trị</a></li>
                     <li class="breadcrumb-item active">Danh sách sản phẩm đã duyệt</li>
                 </ol>
             </div>
         </div>
     </div><!--/.container-fluid -->
 </section>
-<!- Main content -->
+
 <section class="content">
-    <!-- Default box -->
     <div class="card">
         <div class="card-header">
-            <h3 class="card-title"> </h3>
+            <h3 class="card-title"></h3>
             <div class="card-tools">
                 <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
                     <i class="fas fa-minus"></i>
                 </button>
-
-                @*<button type="button" class="btn btn-tool" data-card-widget-"remove" data-toggle="tooltip" title="Remove"> fa-times"></i>
-                    </div>
-                    </div>
-                    <i class="fa
-                    </button>*@
             </div>
         </div>
         <div class="card-body">
+            @if (TempData["SuccessMessage"] != null)
+            {
+                <script type="text/javascript">
+                    alert('@TempData["SuccessMessage"]');
+                    window.location.href = '@Url.Action("Index", "Products")'; // Chuyển hướng về trang danh sách sản phẩm sau khi cập nhật thành công
+                </script>
+            }
+
+            
+
             <table id="example2" class="table table-bordered table-hover">
                 <thead>
                     <tr>
@@ -53,54 +48,41 @@
                         <th>Tên Sản phẩm</th>
                         <th>Ngày đăng</th>
                         <th>Tài khoản</th>
-                       
+                        <th>Thao tác</th>
                     </tr>
                 </thead>
                 <tbody>
                     @{
                         foreach (sanPham i in ds)
                         {
-                                        <tr>
-                                            <td class="cart_product" style="width:200px">
-                                                <a href=""><img src="@Common.getImagesOfProductById(i.maSP)" width="40%" height="30%" /></a>
-                                            </td>
-                                            <td class="font_size_TSP">@i.tenSP </td>
-                                            <td>@string.Format("{0: hh:mm[dd/MM/yyyy]}", i.ngayDang)</td>
-                                            <td>@i.taiKhoanTV.hoDem @i.taiKhoanTV.tenTV</td>
-
-                                            <td>
-                                                @using (Html.BeginForm("active", "Products", FormMethod.Post))
-                                                {
-                                                    <input type="hidden" name="maSanPham" value="@i.maSP" />
-                                                    <button  class="btn btn-success" title="Cho phép hiểm thị trên tất cả các trang công khai">Cấm</button>}
-                                                @using (Html.BeginForm("", "Products", FormMethod.Post))
-                                                {
-                                                    <input type="hidden" name="maSanPham" value="@i.maSP" />
-                                                    <button class="btn btn-default" title="Cho phép sửa bài viêt "> Sửa SP </button>
-
-                                                }
-                                                @using (Html.BeginForm("Delete", "Products", FormMethod.Post))
-                                                {
-                                                    <input type="hidden" name="maSanPham" value="@i.maSP" />
-                                                    <button class="btn btn-danger" title="Cho phép xóa sản phẩm.">xóa</button>
-                                                }
-
-                                            </td>
-
-                                        </tr>
+                            <tr>
+                                <td class="cart_product" style="width:200px">
+                                    <a href=""><img src="@Common.getImagesOfProductById(i.maSP)" width="40%" height="30%" /></a>
+                                </td>
+                                <td class="font_size_TSP">@i.tenSP</td>
+                                <td>@string.Format("{0: hh:mm[dd/MM/yyyy]}", i.ngayDang)</td>
+                                <td>@i.taiKhoanTV.hoDem @i.taiKhoanTV.tenTV</td>
+                                <td>
+                                    @using (Html.BeginForm("Active", "Products", FormMethod.Post))
+                                    {
+                                        <input type="hidden" name="maSanPham" value="@i.maSP" />
+                                        <button class="btn btn-success" title="Cho phép hiển thị trên tất cả các trang công khai">Cấm</button>
+                                    }
+                                    @Html.ActionLink("Sửa SP", "Edit", new { maSanPham = i.maSP }, new { @class = "btn btn-default", title = "Cho phép sửa bài viết" })
+                                    @using (Html.BeginForm("Delete", "Products", FormMethod.Post))
+                                    {
+                                        <input type="hidden" name="maSanPham" value="@i.maSP" />
+                                        <button class="btn btn-danger" title="Cho phép xóa sản phẩm">Xóa</button>
+                                    }
+                                </td>
+                            </tr>
                         }
                     }
-
-
                 </tbody>
             </table>
         </div>
         <div class="card-footer">
-            footer
+            Footer
         </div>
     </div>
 </section>
-
-
-
-

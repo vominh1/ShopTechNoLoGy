@@ -1,0 +1,209 @@
+﻿@model ShopTechNoLoGy.Models.taiKhoanTV
+
+@{
+    ViewBag.Title = "Thông tin khách hàng";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    body {
+        background-color: #f4f7f6;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    .customer-info-container {
+        max-width: 800px;
+        margin: 40px auto;
+        background-color: #ffffff;
+        border-radius: 8px;
+        box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        overflow: hidden;
+    }
+
+    .info-header {
+        background-image: url(../images/banner/banner2.jpg);
+        background-size: cover;
+        background-position: center;
+        color: white;
+        padding: 40px 20px;
+        text-align: center;
+        position: relative;
+    }
+
+        .info-header::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0,0,0,0.5);
+        }
+
+        .info-header h1 {
+            position: relative;
+            z-index: 1;
+            margin: 0;
+            font-size: 28px;
+        }
+
+    .info-body {
+        padding: 30px;
+    }
+
+    .info-group {
+        margin-bottom: 25px;
+    }
+
+    .info-label {
+        font-weight: bold;
+        color: #333;
+        margin-bottom: 5px;
+    }
+
+    .info-value {
+        color: #666;
+        background-color: #f9f9f9;
+        padding: 10px;
+        border-radius: 4px;
+        border: 1px solid #e0e0e0;
+    }
+
+    .edit-btn {
+        background-color: #4a90e2;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+
+        .edit-btn:hover {
+            background-color: #3570b3;
+        }
+
+    #editForm {
+        margin-top: 30px;
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    .form-control {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        font-size: 16px;
+    }
+
+    .save-btn {
+        background-color: #5cb85c;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+
+        .save-btn:hover {
+            background-color: #4cae4c;
+        }
+    .breadcam_bg {
+        background-image: url(../images/banner/banner2.jpg);
+    }
+</style>
+<div class="bradcam_area breadcam_bg overlay1">
+    <h3 style="margin-top:0; margin-bottom:0">Thông tin khách hàng</h3>
+</div>
+<div class="customer-info-container">
+
+    <div class="info-body">
+        <div class="info-group">
+            <div class="info-label">Tên tài khoản:</div>
+            <div class="info-value">@Model.taiKhoan</div>
+        </div>
+        <div class="info-group">
+            <div class="info-label">Họ và tên:</div>
+            <div class="info-value">@(Model.hoDem + " " + Model.tenTV)</div>
+        </div>
+        <div class="info-group">
+            <div class="info-label">Giới tính:</div>
+            <div class="info-value">
+                @(Model.gioiTinh.HasValue ? (Model.gioiTinh.Value ? "Nam" : "Nữ") : "Không xác định")
+            </div>
+        </div>
+        <div class="info-group">
+            <div class="info-label">Email:</div>
+            <div class="info-value">@Model.email</div>
+        </div>
+        <div class="info-group">
+            <div class="info-label">Số điện thoại:</div>
+            <div class="info-value">@Model.soDT</div>
+        </div>
+        <div class="info-group">
+            <div class="info-label">Địa chỉ:</div>
+            <div class="info-value">@Model.diaChi</div>
+        </div>
+        <div class="info-group">
+            <div class="info-label">Trạng thái:</div>
+            <div class="info-value">@Model.trangThai</div>
+        </div>
+        <button id="editButton" class="edit-btn">Chỉnh sửa thông tin</button>
+    </div>
+
+    <!-- Form chỉnh sửa -->
+    <form id="editForm" style="display:none;" method="post" action="@Url.Action("Update", "InforCustomer")">
+        <div class="info-body">
+            <div class="form-group">
+                <label for="taiKhoan">Tên tài khoản:</label>
+                <input type="text" class="form-control" id="taiKhoan" name="taiKhoan" value="@Model.taiKhoan" readonly />
+            </div>
+            <div class="form-group">
+                <label for="hoDem">Họ khách hàng:</label>
+                <input type="text" class="form-control" id="hoDem" name="hoDem" value="@Model.hoDem" />
+            </div>
+            <div class="form-group">
+                <label for="tenTV">Tên khách hàng:</label>
+                <input type="text" class="form-control" id="tenTV" name="tenTV" value="@Model.tenTV" />
+            </div>
+            <div class="form-group">
+                <label for="gioiTinh">Giới tính:</label>
+                <select class="form-control" id="gioiTinh" name="gioiTinh">
+                    <option value="true" @(Model.gioiTinh == true ? "selected" : "")>Nam</option>
+                    <option value="false" @(Model.gioiTinh == false ? "selected" : "")>Nữ</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" class="form-control" id="email" name="email" value="@Model.email" />
+            </div>
+            <div class="form-group">
+                <label for="soDT">Số điện thoại:</label>
+                <input type="text" class="form-control" id="soDT" name="soDT" value="@Model.soDT" />
+            </div>
+            <div class="form-group">
+                <label for="diaChi">Địa chỉ:</label>
+                <input type="text" class="form-control" id="diaChi" name="diaChi" value="@Model.diaChi" />
+            </div>
+            <button type="submit" class="save-btn">Lưu thông tin</button>
+        </div>
+    </form>
+</div>
+
+<script>
+    document.getElementById("editButton").addEventListener("click", function () {
+        var form = document.getElementById("editForm");
+        var infoBody = document.querySelector(".info-body");
+        if (form.style.display === "none") {
+            form.style.display = "block";
+            infoBody.style.display = "none";
+        } else {
+            form.style.display = "none";
+            infoBody.style.display = "block";
+        }
+    });
+</script>

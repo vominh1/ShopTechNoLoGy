@@ -1,13 +1,18 @@
-﻿<link href="~/Content/review.css" rel="stylesheet" />
-<style>
-    body{
-        background-color:white;
-    }
-    .container{
-        max-width:1500px;
-        padding-top:30px;
+﻿@{
+    ViewBag.Title = "Giới thiệu";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
 
+<style>
+    body {
+        background-color: white;
     }
+
+    .container {
+        
+        padding-top: 30px;
+    }
+
     .courses_details_banner {
         background-image: url(../images/banner/banner2.jpg);
     }
@@ -26,10 +31,7 @@
         Giới thiệu website bán hàng online
     </h3>
 </div>
-@{
-    ViewBag.Title = "Giới thiệu";
-    Layout = "~/Views/Shared/_Layout.cshtml"; // Nếu bạn có sử dụng Layout
-}
+
 
 <div class="container">
     <h2>Giới thiệu về chúng tôi</h2>
