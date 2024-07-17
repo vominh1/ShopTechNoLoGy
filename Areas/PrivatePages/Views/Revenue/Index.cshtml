@@ -4,100 +4,148 @@
     ViewBag.Title = "Báo cáo doanh thu hàng ngày";
     Layout = "~/Areas/PrivatePages/Views/Shared/_Layout.cshtml";
 }
-
-<h2>Báo cáo doanh thu hàng ngày</h2>
-
-<div class="table-responsive">
-    <table class="table table-striped table-bordered">
-        <thead class="thead-dark">
-            <tr>
-                <th scope="col">Ngày</th>
-                <th scope="col">Doanh thu</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model)
-            {
-                <tr>
-                    <td>@item.Ngay.ToShortDateString()</td>
-                    <td>@item.DoanhThu.ToString("C")</td>
-                </tr>
-            }
-        </tbody>
-    </table>
-</div>
-
-<!-- Nút để mở hoặc đóng biểu đồ -->
-<button id="toggleDailyChartButton" class="btn btn-primary">Xem biểu đồ</button>
-
-<!-- Phần tử canvas để vẽ biểu đồ -->
-<canvas id="dailyRevenueChart" width="400" height="200" style="display: none;"></canvas>
-
-<!-- Style để điều chỉnh kích thước biểu đồ -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
 <style>
+    .page-header {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 2rem 0;
+        margin-bottom: 2rem;
+    }
+
+    .card {
+        box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+        margin-bottom: 2rem;
+    }
+
     #dailyRevenueChart {
-        max-width: auto !important;
-        max-height: 400px !important;
+        max-width: 100% !important;
+        height: 400px !important;
     }
 </style>
 
-<!-- Include Chart.js library -->
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <div class="page-header">
+        <div class="container">
+            <h1 class="display-4">Báo cáo doanh thu hàng ngày</h1>
+        </div>
+    </div>
 
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        var dailyChartVisible = false;
-        var dailyChartCanvas = document.getElementById('dailyRevenueChart');
-        var dailyChartButton = document.getElementById('toggleDailyChartButton');
-
-        dailyChartButton.addEventListener('click', function () {
-            dailyChartVisible = !dailyChartVisible;
-
-            if (dailyChartVisible) {
-                dailyChartCanvas.style.display = 'block';
-
-                var dailyLabels = [];
-                var dailyData = [];
-
-                @foreach (var item in Model)
-                {
-                    @:dailyLabels.push('@item.Ngay.ToShortDateString()');
-                    @:dailyData.push(@item.DoanhThu);
-                }
-
-                var dailyChartCtx = dailyChartCanvas.getContext('2d');
-
-                var dailyRevenueChart = new Chart(dailyChartCtx, {
-                    type: 'bar',
-                    data: {
-                        labels: dailyLabels,
-                        datasets: [{
-                            label: 'Doanh thu hàng ngày',
-                            data: dailyData,
-                            backgroundColor: 'rgba(54, 162, 235, 0.2)',
-                            borderColor: 'rgba(54, 162, 235, 1)',
-                            borderWidth: 1
-                        }]
-                    },
-                    options: {
-                        scales: {
-                            y: {
-                                beginAtZero: true,
-                                ticks: {
-                                    callback: function(value, index, values) {
-                                        return value.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+                        <h5 class="card-title mb-0">Bảng doanh thu</h5>
+                        <button id="toggleTableButton" class="btn btn-light btn-sm">
+                            <i class="fas fa-table"></i> Ẩn/Hiện bảng
+                        </button>
+                    </div>
+                    <div id="tableContent" class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-striped table-hover">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th scope="col">Ngày</th>
+                                        <th scope="col">Doanh thu</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model)
+                                    {
+                                        <tr>
+                                            <td>@item.Ngay.ToShortDateString()</td>
+                                            <td>@item.DoanhThu.ToString("C0")</td>
+                                        </tr>
                                     }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header bg-success text-white d-flex justify-content-between align-items-center">
+                        <h5 class="card-title mb-0">Biểu đồ doanh thu</h5>
+                        <button id="toggleChartButton" class="btn btn-light btn-sm">
+                            <i class="fas fa-chart-bar"></i> Ẩn/Hiện biểu đồ
+                        </button>
+                    </div>
+                    <div id="chartContent" class="card-body">
+                        <canvas id="dailyRevenueChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var tableContent = document.getElementById('tableContent');
+            var chartContent = document.getElementById('chartContent');
+            var toggleTableButton = document.getElementById('toggleTableButton');
+            var toggleChartButton = document.getElementById('toggleChartButton');
+
+            toggleTableButton.addEventListener('click', function() {
+                tableContent.style.display = tableContent.style.display === 'none' ? 'block' : 'none';
+            });
+
+            toggleChartButton.addEventListener('click', function() {
+                chartContent.style.display = chartContent.style.display === 'none' ? 'block' : 'none';
+            });
+
+            var labels = [@Html.Raw(string.Join(",", Model.Select(item => $"'{item.Ngay.ToShortDateString()}'")))];
+            var data = [@string.Join(",", Model.Select(item => item.DoanhThu))];
+
+            var ctx = document.getElementById('dailyRevenueChart').getContext('2d');
+            var myChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Doanh thu hàng ngày',
+                        data: data,
+                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                        borderColor: 'rgba(75, 192, 192, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                callback: function(value, index, values) {
+                                    return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(value);
+                                }
+                            }
+                        }
+                    },
+                    plugins: {
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    var label = context.dataset.label || '';
+                                    if (label) {
+                                        label += ': ';
+                                    }
+                                    if (context.parsed.y !== null) {
+                                        label += new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(context.parsed.y);
+                                    }
+                                    return label;
                                 }
                             }
                         }
                     }
-                });
-
-                dailyChartButton.textContent = 'Đóng biểu đồ';
-            } else {
-                dailyChartCanvas.style.display = 'none';
-                dailyChartButton.textContent = 'Xem biểu đồ';
-            }
+                }
+            });
         });
-    });
-</script>
+    </script>

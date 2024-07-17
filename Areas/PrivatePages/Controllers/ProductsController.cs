@@ -42,6 +42,7 @@ namespace ShopTechNoLoGy.Areas.PrivatePages.Controllers
         {
             List<sanPham> l = db.sanPhams.Where(x => x.daDuyet == true).ToList<sanPham>();
             ViewData["DanhSachSP"] = l;
+            
         }
         [HttpGet]
         private List<SelectListItem> GetMaLoaiList()

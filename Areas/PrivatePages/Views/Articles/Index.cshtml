@@ -4,96 +4,108 @@
     List<baiViet> ds = ViewData["DanhSachBV"] as List<baiViet>;
 
 }
+
+
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
 <style>
-    form{display:inline;}
+    .page-header {
+        background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+        color: white;
+        padding: 2rem 0;
+        margin-bottom: 2rem;
+    }
+
+    .table-hover tbody tr:hover {
+        background-color: #f8f9fa;
+    }
+
+    .card {
+        box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+    }
+
+    .breadcrumb {
+        background-color: transparent;
+        padding: 0;
+    }
+
+    .btn-group .btn {
+        margin-right: 5px;
+    }
 </style>
-<section class="content-header">
-    <div class="container-fluid">
-        <div class="row mb-2">
-            <div class="col-sm-6">
-                <h1>Danh sách các bài viết trong hệ thống</h1>
-            </div>
-            <div class="col-sm-6">
-                <ol class="breadcrumb float-sm-right">
-                    <li class="breadcrumb-item"><a href="#">Quản trị </a></li>
-                    <li class="breadcrumb-item active">Danh sách bài viết đã duyệt</li>
+
+    <div class="page-header">
+        <div class="container">
+            <h1 class="display-4">Danh sách các bài viết trong hệ thống</h1>
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="#" class="text-white">Quản trị</a></li>
+                    <li class="breadcrumb-item active text-white" aria-current="page">Danh sách bài viết đã duyệt</li>
                 </ol>
-            </div>
-        </div>
-    </div><!--/.container-fluid -->
-</section>
-<!- Main content -->
-<section class="content">
-    <!-- Default box -->
-    <div class="card">
-        <div class="card-header">
-            <h3 class="card-title"> </h3>
-            <div class="card-tools">
-                <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
-                    <i class="fas fa-minus"></i>
-                </button>
-
-                @*<button type="button" class="btn btn-tool" data-card-widget-"remove" data-toggle="tooltip" title="Remove"> fa-times"></i>
-                    </div>
-                    </div>
-                    <i class="fa
-                    </button>*@
-            </div>
-        </div>
-        <div class="card-body">
-            <table id="example2" class="table table-bordered table-hover">
-                <thead>
-                    <tr>
-
-                        <th>Tên bài viết</th>
-                        <th>Ngày đăng</th>
-                        <th>Tài khoản</th>
-                        <th>Số lần đọc</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @{
-                        foreach (baiViet i in ds)
-                        {
-                            <tr>
-
-                                <td>@i.tenBV </td>
-                                <td>@string.Format("{0: hh:mm[dd/MM/yyyy]}",i.ngayDang)</td>
-                                <td>@i.taiKhoanTV.hoDem @i.taiKhoanTV.tenTV</td>
-                                <td>@i.solandoc</td>
-                                <td>
-                                    @using (Html.BeginForm("active", "Articles", FormMethod.Post))
-                                    {
-                                        <input type="hidden" name="maBaiViet" value="@i.maBV" />
-                                        <button class="btn btn-success" title="Cho phép hiểm thị trên tất cả các trang công khai">Cấm Hiễn thị</button>}
-                                    @using (Html.BeginForm("", "Articles", FormMethod.Post))
-                                    {
-                                        <input type="hidden" name="maBaiViet" value="@i.maBV" />
-                                        <button class="btn btn-default" title="Cho phép sửa bài viêt "> Sửa bài viết</button>
-
-                                    }
-                                    @using (Html.BeginForm("Delete", "Articles", FormMethod.Post))
-                                    {
-                                        <input type="hidden" name="maBaiViet" value="@i.maBV" />
-                                        <button class="btn btn-danger" title="Cho phép xóa bài viết"> xóa</button>
-                                    }
-
-                                </td>
-
-                            </tr>
-                        }
-                    }
-
-
-                </tbody>
-            </table>
-        </div>
-        <div class="card-footer">
-            footer
+            </nav>
         </div>
     </div>
-</section>
 
+    <div class="container mt-4">
+        <div class="card">
+            <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+                <h3 class="card-title mb-0">Danh sách bài viết</h3>
+                <button type="button" class="btn btn-light" data-bs-toggle="collapse" data-bs-target="#articleTable" aria-expanded="true" aria-controls="articleTable">
+                    <i class="fas fa-minus"></i>
+                </button>
+            </div>
+            <div id="articleTable" class="collapse show">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>Tên bài viết</th>
+                                    <th>Ngày đăng</th>
+                                    <th>Tài khoản</th>
+                                    <th>Số lần đọc</th>
+                                    <th>Thao tác</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var i in ViewData["DanhSachBV"] as List<baiViet>)
+                                {
+                                    <tr>
+                                        <td>@i.tenBV</td>
+                                        <td>@i.ngayDang</td>
+                                        <td>@i.taiKhoanTV.hoDem @i.taiKhoanTV.tenTV</td>
+                                        <td>@i.solandoc</td>
+                                        <td>
+                                            <div class="btn-group">
+                                                <form action="@Url.Action("active", "Articles")" method="post">
+                                                    <input type="hidden" name="maBaiViet" value="@i.maBV">
+                                                    <button type="submit" class="btn btn-warning btn-sm" title="Cấm hiển thị bài viết">
+                                                        <i class="fas fa-ban me-1"></i> Cấm hiển thị
+                                                    </button>
+                                                </form>
+                                                <a href="@Url.Action("Edit", "Articles", new { maBaiViet = i.maBV })" class="btn btn-info btn-sm" title="Sửa bài viết">
+                                                    <i class="fas fa-edit me-1"></i> Sửa bài viết
+                                                </a>
+                                                <form action="@Url.Action("Delete", "Articles")" method="post">
+                                                    <input type="hidden" name="maBaiViet" value="@i.maBV">
+                                                    <button type="submit" class="btn btn-danger btn-sm" title="Xóa bài viết">
+                                                        <i class="fas fa-trash-alt me-1"></i> Xóa
+                                                    </button>
+                                                </form>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer text-muted">
+                Tổng số bài viết: @((ViewData["DanhSachBV"] as List<baiViet>)?.Count ?? 0)
+            </div>
+        </div>
+    </div>
 
-
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
