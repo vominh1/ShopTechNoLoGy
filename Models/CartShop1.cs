@@ -20,6 +20,7 @@ namespace ShopTechNoLoGy.Models
         public string soDH { get; set; }
         public string ghiChu { get; set; }
         public string taiKhoan { get; set; }
+        public int SoLuongTonKho { get;set; }
         public SortedList<string, ctDonHang> SanPhamDC { get; set; }
         /// <summary>
         /// sử dụng contractor để khởi tạo giá trị ban đầu
@@ -32,20 +33,27 @@ namespace ShopTechNoLoGy.Models
             this.NgayDat = DateTime.Now; 
             this.NgayGiao = DateTime.Now.AddDays(2);
             this.DiaChi = "";
+           
+            
+            
             this.SanPhamDC = new SortedList<string, ctDonHang>();
         }
         public bool IsEmpty()
         {
             return SanPhamDC.Keys.Count == 0;
         }
+     
+
         /// <summary>
-        ///   xóa 1 sản phẩm trong giỏ hàng 
+        ///   thêm 1 sản phẩm trong giỏ hàng 
         /// </summary>
         /// <param name="maSP"></param>
         public void addItem(string maSP)
         {
             if (SanPhamDC.Keys.Contains(maSP)) {
+                
                 ctDonHang x = SanPhamDC.Values[SanPhamDC.IndexOfKey(maSP)];
+              
                 x.soLuong++;
                 updateOneItem(x);
             }
@@ -59,12 +67,19 @@ namespace ShopTechNoLoGy.Models
                 SanPhamDC.Add(maSP, i);
             }
         }
-
+        /// <summary>
+        /// cập nhât sản phẩm
+        /// </summary>
+        /// <param name="x"></param>
         public void updateOneItem(ctDonHang x)
         {
             this.SanPhamDC.Remove(x.maSP);
             this.SanPhamDC.Add(x.maSP, x);
         }
+        /// <summary>
+        /// xóa 1 sản phẩm
+        /// </summary>
+        /// <param name="maSP"></param>
         public void deleteItem(string maSP)
         {
             if (SanPhamDC.Keys.Contains(maSP)) {

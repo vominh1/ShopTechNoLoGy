@@ -1,8 +1,10 @@
 ﻿@using ShopTechNoLoGy.Models
-
+@model ShopTechNoLoGy.Models.sanPham
 @{ Layout = "~/Views/Shared/_Layout.cshtml";
     ViewBag.Title = "Mua hàng";
-    CartShop1 x = ViewData["Cart"] as CartShop1; }
+    
+    CartShop1 x = ViewData["Cart"] as CartShop1;
+   }
 
 <style>
     .courses_details_banner {
@@ -17,7 +19,6 @@
         max-height: 100px;
         margin: 0;
     }
-
 </style>
 <style>
     #cart_items {
@@ -39,7 +40,7 @@
 </div>
 <section id="cart_items" class="py-5">
     <div class="container">
-       
+
         <div class="table-responsive">
             <table class="table table-hover">
                 <thead class="thead-dark">
@@ -54,30 +55,40 @@
                 <tbody>
                     @foreach (ctDonHang i in x.SanPhamDC.Values)
                     {
-                        <tr>
-                            <td>
-                                <img src="@Common.getImagesOfProductById(i.maSP)" class="img-thumbnail" width="100" alt="@Common.getNameOfProductById(i.maSP)">
-                            </td>
-                            <td>
-                                <h5><a href="#" class="text-dark">@Common.getNameOfProductById(i.maSP)</a></h5>
-                                <small class="text-muted">Mã SP: @i.maSP</small>
-                            </td>
-                            <td>@string.Format("{0:#,##0đ}", i.giaBan)</td>
-                            <td>
-                                <div class="d-flex justify-content-center align-items-center">
-                                    @using (Html.BeginForm("decrease", "CartShop", FormMethod.Post, new { @class = "d-inline" }))
-                                    {
-                                        <input type="hidden" name="maSP" value="@i.maSP" />
-                                        <button class="btn btn-sm btn-outline-secondary" type="submit">-</button>
-                                    }
-                                    <input class="form-control form-control-sm text-center mx-2" type="text" name="quantity" value="@i.soLuong" readonly style="width: 50px;">
-                                    @using (Html.BeginForm("increase", "CartShop", FormMethod.Post, new { @class = "d-inline" }))
-                                    {
-                                        <input type="hidden" name="maSP" value="@i.maSP" />
-                                        <button class="btn btn-sm btn-outline-secondary" type="submit">+</button>
-                                    }
+                    <tr>
+                        <td>
+                            <img src="@Common.getImagesOfProductById(i.maSP)" class="img-thumbnail" width="100" alt="@Common.getNameOfProductById(i.maSP)">
+                        </td>
+                        <td>
+                            <h5><a href="#" class="text-dark">@Common.getNameOfProductById(i.maSP)</a></h5>
+                            <small class="text-muted">Mã SP: @i.maSP</small>
+                        </td>
+                        <td>@string.Format("{0:#,##0đ}", i.giaBan)</td>
+                        <td>
+                            <div class="d-flex justify-content-center align-items-center">
+                                @using (Html.BeginForm("decrease", "CartShop", FormMethod.Post, new { @class = "d-inline" }))
+                                {
+                                    <input type="hidden" name="maSP" value="@i.maSP" />
+                                    <button class="btn btn-sm btn-outline-secondary" type="submit">-</button>
+                                }
+                                <input class="form-control form-control-sm text-center mx-2" type="text" name="quantity" value="@i.soLuong" readonly style="width: 50px;">
+                                @using (Html.BeginForm("increase", "CartShop", FormMethod.Post, new { @class = "d-inline" }))
+                                {
+                                    <input type="hidden" name="maSP" value="@i.maSP" />
+                                    <button class="btn btn-sm btn-outline-secondary" type="submit">+</button>
+                                }
+
+                            </div>
+                            @*@if (!string.IsNullOrEmpty(ViewBag.ProductLowStockMessage))
+                            {
+                                <div class="alert alert-warning" role="alert">
+                                    @ViewBag.ProductLowStockMessage
                                 </div>
-                            </td>
+                            }*@
+
+
+
+                        </td>
                             <td>@x.moneyOfOneProduct(i)</td>
                         </tr>
                     }

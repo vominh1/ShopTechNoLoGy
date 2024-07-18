@@ -42,10 +42,17 @@ namespace ShopTechNoLoGy.Models
         /// </summary>
         /// <param name="maSP"></param>
         /// <returns></returns>
-        public static string getNameOfProductById (string maSP)
+        //public static string getNameOfProductById (string maSP)
+        //{
+        //    return cn.Set<sanPham>().Find(maSP).tenSP;
+        //}
+        public static string getNameOfProductById(string maSP)
         {
-            return cn.Set<sanPham>().Find(maSP).tenSP;
+            using (var context = new DbContext("name=BanBanhOnline")) {
+                return context.Set<sanPham>().Find(maSP).tenSP;
+            }
         }
+
         /// <summary>
         /// lấy hình ảnh của images
         /// </summary>
@@ -59,5 +66,6 @@ namespace ShopTechNoLoGy.Models
         {
             return cn.Set<donHang>().Find(soDH).soDH;
         }
+
     }
 }

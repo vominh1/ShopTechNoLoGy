@@ -54,7 +54,6 @@ namespace ShopTechNoLoGy.Areas.PrivatePages.Controllers
             if (order == null) {
                 return HttpNotFound();
             }
-
             var orderDetails = db.ctDonHangs
                 .Where(ct => ct.soDH == maDonHang)
                 .Select(ct => new OrderItemDetailsModel {
