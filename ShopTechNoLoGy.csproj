@@ -296,7 +296,13 @@
     <Content Include="images\blog\blog_2.png" />
     <Content Include="images\blog\blog_3.png" />
     <Content Include="images\blog\blog_4.png" />
+    <Content Include="images\blog\bog_socola2.jpg" />
+    <Content Include="images\blog\bog_socola3.jpg" />
+    <Content Include="images\blog\bog_socola4.jpg" />
+    <Content Include="images\blog\bog_socola5.jpg" />
+    <Content Include="images\blog\bog_socola6.jpg" />
     <Content Include="images\blog\learn_about_bg.png" />
+    <Content Include="images\blog\salesocola.jpg" />
     <Content Include="images\blog\single_blog_1.png" />
     <Content Include="images\blog\single_blog_2.png" />
     <Content Include="images\blog\single_blog_3.png" />

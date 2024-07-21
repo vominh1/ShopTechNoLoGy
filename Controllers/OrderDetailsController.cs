@@ -43,6 +43,7 @@ namespace ShopTechNoLoGy.Controllers
         [HttpPost]
         public ActionResult ChiTietDonHangChuaXuLy(string soDH)
         {
+            //lọc chi tiết đơn hàng theo số đơn hàng và truyền vào viewdata 
             var chiTiet = db.ctDonHangs.Where(x => x.soDH == soDH).ToList();
             ViewData["ChiTietDonHangChuaXuLy"] = chiTiet;
             return View("ChiTietDonHangChuaXuLy");
@@ -58,7 +59,7 @@ namespace ShopTechNoLoGy.Controllers
                 List<donHang> l = db.donHangs
                     .Where(x => x.daKichHoat == true && x.taiKhoan == currentUser.taiKhoan)
                     .ToList();
-
+                //Lưu đơn hàng đã lọc vào trong viewdata
                 ViewData["DanhSachDonHangdadat"] = l;
             }
             else {
@@ -70,8 +71,9 @@ namespace ShopTechNoLoGy.Controllers
         }
         private void HienThiDonHangChuaXuLy()
         {
+            // gán currentusse vào "ttDangNhap"
             taiKhoanTV currentUser = Session["ttDangNhap"] as taiKhoanTV;
-            
+            // kiểm tra điều kiện
             if (currentUser != null) {
                 List<donHang> l = db.donHangs
                     .Where(x => x.daKichHoat == false && x.taiKhoan == currentUser.taiKhoan)
