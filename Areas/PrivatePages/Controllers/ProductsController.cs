@@ -112,7 +112,20 @@ namespace ShopTechNoLoGy.Areas.PrivatePages.Controllers
 
             return View(model);
         }
+        
+        [HttpPost]
+        public ActionResult Search(string searchString)
+        {
+            var products = db.sanPhams
+                .Where(sp => sp.tenSP.Contains(searchString) || sp.maSP.Contains(searchString))
+                .Where(sp => sp.daDuyet == true) // Assuming you only want to search approved products
+                .ToList();
 
+            ViewData["DanhSachSP"] = products;
+            ViewBag.MaLoaiList = GetMaLoaiList();
+
+            return View("Index");
+        }
 
     }
 }

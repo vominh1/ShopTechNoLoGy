@@ -154,12 +154,10 @@
         <!-- Main Sidebar Container -->
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
             <!-- Brand Logo -->
-            <a href="../../index3.html" class="brand-link">
-                <img src="~/images/AdminLTELogo.png"
-                     alt="AdminLTE Logo"
-                     class="brand-image img-circle elevation-3"
-                     style="opacity: .8">
-                <span class="brand-text font-weight-light">AdminLTE </span>
+            <a href="../../index3.html" class="brand-link" style="text-decoration: none;">
+                <img src="~/Dulieu/Images/logo_minhday.png" alt="" height="80px" width="80px">
+
+                <span class="brand-text font-weight-light">Quản trị viên </span>
             </a>
 
             <!-- Sidebar -->
@@ -176,7 +174,7 @@
                      
                         @if (loggedInUser != null)
                         {
-                            <a href="#" class="d-block">
+                            <a href="#" class="d-block" style="text-decoration: none;">
                                 @loggedInUser.hoDem @loggedInUser.tenTV
                             </a>
                                 }
@@ -225,7 +223,7 @@
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="@Url.Action("Index","Categories")" class="nav-link">
+                                    <a href="@Url.Action("Index","Products")" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Chủng loại- ngành hàng</p>
                                     </a>
@@ -233,14 +231,15 @@
                                 <li class="nav-item">
                                     <a href='@Url.Action("Index","NewProduct")' class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
-                                        <p>Tạo sản phẩm mới</p>
+                                        <p>Đăng sản phẩm<span class="right badge badge-danger">New</span></p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href='@Url.Action("Index","Products")' class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Sản phẩm đang kinh danh</p>
-                                    </a>
+                                    <a href='@Url.Action("Index", "Categories")' class="nav-link">
+                                        
+                                                                        <i class="far fa-circle nav-icon"></i>
+                                                                        <p>Sản phẩm đang kinh danh</p>
+                                                                    </a>
                                 </li>
 
                             </ul>
@@ -251,6 +250,7 @@
                                 <p>
                                     Danh sách khách hàng
                                     <i class="right fas fa-angle-left"></i>
+                                    @*<span class="badge badge-info right">3</span>*@
                                 </p>
                             </a>
                             <ul class="nav nav-treeview">
@@ -274,7 +274,10 @@
                                 <i class="nav-icon fas fa-tree"></i>
                                 <p>
                                     Danh sách đơn hàng
+
                                     <i class="fas fa-angle-left right"></i>
+                                    @*<span class="badge badge-info right">3</span>*@
+
                                 </p>
                             </a>
                             <ul class="nav nav-treeview">
@@ -324,6 +327,8 @@
                                 <p>
                                     Danh thu
                                     <i class="fas fa-angle-left right"></i>
+                                    @*<span class="badge badge-info right">3</span>*@
+
                                 </p>
                             </a>
                             <ul class="nav nav-treeview">

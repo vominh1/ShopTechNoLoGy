@@ -5,6 +5,7 @@
 }
 <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+
 <style>
     .product-image {
         width: 100px;
@@ -37,7 +38,6 @@
         margin-bottom: 2rem;
     }
 </style>
-
 <div class="page-header">
     <div class="container">
         <h1 class="display-4">Danh sách sản phẩm</h1>
@@ -60,6 +60,17 @@
         </div>
         <div id="productTable" class="collapse show">
             <div class="card-body">
+                <!-- Search Form -->
+                @using (Html.BeginForm("Search", "Products", FormMethod.Post))
+                {
+                    <div class="input-group mb-3">
+                        <input type="text" name="searchString" class="form-control" placeholder="Tìm kiếm sản phẩm..." aria-label="Tìm kiếm sản phẩm">
+                        <button class="btn btn-outline-secondary" type="submit">
+                            <i class="fas fa-search"></i> Tìm kiếm
+                        </button>
+                    </div>
+                }
+
                 <div class="table-responsive">
                     <table class="table table-hover">
                         <thead class="table-light">
@@ -72,7 +83,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach (var i in ViewData["DanhSachSP"] as List<sanPham>)
+                            @foreach (var i in ds)
                             {
                                 <tr>
                                     <td>
@@ -108,7 +119,7 @@
             </div>
         </div>
         <div class="card-footer text-muted">
-            Tổng số sản phẩm: @((ViewData["DanhSachSP"] as List<sanPham>)?.Count ?? 0)
+            Tổng số sản phẩm: @((ds)?.Count ?? 0)
         </div>
     </div>
 </div>
@@ -123,3 +134,4 @@
         </text>
     }
 </script>
+

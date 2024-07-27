@@ -19,14 +19,12 @@
                         <!-- /.card-header -->
                         <!-- form start -->
                         <div class="card-body">
-                            <!-- Hiển thị thông báo thành công nếu có -->
                             @if (TempData["SuccessMessage"] != null)
                             {
-                                <script type="text/javascript">
-                                    alert('@TempData["SuccessMessage"]');
+                    <script type="text/javascript">
+                                    alert('@Html.Raw(TempData["SuccessMessage"])');
                                     window.location.reload(); // Reload trang sau khi đăng thành công
-                                </script>
-                            }
+                    </script>}
 
                             <div class="form-group">
                                 <label for="tenSP">Tên sản phẩm</label>

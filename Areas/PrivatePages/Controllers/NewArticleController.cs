@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+using System.IO;
 using System.Web;
 using System.Web.Mvc;
 using ShopTechNoLoGy.Models;
 using ShopTechNoLoGy.Areas.PrivatePages.Models;
-using System.IO;
 
 namespace ShopTechNoLoGy.Areas.PrivatePages.Controllers
 {
@@ -15,50 +13,77 @@ namespace ShopTechNoLoGy.Areas.PrivatePages.Controllers
         [HttpGet]
         public ActionResult Index()
         {
-            baiViet x = new baiViet();
-            // thiết lập 1 số thông tin mặc định gần gán cho đối tượng bài viết
-            x.ngayDang = DateTime.Now;
-      
-            x.taiKhoan = ThuongDung.getTentaiKhoan();
-            
-            // ------------ đưa đường dẫn hình ra ngoài 
-            // lưu hình bên ngoài vào thư mục dữ liệu --->Images
+           
+            var x = new baiViet {
+                ngayDang = DateTime.Now,
+                taiKhoan = ThuongDung.getTentaiKhoan(),
+                  
+            };
             ViewBag.ddhinh = "/Dulieu/Images/image_upload_1.jpg";
             return View(x);
         }
+
         [HttpPost, ValidateInput(false)]
-        public ActionResult Index(baiViet x, HttpPostedFileBase exampleInputFile )
+        public ActionResult Index(baiViet x, HttpPostedFileBase exampleInputFile)
         {
-            ///b1:sử lí thông tin nhận về từ view
-            x.maBV = string.Format("{0:yyMMddhhmm}",DateTime.Now);
-            x.daDuyet = true;
-            x.ngayDang = DateTime.Now;
-            x.taiKhoan = ThuongDung.getTentaiKhoan();
-            
-            
-            x.maLoai = 1;
-            //------------lưu hình vào thư mục chứa bài viết 
-            if (exampleInputFile != null) {
-                string virpath = "/Dulieu/Images";
+            // Kiểm tra các trường thông tin bắt buộc
+            if (string.IsNullOrWhiteSpace(x.tenBV))
+                ModelState.AddModelError("tenBV", "Vui lòng nhập tên bài viết.");
+            if (string.IsNullOrWhiteSpace(x.ndTomTat))
+                ModelState.AddModelError("ndTomTat", "Vui lòng nhập nội dung tóm tắt.");
+            if (string.IsNullOrWhiteSpace(x.noiDung))
+                ModelState.AddModelError("noiDung", "Vui lòng nhập nội dung chính.");
+            if (exampleInputFile == null || exampleInputFile.ContentLength == 0)
+                ModelState.AddModelError("hinhDD", "Vui lòng chọn hình ảnh đại diện.");
 
-                string phypath = Server.MapPath("~/" + virpath);//xác định vị trí lưu hình sao khi upload
-                string ext = Path.GetExtension(exampleInputFile.FileName);
-                string fileName = "HDD" + x.maBV + ext;
-                exampleInputFile.SaveAs(phypath + fileName);//lưu dựa trên đường dẫn vật lý 
-                                                            //ghi nhận đường dẫn truy cập tới hình đã lưu dựa vào domain
-                x.hinhDD = virpath + fileName;// đường dẫn ảo theo domain
+            // Nếu không có lỗi, tiến hành lưu bài viết
+            if (ModelState.IsValid) {
+                try {
+                    // Xử lý thông tin bài viết
+                    x.maBV = DateTime.Now.ToString("yyMMddHHmm");
+                    x.daDuyet = true;
+                    x.ngayDang = DateTime.Now;
+                    x.taiKhoan = ThuongDung.getTentaiKhoan();
 
-                ViewBag.ddhinh = x.hinhDD;
+                    // Lưu hình vào thư mục chứa bài viết
+                    if (exampleInputFile != null && exampleInputFile.ContentLength > 0) {
+                        string virpath = "/Dulieu/Images";
+                        string phypath = Server.MapPath("~" + virpath);
+                        string ext = Path.GetExtension(exampleInputFile.FileName);
+                        string fileName = $"HDD{x.maBV}{ext}";
+                        string fullPath = Path.Combine(phypath, fileName);
+
+                        // Đảm bảo tên tệp không bị trùng lặp
+                        if (System.IO.File.Exists(fullPath)) {
+                            System.IO.File.Delete(fullPath);
+                        }
+
+                        exampleInputFile.SaveAs(fullPath);
+                        x.hinhDD = Path.Combine(virpath, fileName);
+                    }
+
+                    // Lưu bài viết vào database
+                    using (var db = new BanBanhOnline()) {
+                        db.baiViets.Add(x);
+                        db.SaveChanges();
+                    }
+
+                    // Thông báo đăng bài viết thành công bằng TempData
+                    TempData["SuccessMessage"] = "Đăng bài viết thành công!";
+
+                    // Redirect về action Index để làm mới trang
+                    return RedirectToAction("Index");
+                }
+                catch (Exception ex) {
+                    ModelState.AddModelError("", "Có lỗi xảy ra khi lưu bài viết.");
+                    // Log lỗi nếu cần
+                    // Logger.Log(ex);
+                }
             }
-            else
-                x.hinhDD = "";
 
+            // Nếu có lỗi, giữ lại hình đã chọn và hiển thị lại form
+            ViewBag.ddhinh = x.hinhDD ?? "/Dulieu/Images/image_upload_1.jpg";
 
-            ///b2: cập nhật đối tượng bài viết vừa đăng vào models
-            BanBanhOnline db = new BanBanhOnline();
-            db.baiViets.Add(x);
-            ///b3:lưu thông tin xuống database
-            db.SaveChanges();
             return View(x);
         }
     }
