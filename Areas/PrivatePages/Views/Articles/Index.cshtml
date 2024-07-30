@@ -57,6 +57,13 @@
             </div>
             <div id="articleTable" class="collapse show">
                 <div class="card-body">
+                    @if (TempData["SuccessMessage"] != null)
+                    {
+                        <script type="text/javascript">
+                                    alert('@Html.Raw(TempData["SuccessMessage"])');
+                                    window.location.reload(); // Reload trang sau khi đăng thành công
+                        </script>
+}
                     <div class="table-responsive">
                         <table class="table table-hover">
                             <thead class="table-light">
@@ -74,7 +81,7 @@
                                     <tr>
                                         <td>@i.tenBV</td>
                                         <td>@i.ngayDang</td>
-                                        <td>@i.taiKhoanTV.hoDem @i.taiKhoanTV.tenTV</td>
+                                        <td>@i.taiKhoan</td>
                                         <td>@i.solandoc</td>
                                         <td>
                                             <div class="btn-group">
@@ -84,7 +91,7 @@
                                                         <i class="fas fa-ban me-1"></i> Cấm hiển thị
                                                     </button>
                                                 </form>
-                                                <a href="@Url.Action("Edit", "Articles", new { maBaiViet = i.maBV })" class="btn btn-info btn-sm" title="Sửa bài viết">
+                                                <a href="@Url.Action("editArticle", "Articles", new { maBaiViet = i.maBV })" class="btn btn-info btn-sm" title="Sửa bài viết">
                                                     <i class="fas fa-edit me-1"></i> Sửa bài viết
                                                 </a>
                                                 <form action="@Url.Action("Delete", "Articles")" method="post">

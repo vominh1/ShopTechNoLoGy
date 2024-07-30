@@ -40,7 +40,7 @@ namespace ShopTechNoLoGy.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Logout()
+        public ActionResult LogoutAdmin()
         {
             Session["ttDangNhap"] = null;
             Session.Abandon();

@@ -23,6 +23,14 @@
         color: red;
         font-weight: bold;
     }
+    .arrow-down {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top:30px;
+        margin-bottom:0px !important;
+    }
+
 </style>
 <!-- about_area_start -->
 <!--<div class="about_area">
@@ -82,17 +90,53 @@
     <div class="container">
         <div class="row">
             <div class="col-xl-12">
-                <div class="section_title text-center mb-100">
-                    <h3>List Products</h3>
-                    <p>
-                        We provide more than 2 kinds of technology products most of the world
+                <div class="section_title text-center">
+                    <h3 style="
+                font-size: 36px;
+                margin-bottom: 20px;
+                text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+                background: linear-gradient(45deg, #f39c12, #e67e22);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                font-weight: bold;
+                letter-spacing: 1px;
+            ">
+                        Danh sách sản phẩm
+                    </h3>
+
+                    <p style="
+                font-size: 20px;
+                max-width: 600px;
+                margin: 0 auto 25px;
+                line-height: 1.6;
+                text-align: center;
+                font-weight: 300;
+                background: linear-gradient(45deg, #d35400, #e67e22);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+            ">
+                        Chúng tôi cung cấp hơn 5 loại sản phẩm bánh kẹo phổ biến trên thế giới
                     </p>
+
+                    <div class="arrow-down text-center" style="margin-top: 30px;">
+                        <div style="
+                    width: 50px;
+                    height: 50px;
+                    border-radius: 50%;
+                    background: linear-gradient(145deg, #3498db, #2980b9);
+                    display: inline-flex;
+                    justify-content: center;
+                    align-items: center;
+                    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+                ">
+                            <i class="fa fa-arrow-down" style="font-size: 24px; color: #fff;"></i>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-
         <div class="row">
-            <div class="col-xl-12">
+            <div class="col-xl-12" style="margin-bottom:-20px">
                 <div class="course_nav">
                     <nav>
                         <ul class="nav" id="myTab" role="tablist">
@@ -130,10 +174,10 @@
                                             <div class="single_courses">
                                                 <div class="thumb">
                                                     <a href="@Url.Action("Index", "ProductDetails", new { maSP = j.maSP })">
-                                                        <img src="@j.hinhDD" alt="">
+                                                        <img src="@j.hinhDD" alt="" style="height:300px">
                                                     </a>
                                                 </div>
-                                                <div class="courses_info" style="max-height:300px">
+                                                <div class="courses_info" style="height:250px">
                                                     <span>@i.loaiSP1</span>
                                                     <h3>
                                                         <a href="@Url.Action("Index", "ProductDetails", new { maSP = j.maSP })">

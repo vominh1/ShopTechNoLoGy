@@ -44,7 +44,8 @@ namespace ShopTechNoLoGy.Areas.PrivatePages.Controllers
                     x.daDuyet = true;
                     x.ngayDang = DateTime.Now;
                     x.taiKhoan = ThuongDung.getTentaiKhoan();
-
+                    x.maLoai = 1;
+                    x.solandoc = 1;
                     // Lưu hình vào thư mục chứa bài viết
                     if (exampleInputFile != null && exampleInputFile.ContentLength > 0) {
                         string virpath = "/Dulieu/Images";
@@ -60,10 +61,12 @@ namespace ShopTechNoLoGy.Areas.PrivatePages.Controllers
 
                         exampleInputFile.SaveAs(fullPath);
                         x.hinhDD = Path.Combine(virpath, fileName);
+
                     }
 
                     // Lưu bài viết vào database
                     using (var db = new BanBanhOnline()) {
+               
                         db.baiViets.Add(x);
                         db.SaveChanges();
                     }

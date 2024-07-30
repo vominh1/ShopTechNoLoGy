@@ -164,21 +164,30 @@
             <div class="sidebar">
                 <!-- Sidebar user (optional) -->
                 <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-                    <div class="image">
+                    @*<div class="image">
                         <img src="~/images/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
-                    </div>
-                    <div class="info">
+                    </div>*@
+                    <div class="user-info-container">
                         @{
                             var loggedInUser = Session["ttDangNhap"] as taiKhoanTV;
                         }
-                     
                         @if (loggedInUser != null)
                         {
-                            <a href="#" class="d-block" style="text-decoration: none;">
-                                @loggedInUser.hoDem @loggedInUser.tenTV
-                            </a>
+                            <div class="user-info">
+                                <a href="#" class="user-name">
+                                    <i class="fas fa-user-circle"></i> @loggedInUser.hoDem @loggedInUser.tenTV
+                                </a>
+                                @using (Html.BeginForm("LogoutAdmin", "LogoutAdmin", FormMethod.Post, new { id = "logoutForm", @class = "logout-form" }))
+                                {
+                                    @Html.AntiForgeryToken()
+                                    <button type="submit" class="logout-button">
+                                        <i class="fas fa-sign-out-alt"></i> Đăng xuất
+                                    </button>
                                 }
-                        </div>
+                            </div>
+                        }
+                    </div>
+
                 </div>
 
                 <!-- Sidebar Menu -->
@@ -413,3 +422,53 @@
 
 
     });</script>
+<script>
+    // JavaScript to handle form submission for logout
+    function submitLogoutForm() {
+        document.getElementById('logoutForm').submit();
+        return false;
+    }
+</script>
+<style>
+    .user-info-container {
+        background-color: #f8f9fa;
+        border-radius: 8px;
+        padding: 7px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    .user-info {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .user-name {
+        color: #007bff;
+        text-decoration: none;
+        font-weight: bold;
+        font-size: 16px;
+    }
+
+        .user-name:hover {
+            text-decoration: underline;
+        }
+
+    .logout-button {
+        background-color: #dc3545;
+        color: white;
+        border: none;
+        padding: 5px 10px;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+        .logout-button:hover {
+            background-color: #c82333;
+        }
+
+    .fas {
+        margin-right: 5px;
+    }
+</style>
