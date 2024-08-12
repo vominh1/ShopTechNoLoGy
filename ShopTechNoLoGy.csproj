@@ -1093,7 +1093,6 @@
     <Content Include="Areas\PrivatePages\Views\Orders\OrderDetailsT.cshtml" />
     <Content Include="Areas\PrivatePages\Views\Articles\editArticle.cshtml" />
     <Content Include="Areas\PrivatePages\Views\Revenue\ChiTietDoanhThuNgaytrongthang.cshtml" />
-    <None Include="packages.config" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
@@ -1117,6 +1116,7 @@
     <Content Include="Views\OrderDetails\ChuaXuLy.cshtml" />
     <Content Include="Views\OrderDetails\ChiTietDonHangChuaXuLy.cshtml" />
     <Content Include="Views\Loginadmin\Index.cshtml" />
+    <None Include="packages.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
