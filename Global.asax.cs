@@ -7,6 +7,7 @@ using System.Web.Routing;
 using ShopTechNoLoGy.App_Start;
 using System.Web.Optimization;
 using ShopTechNoLoGy.Models;
+using OfficeOpenXml;
 
 namespace ShopTechNoLoGy
 {
@@ -14,6 +15,7 @@ namespace ShopTechNoLoGy
     {
         protected void Application_Start()
         {
+            ExcelPackage.LicenseContext = LicenseContext.Commercial;
             AreaRegistration.RegisterAllAreas();
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleCollection bundles = BundleTable.Bundles;
@@ -27,5 +29,6 @@ namespace ShopTechNoLoGy
 
         }
        
+
     }
 }
