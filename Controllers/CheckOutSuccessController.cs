@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Web.Mvc;
-using Microsoft.AspNetCore.Mvc;
-using Rotativa;
 using ShopTechNoLoGy.Models;
 
 namespace ShopTechNoLoGy.Controllers

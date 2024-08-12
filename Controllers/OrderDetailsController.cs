@@ -129,6 +129,7 @@ namespace ShopTechNoLoGy.Controllers
                 ViewData["DanhSachDonHangChuaXuLy"] = new List<donHang>();
             }
         }
+
         public ActionResult ExportPdf(string soDH)
         {
             // Lấy thông tin đơn hàng
@@ -142,53 +143,31 @@ namespace ShopTechNoLoGy.Controllers
             PdfWriter.GetInstance(document, workStream).CloseStream = false;
             document.Open();
 
-            // Sử dụng font Unicode hỗ trợ tiếng Việt
-            string fontPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Fonts), "ARIALUNI.TTF");
-            BaseFont baseFont = BaseFont.CreateFont(fontPath, BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
-            Font font = new Font(baseFont, 12, Font.NORMAL);
+            // Thêm nội dung vào PDF
+            document.Add(new Paragraph("Chi Tiết Đơn Hàng"));
+            document.Add(new Paragraph($"Mã Đơn Hàng: {donHang.soDH}"));
+            document.Add(new Paragraph($"Tên Khách Hàng: {khachHang.tenKH}"));
+            document.Add(new Paragraph($"Ngày Đặt: {donHang.ngayDat}"));
+            document.Add(new Paragraph(" "));
 
-            // Thêm nội dung vào PDF sử dụng font Unicode
-            document.Add(new Paragraph("Chi Tiết Đơn Hàng", font));
-            document.Add(new Paragraph($"Mã Đơn Hàng: {donHang.soDH}", font));
-            document.Add(new Paragraph($"Tên Khách Hàng: {khachHang.tenKH}", font));
-            document.Add(new Paragraph($"Ngày Đặt: {donHang.ngayDat}", font));
-            document.Add(new Paragraph(" ", font));
-
-            // Tạo bảng và thêm cột tiêu đề
             PdfPTable table = new PdfPTable(7);
-            table.AddCell(new PdfPCell(new Phrase("Hình ảnh", font)));
-            table.AddCell(new PdfPCell(new Phrase("Số đơn hàng", font)));
-            table.AddCell(new PdfPCell(new Phrase("Mã sản phẩm", font)));
-            table.AddCell(new PdfPCell(new Phrase("Số lượng", font)));
-            table.AddCell(new PdfPCell(new Phrase("Giá bán", font)));
-            table.AddCell(new PdfPCell(new Phrase("Giảm giá", font)));
-            table.AddCell(new PdfPCell(new Phrase("Thành tiền", font)));
-
-            decimal tongTien = 0;
+            table.AddCell("Hình ảnh");
+            table.AddCell("Số đơn hàng");
+            table.AddCell("Mã sản phẩm");
+            table.AddCell("Số lượng");
+            table.AddCell("Giá bán");
+            table.AddCell("Giảm giá");
+            table.AddCell("Thành tiền");
 
             foreach (var item in chiTiet) {
-                table.AddCell(new PdfPCell(new Phrase(item.maSP.ToString(), font)));
-                table.AddCell(new PdfPCell(new Phrase(item.soDH.ToString(), font)));
-                table.AddCell(new PdfPCell(new Phrase(item.maSP.ToString(), font)));
-                table.AddCell(new PdfPCell(new Phrase(item.soLuong.ToString(), font)));
-                table.AddCell(new PdfPCell(new Phrase(string.Format("{0:#,##0 VNĐ}", item.giaBan), font)));
-                table.AddCell(new PdfPCell(new Phrase(string.Format("{0:#,##0 VNĐ}", item.giamGia), font)));
-                table.AddCell(new PdfPCell(new Phrase(string.Format("{0:#,##0 VNĐ}", item.ThanhTien), font)));
-
-                tongTien += item.ThanhTien ?? 0;
+                table.AddCell(item.maSP.ToString());
+                table.AddCell(item.soDH.ToString());
+                table.AddCell(item.maSP.ToString());
+                table.AddCell(item.soLuong.ToString());
+                table.AddCell(string.Format("{0:#,##0 VNĐ}", item.giaBan));
+                table.AddCell(string.Format("{0:#,##0 VNĐ}", item.giamGia));
+                table.AddCell(string.Format("{0:#,##0 VNĐ}", item.ThanhTien));
             }
-
-            // Thêm dòng trống trước tổng tiền
-            PdfPCell emptyCell = new PdfPCell(new Phrase("", font));
-            emptyCell.Colspan = 6;
-            emptyCell.Border = 0;
-            table.AddCell(emptyCell);
-
-            // Thêm dòng tổng tiền vào bảng
-            PdfPCell totalCell = new PdfPCell(new Phrase(string.Format("Tổng tiền: {0:#,##0 VNĐ}", tongTien), font));
-            totalCell.Colspan = 1;
-            totalCell.HorizontalAlignment = Element.ALIGN_RIGHT;
-            table.AddCell(totalCell);
 
             document.Add(table);
             document.Close();
