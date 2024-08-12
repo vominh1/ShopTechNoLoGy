@@ -1,7 +1,9 @@
 ﻿@using ShopTechNoLoGy.Models
+@using PagedList;
+@using PagedList.Mvc;
 @{
     ViewBag.Title = "Danh sách sản phẩm";
-    List<sanPham> ds = ViewData["DanhSachSP"] as List<sanPham>;
+    var products = ViewData["DanhSachSP"] as IPagedList<sanPham>;
 }
 <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
@@ -38,6 +40,7 @@
         margin-bottom: 2rem;
     }
 </style>
+
 <div class="page-header">
     <div class="container">
         <h1 class="display-4">Danh sách sản phẩm</h1>
@@ -61,7 +64,7 @@
         <div id="productTable" class="collapse show">
             <div class="card-body">
                 <!-- Search Form -->
-                @using (Html.BeginForm("Search", "Products", FormMethod.Post))
+                @using (Html.BeginForm("Index", "Products", FormMethod.Get))
                 {
                     <div class="input-group mb-3">
                         <input type="text" name="searchString" class="form-control" placeholder="Tìm kiếm sản phẩm..." aria-label="Tìm kiếm sản phẩm">
@@ -83,7 +86,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach (var i in ds)
+                            @foreach (var i in products)
                             {
                                 <tr>
                                     <td>
@@ -116,10 +119,38 @@
                         </tbody>
                     </table>
                 </div>
+
+                <!-- Phân trang -->
+                <nav aria-label="Page navigation">
+                    <ul class="pagination">
+                        @if (products.HasPreviousPage)
+                        {
+                            <li class="page-item">
+                                <a class="page-link" href="@Url.Action("Index", "Products", new { page = products.PageNumber - 1, searchString = Request.QueryString["searchString"] })" aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                </a>
+                            </li>
+                        }
+                        @for (int i = 1; i <= products.PageCount; i++)
+                        {
+                            <li class="page-item @(i == products.PageNumber ? "active" : "")">
+                                <a class="page-link" href="@Url.Action("Index", "Products", new { page = i, searchString = Request.QueryString["searchString"] })">@i</a>
+                            </li>
+                        }
+                        @if (products.HasNextPage)
+                        {
+                            <li class="page-item">
+                                <a class="page-link" href="@Url.Action("Index", "Products", new { page = products.PageNumber + 1, searchString = Request.QueryString["searchString"] })" aria-label="Next">
+                                    <span aria-hidden="true">&raquo;</span>
+                                </a>
+                            </li>
+                        }
+                    </ul>
+                </nav>
             </div>
         </div>
         <div class="card-footer text-muted">
-            Tổng số sản phẩm: @((ds)?.Count ?? 0)
+            Tổng số sản phẩm: @products.TotalItemCount
         </div>
     </div>
 </div>
@@ -134,4 +165,3 @@
         </text>
     }
 </script>
-

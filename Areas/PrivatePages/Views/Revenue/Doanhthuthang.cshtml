@@ -58,9 +58,15 @@
                                             <td>@item.Thang</td>
                                             <td>@item.Nam</td>
                                             <td>@item.DoanhThu.ToString("C0")</td>
+                                            <td>
+                                                <a href="@Url.Action("ChiTietDoanhThuNgaytrongthang", new { thang = item.Thang, nam = item.Nam })" class="btn btn-info btn-sm">
+                                                    Chi tiết
+                                                </a>
+                                            </td>
                                         </tr>
                                     }
                                 </tbody>
+
                             </table>
                         </div>
                     </div>

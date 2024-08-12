@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using PagedList;
 using ShopTechNoLoGy.Models;
 
 namespace ShopTechNoLoGy.Areas.PrivatePages.Controllers
@@ -13,11 +14,30 @@ namespace ShopTechNoLoGy.Areas.PrivatePages.Controllers
 
         [HttpGet]
         // GET: PrivatePages/Products
-        public ActionResult Index()
+        public ActionResult Index(int? page, string searchString)
         {
-            HienThiSanPhamchoGiaodien();
+            // Lấy danh sách sản phẩm đã duyệt
+            var products = db.sanPhams.Where(x => x.daDuyet == true).AsQueryable();
+
+            // Tìm kiếm sản phẩm nếu có từ khóa tìm kiếm
+            if (!string.IsNullOrEmpty(searchString)) {
+                products = products.Where(sp => sp.tenSP.Contains(searchString) || sp.maSP.Contains(searchString));
+            }
+
+            // Sắp xếp dữ liệu trước khi phân trang
+            products = products.OrderBy(sp => sp.tenSP);
+
+            // Phân trang
+            int pageSize = 10; // Số lượng sản phẩm trên mỗi trang
+            int pageNumber = (page ?? 1); // Trang hiện tại, mặc định là 1
+
+            var pagedProducts = products.ToPagedList(pageNumber, pageSize);
+
+            // Cập nhật ViewData và ViewBag
+            ViewData["DanhSachSP"] = pagedProducts;
             ViewBag.MaLoaiList = GetMaLoaiList();
-            return View();
+
+            return View(pagedProducts);
         }
         [HttpPost]
         public ActionResult Delete(string maSanPham)

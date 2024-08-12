@@ -60,6 +60,7 @@ namespace ShopTechNoLoGy.Controllers
             using (var context = new BanBanhOnline()) {
                 using (DbContextTransaction trans = context.Database.BeginTransaction()) {
                     try {
+                        // Tạo mã khách hàng ngẫu nhiên
                         x.maKH = GenerateRandomCustomerCode(context);
                         context.khachHangs.Add(x);
                         context.SaveChanges();
@@ -82,9 +83,10 @@ namespace ShopTechNoLoGy.Controllers
                         CartShop1 gh = Session["GioHang"] as CartShop1;
                         foreach (ctDonHang i in gh.SanPhamDC.Values) {
                             i.soDH = d.soDH;
-                            i.ThanhTien = (i.soLuong * i.giaBan) * 10/100;
+                            // thành tiền bằng tổng thành tiền của 1 sản phẩm
+                            i.ThanhTien = (i.giaBan * i.soLuong - (i.soLuong * (i.giamGia * 1000))) ;
                             context.ctDonHangs.Add(i);
-
+                            // query theo mã sản phẩm
                             var sanPham = context.sanPhams.SingleOrDefault(sp => sp.maSP == i.maSP);
                             if (sanPham != null) {
                                 sanPham.SoLuongTonKho -= i.soLuong;
@@ -95,6 +97,8 @@ namespace ShopTechNoLoGy.Controllers
                         }
                         context.SaveChanges();
                         trans.Commit();
+                        
+                        // lưu tạm dữ liệu vào Session 
                         gh.TaiKhoan = currentUser?.taiKhoan ?? "guest";
                         gh.MaKH = x.maKH;
                         gh.DiaChi = x.diaChi;
