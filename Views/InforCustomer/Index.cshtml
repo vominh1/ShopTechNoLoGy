@@ -112,98 +112,120 @@
         .save-btn:hover {
             background-color: #4cae4c;
         }
+
     .breadcam_bg {
         background-image: url(../images/banner/banner2.jpg);
     }
 </style>
 <div class="bradcam_area breadcam_bg overlay1">
     <h3 style="margin-top:0; margin-bottom:0">Thông tin khách hàng</h3>
-</div>
-<div class="customer-info-container">
-
-    <div class="info-body">
-        <div class="info-group">
-            <div class="info-label">Tên tài khoản:</div>
-            <div class="info-value">@Model.taiKhoan</div>
+</div><div class="container mt-5">
+    <div class="card shadow-lg border-0">
+        <div class="card-header bg-primary text-white text-center">
+            <h4>Thông Tin Khách Hàng</h4>
         </div>
-        <div class="info-group">
-            <div class="info-label">Họ và tên:</div>
-            <div class="info-value">@(Model.hoDem + " " + Model.tenTV)</div>
-        </div>
-        <div class="info-group">
-            <div class="info-label">Giới tính:</div>
-            <div class="info-value">
-                @(Model.gioiTinh.HasValue ? (Model.gioiTinh.Value ? "Nam" : "Nữ") : "Không xác định")
+        <div class="card-body">
+            <div id="infoView">
+                <div class="row mb-3">
+                    <div class="col-sm-4 text-secondary">Tên tài khoản:</div>
+                    <div class="col-sm-8">@Model.taiKhoan</div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-sm-4 text-secondary">Họ và tên:</div>
+                    <div class="col-sm-8">@(Model.hoDem + " " + Model.tenTV)</div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-sm-4 text-secondary">Giới tính:</div>
+                    <div class="col-sm-8">
+                        @(Model.gioiTinh.HasValue ? (Model.gioiTinh.Value ? "Nam" : "Nữ") : "Không xác định")
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-sm-4 text-secondary">Email:</div>
+                    <div class="col-sm-8">@Model.email</div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-sm-4 text-secondary">Số điện thoại:</div>
+                    <div class="col-sm-8">@Model.soDT</div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-sm-4 text-secondary">Địa chỉ:</div>
+                    <div class="col-sm-8">@Model.diaChi</div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-sm-4 text-secondary">Trạng thái:</div>
+                    <div class="col-sm-8">@Model.trangThai</div>
+                </div>
+                <div class="text-center">
+                    <button id="editButton" class="btn btn-outline-primary mt-3">Chỉnh sửa thông tin</button>
+                </div>
             </div>
+
+            <!-- Form chỉnh sửa -->
+            <form id="editForm" class="mt-4" style="display:none;" method="post" action="@Url.Action("Update", "InforCustomer")">
+                <div class="row mb-3">
+                    <label for="taiKhoan" class="col-sm-4 col-form-label text-secondary">Tên tài khoản:</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" id="taiKhoan" name="taiKhoan" value="@Model.taiKhoan" readonly />
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label for="hoDem" class="col-sm-4 col-form-label text-secondary">Họ khách hàng:</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" id="hoDem" name="hoDem" value="@Model.hoDem" />
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label for="tenTV" class="col-sm-4 col-form-label text-secondary">Tên khách hàng:</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" id="tenTV" name="tenTV" value="@Model.tenTV" />
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label for="gioiTinh" class="col-sm-4 col-form-label text-secondary">Giới tính:</label>
+                    <div class="col-sm-8">
+                        <select class="form-control" id="gioiTinh" name="gioiTinh">
+                            <option value="true" @(Model.gioiTinh == true ? "selected" : "")>Nam</option>
+                            <option value="false" @(Model.gioiTinh == false ? "selected" : "")>Nữ</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label for="email" class="col-sm-4 col-form-label text-secondary">Email:</label>
+                    <div class="col-sm-8">
+                        <input type="email" class="form-control" id="email" name="email" value="@Model.email" />
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label for="soDT" class="col-sm-4 col-form-label text-secondary">Số điện thoại:</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" id="soDT" name="soDT" value="@Model.soDT" />
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label for="diaChi" class="col-sm-4 col-form-label text-secondary">Địa chỉ:</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" id="diaChi" name="diaChi" value="@Model.diaChi" />
+                    </div>
+                </div>
+                <div class="text-center">
+                    <button type="submit" class="btn btn-primary mt-3">Lưu thông tin</button>
+                </div>
+            </form>
         </div>
-        <div class="info-group">
-            <div class="info-label">Email:</div>
-            <div class="info-value">@Model.email</div>
-        </div>
-        <div class="info-group">
-            <div class="info-label">Số điện thoại:</div>
-            <div class="info-value">@Model.soDT</div>
-        </div>
-        <div class="info-group">
-            <div class="info-label">Địa chỉ:</div>
-            <div class="info-value">@Model.diaChi</div>
-        </div>
-        <div class="info-group">
-            <div class="info-label">Trạng thái:</div>
-            <div class="info-value">@Model.trangThai</div>
-        </div>
-        <button id="editButton" class="edit-btn">Chỉnh sửa thông tin</button>
     </div>
-
-    <!-- Form chỉnh sửa -->
-    <form id="editForm" style="display:none;" method="post" action="@Url.Action("Update", "InforCustomer")">
-        <div class="info-body">
-            <div class="form-group">
-                <label for="taiKhoan">Tên tài khoản:</label>
-                <input type="text" class="form-control" id="taiKhoan" name="taiKhoan" value="@Model.taiKhoan" readonly />
-            </div>
-            <div class="form-group">
-                <label for="hoDem">Họ khách hàng:</label>
-                <input type="text" class="form-control" id="hoDem" name="hoDem" value="@Model.hoDem" />
-            </div>
-            <div class="form-group">
-                <label for="tenTV">Tên khách hàng:</label>
-                <input type="text" class="form-control" id="tenTV" name="tenTV" value="@Model.tenTV" />
-            </div>
-            <div class="form-group">
-                <label for="gioiTinh">Giới tính:</label>
-                <select class="form-control" id="gioiTinh" name="gioiTinh">
-                    <option value="true" @(Model.gioiTinh == true ? "selected" : "")>Nam</option>
-                    <option value="false" @(Model.gioiTinh == false ? "selected" : "")>Nữ</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="email">Email:</label>
-                <input type="email" class="form-control" id="email" name="email" value="@Model.email" />
-            </div>
-            <div class="form-group">
-                <label for="soDT">Số điện thoại:</label>
-                <input type="text" class="form-control" id="soDT" name="soDT" value="@Model.soDT" />
-            </div>
-            <div class="form-group">
-                <label for="diaChi">Địa chỉ:</label>
-                <input type="text" class="form-control" id="diaChi" name="diaChi" value="@Model.diaChi" />
-            </div>
-            <button type="submit" class="save-btn">Lưu thông tin</button>
-        </div>
-    </form>
 </div>
 
 <script>
     document.getElementById("editButton").addEventListener("click", function () {
         var form = document.getElementById("editForm");
-        var infoBody = document.querySelector(".info-body");
+        var infoView = document.getElementById("infoView");
         if (form.style.display === "none") {
             form.style.display = "block";
-            infoBody.style.display = "none";
+            infoView.style.display = "none";
         } else {
             form.style.display = "none";
-            infoBody.style.display = "block";
+            infoView.style.display = "block";
         }
     });
 </script>

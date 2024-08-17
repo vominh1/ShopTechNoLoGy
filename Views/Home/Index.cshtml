@@ -23,14 +23,14 @@
         color: red;
         font-weight: bold;
     }
+
     .arrow-down {
         display: flex;
         justify-content: center;
         align-items: center;
-        margin-top:30px;
-        margin-bottom:0px !important;
+        margin-top: 30px;
+        margin-bottom: 0px !important;
     }
-
 </style>
 <!-- about_area_start -->
 <!--<div class="about_area">
@@ -86,146 +86,218 @@
 </div>-->
 <!-- about_area_end -->
 <!-- popular_courses_start -->
-<div class="popular_courses">
+<div class="product-section">
     <div class="container">
-        <div class="row">
-            <div class="col-xl-12">
-                <div class="section_title text-center">
-                    <h3 style="
-                font-size: 36px;
-                margin-bottom: 20px;
-                text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
-                background: linear-gradient(45deg, #f39c12, #e67e22);
-                -webkit-background-clip: text;
-                -webkit-text-fill-color: transparent;
-                font-weight: bold;
-                letter-spacing: 1px;
-            ">
-                        Danh sách sản phẩm
-                    </h3>
-
-                    <p style="
-                font-size: 20px;
-                max-width: 600px;
-                margin: 0 auto 25px;
-                line-height: 1.6;
-                text-align: center;
-                font-weight: 300;
-                background: linear-gradient(45deg, #d35400, #e67e22);
-                -webkit-background-clip: text;
-                -webkit-text-fill-color: transparent;
-            ">
-                        Chúng tôi cung cấp hơn 5 loại sản phẩm bánh kẹo phổ biến trên thế giới
-                    </p>
-
-                    <div class="arrow-down text-center" style="margin-top: 30px;">
-                        <div style="
-                    width: 50px;
-                    height: 50px;
-                    border-radius: 50%;
-                    background: linear-gradient(145deg, #3498db, #2980b9);
-                    display: inline-flex;
-                    justify-content: center;
-                    align-items: center;
-                    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-                ">
-                            <i class="fa fa-arrow-down" style="font-size: 24px; color: #fff;"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <!-- Section Title -->
+        <div class="section-title text-center">
+            <h2>Danh sách sản phẩm</h2>
+            <p>Khám phá các loại bánh kẹo ngon nhất từ khắp nơi trên thế giới.</p>
         </div>
-        <div class="row">
-            <div class="col-xl-12" style="margin-bottom:-20px">
-                <div class="course_nav">
-                    <nav>
-                        <ul class="nav" id="myTab" role="tablist">
+       
+        <!-- Category Tabs -->
+        <ul class="nav nav-tabs justify-content-center " id="productCategoryTab" role="tablist">
+            @{
+                int d = 0;
+                foreach (loaiSP i in Common.getCategories())
+                {
+                    <li class="nav-item">
+                        <a class="nav-link @(d++ == 0 ? "active" : "")" id="@i.maLoai-tab"
+                           data-toggle="tab" href="#@i.maLoai" role="tab"
+                           aria-controls="@i.maLoai" aria-selected="true">@i.loaiSP1</a>
+                    </li>
+                }
+            }
+        </ul>
+
+        <!-- Products Content -->
+        <div class="tab-content " id="productCategoryContent">
+            <!-- Added margin-top class "mt-4" -->
+            @{
+                int m = 0;
+                foreach (loaiSP i in Common.getCategories())
+                {
+                    <div class="tab-pane fade show @(m++ == 0 ? "active" : "")" id="@i.maLoai" role="tabpanel" aria-labelledby="@i.maLoai-tab">
+                        <div class="row justify-content-center">
                             @{
-                                int d = 0;
-                                foreach (loaiSP i in Common.getCategories())
+                                int n = 0;
+                                foreach (sanPham j in Common.getProductByLoaiSP(i.maLoai))
                                 {
-                                    <li class="nav-item">
-                                        <a class="nav-link @(d++ == 0 ? "active" : "")" id="@i.maLoai-tab"
-                                           data-toggle="tab" href="#@i.maLoai" role="tab"
-                                           aria-controls="@i.maLoai" aria-selected="false">@i.loaiSP1</a>
-                                    </li>
-                                }
-                            }
-                        </ul>
-                    </nav>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="all_courses">
-        <div class="container">
-            <div class="tab-content" id="myTabContent">
-                @{
-                    int m = 0;
-                    foreach (loaiSP i in Common.getCategories())
-                    {
-                        <div class="tab-pane fade show @(m++ == 0 ? "active" : "")" id="@i.maLoai" role="tabpanel" aria-labelledby="@i.maLoai-tab">
-                            <div class="row">
-                                @{
-                                    int n = 0;
-                                    foreach (sanPham j in Common.getProductByLoaiSP(i.maLoai))
-                                    {
-                                        <div class="col-xl-3 col-lg-3 col-md-6">
-                                            <div class="single_courses">
-                                                <div class="thumb">
-                                                    <a href="@Url.Action("Index", "ProductDetails", new { maSP = j.maSP })">
-                                                        <img src="@j.hinhDD" alt="" style="height:300px">
-                                                    </a>
+                                    <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+                                        <div class="product-card">
+                                            <div class="product-image">
+                                                <a href="@Url.Action("Index", "ProductDetails", new { maSP = j.maSP })">
+                                                    <img src="@j.hinhDD" alt="@j.tenSP">
+                                                </a>
+                                            </div>
+                                            <div class="product-info">
+                                                <h4>@((j.tenSP.Length > 25) ? j.tenSP.Substring(0, 22) + "..." : j.tenSP)</h4>
+                                                <span class="product-category">@i.loaiSP1</span>
+                                                <div class="product-price">
+                                                    @String.Format("{0:# VND}", @j.giaBan)
                                                 </div>
-                                                <div class="courses_info" style="height:250px">
-                                                    <span>@i.loaiSP1</span>
-                                                    <h3>
-                                                        <a href="@Url.Action("Index", "ProductDetails", new { maSP = j.maSP })">
-                                                            @((j.tenSP.Length > 30) ? j.tenSP.Substring(0, 25) + "..." : j.tenSP)
-                                                        </a>
-                                                    </h3>
-                                                    <div class="star_prise d-flex justify-content-between">
-                                                        <div class="star ">
-
-                                                            <b><a>Kho: (@j.SoLuongTonKho)</a></b>
-                                                        </div>
-                                                        <div class="prise">
-                                                            <span class="active_prise">
-                                                                @String.Format("{0:# VND}", @j.giaBan)
-                                                            </span>
-                                                            <br>
-                                                            @*Kiểm tra số lượng tồn kho nếu >0 thì cho mua else thông báo hết hàng *@
-                                                            @if (j.SoLuongTonKho > 0)
-                                                            {
-                                                                using (Html.BeginForm("AddToCart", "Home", FormMethod.Post))
-                                                                {
-                                                                    <input name="maSP" type="hidden" value="@j.maSP" />
-                                                                    <button class="btn btn-primary">Chọn mua</button>
-                                                                }
-                                                            }
-                                                            else
-                                                            {
-                                                                <span class="out-of-stock">Hết hàng</span>
-                                                            }
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                                @if (j.SoLuongTonKho > 0)
+                                                {
+                                                    using (Html.BeginForm("AddToCart", "Home", FormMethod.Post))
+                                                    {
+                                                        <input name="maSP" type="hidden" value="@j.maSP" />
+                                                        <button class="btn btn-primary btn-block">Chọn mua</button>
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    <span class="out-of-stock">Hết hàng</span>
+                                                }
                                             </div>
                                         </div>
-                                        if (n++ >= 10)
-                                        {
-                                            break;
-                                        }
+                                    </div>
+                                    if (n++ >= 10)
+                                    {
+                                        break;
                                     }
                                 }
-                            </div>
+                            }
                         </div>
-                    }
+                    </div>
                 }
-            </div>
+            }
         </div>
     </div>
 </div>
+
+<!-- Styles -->
+<style>
+    .product-section {
+        padding: 60px 0;
+        
+    }
+
+    .section-title h2 {
+        font-size: 32px;
+        font-weight: 700;
+        color: #333;
+        margin-bottom: 20px;
+        position: relative;
+    }
+
+        .section-title h2::after {
+            content: "";
+            width: 80px;
+            height: 4px;
+            background-color: #e74c3c;
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+    .section-title p {
+        font-size: 16px;
+        color: #666;
+        margin-bottom: 40px;
+    }
+
+    .nav-tabs .nav-link {
+        font-size: 16px;
+        color: #555;
+        margin: 0 10px;
+        padding: 12px 24px;
+        border-radius: 30px;
+        background-color: #fff;
+        border: 1px solid #ddd;
+        transition: background-color 0.3s, color 0.3s, transform 0.3s;
+    }
+
+        .nav-tabs .nav-link.active {
+            background-color: #e74c3c;
+            color: #fff;
+            border-color: #e74c3c;
+        }
+
+        .nav-tabs .nav-link:hover {
+            transform: scale(1.05);
+        }
+
+    .tab-content {
+        margin-top: 30px; /* Added margin to separate the tabs from the products */
+    }
+
+    .product-card {
+        background-color: #fff;
+        border: 1px solid #eee;
+        border-radius: 8px;
+        overflow: hidden;
+        transition: box-shadow 0.4s, transform 0.4s;
+        text-align: center;
+        padding: 20px;
+        position: relative;
+    }
+
+        .product-card:hover {
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+            transform: translateY(-10px);
+        }
+
+    .product-image img {
+        width: 100%;
+        height: 220px;
+        object-fit: cover;
+        border-bottom: 1px solid #eee;
+        transition: transform 0.3s;
+    }
+
+    .product-card:hover .product-image img {
+        transform: scale(1.05);
+    }
+
+    .product-info {
+        padding: 15px;
+    }
+
+        .product-info h4 {
+            font-size: 18px;
+            color: #333;
+            margin-bottom: 10px;
+            font-weight: 600;
+            line-height: 1.4;
+        }
+
+    .product-category {
+        font-size: 14px;
+        color: #999;
+        margin-bottom: 10px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .product-price {
+        font-size: 20px;
+        color: #e74c3c;
+        font-weight: 700;
+        margin-bottom: 15px;
+    }
+
+    .btn-block {
+        width: 100%;
+        padding: 12px;
+        background-color: #3498db;
+        color: #fff;
+        border: none;
+        border-radius: 30px;
+        transition: background-color 0.3s;
+        font-weight: 600;
+        font-size: 16px;
+    }
+
+        .btn-block:hover {
+            background-color: #2980b9;
+        }
+
+    .out-of-stock {
+        font-size: 14px;
+        color: #e74c3c;
+        font-weight: 700;
+    }
+</style>
 
 <!-- popular_courses_end-->
 <!-- testimonial_area_start -->
@@ -470,10 +542,10 @@
         .boxed_btn:hover {
             background-color: #ff3b2f; /* Màu nền khi rê chuột */
         }
+
     .carousel-control-prev-icon .carousel-control-next-icon {
         width: 35px !important;
         height: 35px !important;
-       
     }
 </style>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
