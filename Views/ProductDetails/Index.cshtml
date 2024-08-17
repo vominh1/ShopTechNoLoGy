@@ -1,187 +1,72 @@
 ﻿@using ShopTechNoLoGy.Models
 @{
+   
     ViewBag.Title = "Thông Tin Sản Phẩm";
     sanPham i = ViewData["spcanxem"] as sanPham;
 }
 <style>
-    .courses_details_banner {
-        background-image: url(../images/banner/banner2.jpg);
-        height: 300px;
-        display: flex;
-        align-items: center;
-    }
-
-    .course_text h3 {
-        color: #fff;
-        font-size: 2.5rem;
-    }
-
-    .prise span.active {
-        font-size: 1.5rem;
-        color: #ff4d4d;
-    }
-
-    .out-of-stock {
-        color: red;
-        font-weight: bold;
-    }
-
-    .bradcam_area {
-        height: 100px;
-    }
-
-    .single_courses h3 {
-        font-size: 2rem;
-        margin-bottom: 20px;
-    }
-
-    .outline_courses_info {
-        font-size: 1rem;
-        color: #555;
-    }
-
-    .courses_sidebar img {
+    .product-banner {
         width: 100%;
-        height: auto;
-        border-radius: 8px;
+        height: 400px;
+        background: url(../images/banner/banner2.jpg);
+        background-size: cover;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        color: #fff;
+        text-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+        box-sizing: border-box;
+        flex-wrap: wrap; /* Thêm thuộc tính này để hỗ trợ responsive */
     }
-
-    .author_info .widget_title {
-        font-size: 1.5rem;
-        margin-bottom: 20px;
-    }
-
-    .cat-list p {
-        margin: 0;
-        font-size: 1rem;
-    }
-
-    .cat-list li {
-        margin-bottom: 10px;
-    }
-
-    .courses_sidebar {
-        position: relative;
-    }
-
-    .zoom {
-        transition: transform 0.2s;
-    }
-
-        .zoom:hover {
-            transform: scale(1.2);
-            z-index: 1000;
-        }
 </style>
+<link href="~/Content/style/styleproductdetail.css" rel="stylesheet" />
+<!-- Product Details Section -->
+<div class="product-details-container">
+    <!-- Product Banner -->
+    <div class="product-banner">
+        <h1 class="product-title">@i.tenSP</h1>
+        <!-- Related Info -->
+        <div class="related-info">
+            <h4>Thông tin liên quan</h4>
+            <ul>
+                <li><i class="fas fa-tag"></i><span>Tên sản phẩm: @i.tenSP</span></li>
+                <li><i class="fas fa-industry"></i><span>Nhà sản xuất: @i.nhaSanXuat</span></li>
+                <li><i class="fas fa-balance-scale"></i><span>Đơn vị tính: @i.dvt</span></li>
+                <li><i class="fas fa-box-open"></i><span>Loại sản phẩm: @i.loaiHang</span></li>
+            </ul>
+        </div>
+    </div>
 
-<link rel="stylesheet" href="~/Content/style.css">
+    <!-- Product Info -->
+    <div class="product-info">
+        <!-- Product Image -->
+        <div class="product-image ">
+            <img src="@i.hinhDD" alt="@i.tenSP" style="height:400px;width:400px;">
+        </div>
 
-<!-- bradcam_area_start -->
-<div class="courses_details_banner">
-    <div class="container">
-        <div class="row">
-            <div class="col-xl-6">
-                <div class="course_text">
-                    <h3>@i.tenSP</h3>
-                    <div class="prise">
-                        <span class="active">@String.Format("{0:#,##0 VNĐ}", i.giaBan)</span>
-                        <br>
-                        @if (i.SoLuongTonKho <= 0)
-                        {
-                            <span class="out-of-stock">Hết hàng</span>
-                        }
-                        else
-                        {
-                            using (Html.BeginForm("AddToCart", "Home", FormMethod.Post))
-                            {
-                                <input name="maSP" type="hidden" value="@i.maSP" />
-                                <button class="btn btn-primary">Chọn mua</button>
-                            }
-                        }
-                    </div>
-                </div>
+        <!-- Product Details -->
+        <div class="product-details">
+            <div class="product-price">Giá : @String.Format("{0:#,##0 VNĐ}", i.giaBan)</div>
+            <div class="product-summary">@i.ndTomTat</div>
+            <div class="product-content">
+                @i.noiDung
             </div>
+
+            @if (i.SoLuongTonKho <= 0)
+            {
+                <div class="out-of-stock">Hết hàng</div>
+            }
+            else
+            {
+                using (Html.BeginForm("AddToCart", "Home", FormMethod.Post))
+                {
+                    <input name="maSP" type="hidden" value="@i.maSP" />
+                    <button class="add-to-cart-btn">Chọn mua</button>
+                }
+            }
         </div>
     </div>
 </div>
-<!-- bradcam_area_end -->
 
-<div class="courses_details_info">
-    <div class="container">
-        <div class="row">
-            <div class="col-xl-7 col-lg-7">
-                <div class="single_courses">
-                    <h3>@i.tenSP</h3>
-                    <p>@i.ndTomTat</p>
-                </div>
-                <div class="outline_courses_info">
-                    @i.noiDung
-                </div>
-            </div>
-            <div class="col-xl-5 col-lg-5">
-                <div class="courses_sidebar">
-                    <div class="video_thumb">
-                        <img class="zoom" src="@i.hinhDD" alt="@i.tenSP" />
-                    </div>
-                    <div class="author_info">
-                        <div class="auhor_header">
-                            <aside class="single_sidebar_widget post_category_widget">
-                                <h4 class="widget_title" style="text-align:center">Thông tin liên quan</h4>
-                                <ul class="list cat-list">
-                                    <li>
-                                        <a href="#" class="d-flex">
-                                            <p>- Tên sản phẩm: @i.tenSP</p>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#" class="d-flex">
-                                            <p>- Nhà sản xuất: @i.nhaSanXuat</p>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#" class="d-flex">
-                                            <p>- Đơn vị tính: @i.dvt</p>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#" class="d-flex">
-                                            <p>- Loại sản phẩm: @i.loaiHang</p>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </aside>
-                        </div>
-                    </div>
-                    @if (i.SoLuongTonKho <= 0)
-                    {
-                        <button class="btn btn-primary" disabled>Hết hàng</button>
-                    }
-                    else
-                    {
-                        using (Html.BeginForm("AddToCart", "Home", FormMethod.Post))
-                        {
-                            <input name="maSP" type="hidden" value="@i.maSP" />
-                            <button class="btn btn-primary">Chọn mua</button>
-                        }
-                    }
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<script>
-document.addEventListener('DOMContentLoaded', function () {
-    const img = document.querySelector('.video_thumb img');
-    img.addEventListener('mousemove', function (e) {
-        const width = img.offsetWidth;
-        const height = img.offsetHeight;
-        const mouseX = e.offsetX;
-        const mouseY = e.offsetY;
-
-        const bgPosX = (mouseX / width) * 100;
-        const bgPosY = (mouseY / height) * 100;
-
-        img.style.transformOrigin = `${bgPosX}% ${bgPosY}%`;
-    });
-});
-</script>
+<!-- Include Font Awesome for icons -->
+<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>

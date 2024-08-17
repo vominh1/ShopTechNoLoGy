@@ -636,6 +636,7 @@
     <Content Include="Content\Site.css" />
     <Content Include="Content\slicknav.css" />
     <Content Include="Content\styles.css" />
+    <Content Include="Content\style\styleproductdetail.css" />
     <Content Include="Content\theme-default.css" />
     <Content Include="Content\themify-icons.css" />
     <Content Include="Dulieu\Images\giamgia.jpg" />

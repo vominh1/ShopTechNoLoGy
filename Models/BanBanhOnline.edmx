@@ -131,6 +131,7 @@
           <Property Name="ghiChu" Type="ntext" />
           <Property Name="maNhom" Type="int" />
           <Property Name="maQH" Type="int" />
+          <Property Name="quyenadmin" Type="bit" />
         </EntityType>
         <Association Name="FK__baiViet__maLoai__37A5467C">
           <End Role="loaiSP" Type="Self.loaiSP" Multiplicity="0..1" />
@@ -462,6 +463,7 @@
           <NavigationProperty Name="nhomTk" Relationship="Self.FK__taiKhoanT__maNho__403A8C7D" FromRole="taiKhoanTV" ToRole="nhomTk" />
           <NavigationProperty Name="quanHuyen" Relationship="Self.FK__taiKhoanTV__maQH__412EB0B6" FromRole="taiKhoanTV" ToRole="quanHuyen" />
           <NavigationProperty Name="sanPhams" Relationship="Self.FK__sanPham__taiKhoa__3F466844" FromRole="taiKhoanTV" ToRole="sanPham" />
+          <Property Name="quyenadmin" Type="Boolean" />
         </EntityType>
         <Association Name="FK__baiViet__maLoai__37A5467C">
           <End Role="loaiSP" Type="Self.loaiSP" Multiplicity="0..1" />
@@ -776,6 +778,7 @@
           <EntitySetMapping Name="taiKhoanTVs">
             <EntityTypeMapping TypeName="Models.taiKhoanTV">
               <MappingFragment StoreEntitySet="taiKhoanTV">
+                <ScalarProperty Name="quyenadmin" ColumnName="quyenadmin" />
                 <ScalarProperty Name="taiKhoan" ColumnName="taiKhoan" />
                 <ScalarProperty Name="matKhau" ColumnName="matKhau" />
                 <ScalarProperty Name="hoDem" ColumnName="hoDem" />

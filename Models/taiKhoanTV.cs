@@ -35,6 +35,7 @@ namespace ShopTechNoLoGy.Models
         public string ghiChu { get; set; }
         public Nullable<int> maNhom { get; set; }
         public Nullable<int> maQH { get; set; }
+        public Nullable<bool> quyenadmin { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<baiViet> baiViets { get; set; }

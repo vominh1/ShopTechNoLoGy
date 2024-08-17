@@ -34,7 +34,6 @@ namespace ShopTechNoLoGy.Controllers
                 // Redirect to Login if not authenticated
                 return RedirectToAction("Index", "Login", new { returnUrl = Url.Action("Index", "CheckOut") });
             }
-
             // Validate input fields
             if (string.IsNullOrWhiteSpace(x.tenKH)) {
                 ModelState.AddModelError("tenKH", "Vui lòng nhập họ tên khách hàng.");
@@ -119,11 +118,14 @@ namespace ShopTechNoLoGy.Controllers
                     }
                 }
             }
-
             return RedirectToAction("Index", "CheckOut");
         }
 
-
+       /// <summary>
+       /// hàm tạo MKH ngẫu nhiên
+       /// </summary>
+       /// <param name="context"></param>
+       /// <returns></returns>
         private string GenerateRandomCustomerCode(BanBanhOnline context)
         {
             string maKH;
