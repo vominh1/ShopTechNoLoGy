@@ -32,143 +32,10 @@
         margin-bottom: 0px !important;
     }
 </style>
-<!-- about_area_start -->
-<!--<div class="about_area">
-
-    <div class="container">
-        <div class="row">-->
-@*<div class="col-xl-5 col-lg-6">
-        <div class="single_about_info">
-            <h3>
-                Over 3000 Tutorials <br>
-                from 12 Courses
-            </h3>
-            <p>
-                Our set he for firmament morning sixth subdue darkness creeping gathered divide our let god
-                moving. Moving in fourth air night bring upon you’re it beast let you dominion likeness open
-                place day great wherein heaven sixth lesser subdue fowl
-            </p>
-            <a href="#" class="boxed_btn">Enroll a Course</a>
-        </div>
-    </div>*@
-@*<div class="col-xl-6 offset-xl-1 col-lg-6">
-        <div class="about_tutorials">
-            <div class="courses">
-                <div class="inner_courses">
-                    <div class="text_info">
-                        <span>50+</span>
-                        <p> Courses</p>
-                    </div>
-                </div>
-            </div>
-            <div class="courses-blue">
-                <div class="inner_courses">
-                    <div class="text_info">
-                        <span>1234</span>
-                        <p> Courses</p>
-                    </div>
-
-                </div>
-            </div>
-            <div class="courses-sky">
-                <div class="inner_courses">
-                    <div class="text_info">
-                        <span>123+</span>
-                        <p> Courses</p>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-    </div>*@
-<!--</div>
-    </div>
-</div>-->
-<!-- about_area_end -->
-<!-- popular_courses_start -->
-<div class="product-section">
-    <div class="container">
-        <!-- Section Title -->
-        <div class="section-title text-center">
-            <h2>Danh sách sản phẩm</h2>
-            <p>Khám phá các loại bánh kẹo ngon nhất từ khắp nơi trên thế giới.</p>
-        </div>
-       
-        <!-- Category Tabs -->
-        <ul class="nav nav-tabs justify-content-center " id="productCategoryTab" role="tablist">
-            @{
-                int d = 0;
-                foreach (loaiSP i in Common.getCategories())
-                {
-                    <li class="nav-item">
-                        <a class="nav-link @(d++ == 0 ? "active" : "")" id="@i.maLoai-tab"
-                           data-toggle="tab" href="#@i.maLoai" role="tab"
-                           aria-controls="@i.maLoai" aria-selected="true">@i.loaiSP1</a>
-                    </li>
-                }
-            }
-        </ul>
-
-        <!-- Products Content -->
-        <div class="tab-content " id="productCategoryContent">
-            <!-- Added margin-top class "mt-4" -->
-            @{
-                int m = 0;
-                foreach (loaiSP i in Common.getCategories())
-                {
-                    <div class="tab-pane fade show @(m++ == 0 ? "active" : "")" id="@i.maLoai" role="tabpanel" aria-labelledby="@i.maLoai-tab">
-                        <div class="row justify-content-center">
-                            @{
-                                int n = 0;
-                                foreach (sanPham j in Common.getProductByLoaiSP(i.maLoai))
-                                {
-                                    <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
-                                        <div class="product-card">
-                                            <div class="product-image">
-                                                <a href="@Url.Action("Index", "ProductDetails", new { maSP = j.maSP })">
-                                                    <img src="@j.hinhDD" alt="@j.tenSP">
-                                                </a>
-                                            </div>
-                                            <div class="product-info">
-                                                <h4>@((j.tenSP.Length > 25) ? j.tenSP.Substring(0, 22) + "..." : j.tenSP)</h4>
-                                                <span class="product-category">@i.loaiSP1</span>
-                                                <div class="product-price">
-                                                    @String.Format("{0:# VND}", @j.giaBan)
-                                                </div>
-                                                @if (j.SoLuongTonKho > 0)
-                                                {
-                                                    using (Html.BeginForm("AddToCart", "Home", FormMethod.Post))
-                                                    {
-                                                        <input name="maSP" type="hidden" value="@j.maSP" />
-                                                        <button class="btn btn-primary btn-block">Chọn mua</button>
-                                                    }
-                                                }
-                                                else
-                                                {
-                                                    <span class="out-of-stock">Hết hàng</span>
-                                                }
-                                            </div>
-                                        </div>
-                                    </div>
-                                    if (n++ >= 10)
-                                    {
-                                        break;
-                                    }
-                                }
-                            }
-                        </div>
-                    </div>
-                }
-            }
-        </div>
-    </div>
-</div>
-
 <!-- Styles -->
 <style>
     .product-section {
         padding: 60px 0;
-        
     }
 
     .section-title h2 {
@@ -298,6 +165,139 @@
         font-weight: 700;
     }
 </style>
+<!-- about_area_start -->
+<!--<div class="about_area">
+
+    <div class="container">
+        <div class="row">-->
+@*<div class="col-xl-5 col-lg-6">
+        <div class="single_about_info">
+            <h3>
+                Over 3000 Tutorials <br>
+                from 12 Courses
+            </h3>
+            <p>
+                Our set he for firmament morning sixth subdue darkness creeping gathered divide our let god
+                moving. Moving in fourth air night bring upon you’re it beast let you dominion likeness open
+                place day great wherein heaven sixth lesser subdue fowl
+            </p>
+            <a href="#" class="boxed_btn">Enroll a Course</a>
+        </div>
+    </div>*@
+@*<div class="col-xl-6 offset-xl-1 col-lg-6">
+        <div class="about_tutorials">
+            <div class="courses">
+                <div class="inner_courses">
+                    <div class="text_info">
+                        <span>50+</span>
+                        <p> Courses</p>
+                    </div>
+                </div>
+            </div>
+            <div class="courses-blue">
+                <div class="inner_courses">
+                    <div class="text_info">
+                        <span>1234</span>
+                        <p> Courses</p>
+                    </div>
+
+                </div>
+            </div>
+            <div class="courses-sky">
+                <div class="inner_courses">
+                    <div class="text_info">
+                        <span>123+</span>
+                        <p> Courses</p>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>*@
+<!--</div>
+    </div>
+</div>-->
+<!-- about_area_end -->
+<!-- popular_courses_start -->
+<div class="product-section">
+    <div class="container">
+        <!-- Section Title -->
+        <div class="section-title text-center">
+            <h2>Danh sách sản phẩm</h2>
+            <p>Khám phá các loại bánh kẹo ngon nhất từ khắp nơi trên thế giới.</p>
+        </div>
+
+        <!-- Category Tabs -->
+        <ul class="nav nav-tabs justify-content-center " id="productCategoryTab" role="tablist">
+            @{
+                int d = 0;
+                foreach (loaiSP i in Common.getCategories())
+                {
+                    <li class="nav-item">
+                        <a class="nav-link @(d++ == 0 ? "active" : "")" id="@i.maLoai-tab"
+                           data-toggle="tab" href="#@i.maLoai" role="tab"
+                           aria-controls="@i.maLoai" aria-selected="true">@i.loaiSP1</a>
+                    </li>
+                }
+            }
+        </ul>
+
+        <!-- Products Content -->
+        <div class="tab-content " id="productCategoryContent">
+            <!-- Added margin-top class "mt-4" -->
+            @{
+                int m = 0;
+                foreach (loaiSP i in Common.getCategories())
+                {
+                    <div class="tab-pane fade show @(m++ == 0 ? "active" : "")" id="@i.maLoai" role="tabpanel" aria-labelledby="@i.maLoai-tab">
+                        <div class="row justify-content-center">
+                            @{
+                                int n = 0;
+                                foreach (sanPham j in Common.getProductByLoaiSP(i.maLoai))
+                                {
+                                    <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+                                        <div class="product-card">
+                                            <div class="product-image">
+                                                <a href="@Url.Action("Index", "ProductDetails", new { maSP = j.maSP })">
+                                                    <img src="@j.hinhDD" alt="@j.tenSP">
+                                                </a>
+                                            </div>
+                                            <div class="product-info">
+                                                <h4>@((j.tenSP.Length > 25) ? j.tenSP.Substring(0, 22) + "..." : j.tenSP)</h4>
+                                                <span class="product-category">@i.loaiSP1</span>
+                                                <div class="product-price">
+                                                    @String.Format("{0:# VND}", @j.giaBan)
+                                                </div>
+                                                @if (j.SoLuongTonKho > 0)
+                                                {
+                                                    using (Html.BeginForm("AddToCart", "Home", FormMethod.Post))
+                                                    {
+                                                        <input name="maSP" type="hidden" value="@j.maSP" />
+                                                        <button class="btn btn-primary btn-block">Chọn mua</button>
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    <span class="out-of-stock">Hết hàng</span>
+                                                }
+                                            </div>
+                                        </div>
+                                    </div>
+                                    if (n++ >= 10)
+                                    {
+                                        break;
+                                    }
+                                }
+                            }
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+    </div>
+</div>
+
+
 
 <!-- popular_courses_end-->
 <!-- testimonial_area_start -->
