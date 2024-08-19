@@ -45,15 +45,4 @@
 - **Bootstrap/Tailwind CSS**: Để thiết kế giao diện responsive và đẹp mắt.
 - **Chart.js/Highcharts**: Để trực quan hóa dữ liệu doanh thu bằng biểu đồ.
 
-## Cài Đặt và Cấu Hình
 
-### Yêu Cầu Hệ Thống
-
-- Visual Studio 2019 hoặc mới hơn
-- SQL Server 2019 hoặc mới hơn
-
-### Cài Đặt Dự Án
-
-1. **Clone Repository**:
-   ```bash
-   git clone https://github.com/username/repository.git
