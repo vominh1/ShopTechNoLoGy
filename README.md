@@ -1,5 +1,4 @@
 # Về project 
-- Website thương mại điện tử cho bán bánh kẹo
 - Website thương mại điện tử bán bánh kẹo
 # Chức năng 
 - Quản lý sản phẩm (thêm, sửa, xóa, xem chi tiết sản phẩm)
