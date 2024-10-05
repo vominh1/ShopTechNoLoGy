@@ -1,6 +1,6 @@
 ﻿@{
     Layout = "~/Views/Shared/_Layout.cshtml";
-    ViewBag.Title = " Đăng nhập cho khách hàng";
+    ViewBag.Title = "Đăng nhập cho khách hàng";
 }
 <style>
     .courses_details_banner {
@@ -10,44 +10,49 @@
     .breadcam_bg {
         background-image: url(../images/banner/banner2.jpg);
     }
+
     .bradcam_area {
         padding: 10px !important;
     }
 </style>
 <div class="bradcam_area breadcam_bg overlay1">
-  
+
 </div>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
-    <style>
-   html {
-            height: 100%;
-            margin: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-          
-        }
-        .container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100%;
-        }
-        .login-box {
-            background: rgba(255, 255, 255, 0.9);
-            border-radius: 10px;
-            padding: 40px;
-            box-shadow: 0 15px 25px rgba(0,0,0,0.1);
-            width: 350px;
-        }
+<style>
+    html {
+        height: 100%;
+        margin: 0;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    .container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+    }
+
+    .login-box {
+        background: rgba(255, 255, 255, 0.9);
+        border-radius: 10px;
+        padding: 40px;
+        box-shadow: 0 15px 25px rgba(0,0,0,0.1);
+        width: 350px;
+    }
+
         .login-box h2 {
             margin: 0 0 30px;
             padding: 0;
             color: #333;
             text-align: center;
         }
-        .user-box {
-            position: relative;
-            margin-bottom: 30px;
-        }
+
+    .user-box {
+        position: relative;
+        margin-bottom: 30px;
+    }
+
         .user-box input {
             width: 100%;
             padding: 10px 0;
@@ -59,6 +64,7 @@
             outline: none;
             background: transparent;
         }
+
         .user-box label {
             position: absolute;
             top: 0;
@@ -69,6 +75,7 @@
             pointer-events: none;
             transition: .5s;
         }
+
         .user-box input:focus ~ label,
         .user-box input:valid ~ label {
             top: -20px;
@@ -76,44 +83,47 @@
             color: #667eea;
             font-size: 12px;
         }
-        .btn {
-            position: relative;
-            display: inline-block;
-            padding: 10px 20px;
-            color: #fff;
-            font-size: 16px;
-            text-decoration: none;
-            text-transform: uppercase;
-            overflow: hidden;
-            transition: .5s;
-            margin-top: 40px;
-            letter-spacing: 4px;
-            background: #667eea;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
+
+    .btn {
+        position: relative;
+        display: inline-block;
+        padding: 10px 20px;
+        color: #fff;
+        font-size: 16px;
+        text-decoration: none;
+        text-transform: uppercase;
+        overflow: hidden;
+        transition: .5s;
+        margin-top: 40px;
+        letter-spacing: 4px;
+        background: #667eea;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
         .btn:hover {
             background: #764ba2;
             color: #fff;
             border-radius: 5px;
-            box-shadow: 0 0 5px #667eea,
-                        0 0 25px #667eea,
-                        0 0 50px #667eea,
-                        0 0 100px #667eea;
+            box-shadow: 0 0 5px #667eea, 0 0 25px #667eea, 0 0 50px #667eea, 0 0 100px #667eea;
         }
-        .remember-me {
-            display: flex;
-            align-items: center;
-            margin-bottom: 20px;
-        }
+
+    .remember-me {
+        display: flex;
+        align-items: center;
+        margin-bottom: 20px;
+    }
+
         .remember-me input {
             margin-right: 10px;
         }
-        .social-auth {
-            margin-top: 20px;
-            text-align: center;
-        }
+
+    .social-auth {
+        margin-top: 20px;
+        text-align: center;
+    }
+
         .social-auth a {
             display: inline-block;
             margin: 0 10px;
@@ -121,13 +131,16 @@
             font-size: 24px;
             transition: .3s;
         }
-        .social-auth a:hover {
-            color: #667eea;
-        }
-        .links {
-            margin-top: 30px;
-            text-align: center;
-        }
+
+            .social-auth a:hover {
+                color: #667eea;
+            }
+
+    .links {
+        margin-top: 30px;
+        text-align: center;
+    }
+
         .links a {
             margin: 0 10px;
             color: #333;
@@ -135,41 +148,56 @@
             font-size: 14px;
             transition: .3s;
         }
-        .links a:hover {
-            color: #667eea;
-        }
-    </style>
 
-    <div class="container">
-        <div class="login-box">
-            <h2>Đăng nhập</h2>
-            @using (Html.BeginForm("Index", "Login", FormMethod.Post, new { @class = "login-form" }))
-            {
-                @Html.AntiForgeryToken()
-                <div class="user-box">
-                    @Html.TextBox("Acc", "", new { required = "required" })
-                    <label>Email</label>
-                </div>
-                <div class="user-box">
-                    @Html.Password("Pass", "", new { required = "required" })
-                    <label>Mật khẩu</label>
-                </div>
-                @Html.Hidden("returnUrl", (string)ViewBag.ReturnUrl)
-                <div class="remember-me">
-                    <input type="checkbox" id="remember" name="remember">
-                    <label for="remember">Ghi nhớ đăng nhập</label>
-                </div>
-                <button type="submit" class="btn">
-                    Đăng nhập
-                </button>
+            .links a:hover {
+                color: #667eea;
             }
-            <div class="social-auth">
-                <a href="#"><i class="fab fa-facebook"></i></a>
-                <a href="#"><i class="fab fa-google"></i></a>
+
+    .error-message {
+        color: red;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+</style>
+
+<div class="container">
+    <div class="login-box">
+        <h2>Đăng nhập</h2>
+        <!-- Hiển thị thông báo lỗi nếu có -->
+        @if (!string.IsNullOrEmpty(ViewBag.ErrorMessage))
+        {
+            <div class="error-message">
+                @ViewBag.ErrorMessage
             </div>
-            <div class="links">
-                <a href="forgot-password.html">Quên mật khẩu?</a>
-                <a href="@Url.Action("Index", "Register")">Đăng ký tài khoản mới</a>
+        }
+
+        @using (Html.BeginForm("Index", "Login", FormMethod.Post, new { @class = "login-form" }))
+        {
+            @Html.AntiForgeryToken()
+            <div class="user-box">
+                @Html.TextBox("Acc", "", new { required = "required" })
+                <label>Email</label>
             </div>
+            <div class="user-box">
+                @Html.Password("Pass", "", new { required = "required" })
+                <label>Mật khẩu</label>
+            </div>
+            @Html.Hidden("returnUrl", (string)ViewBag.ReturnUrl)
+            <div class="remember-me">
+                <input type="checkbox" id="remember" name="remember">
+                <label for="remember">Ghi nhớ đăng nhập</label>
+            </div>
+            <button type="submit" class="btn">
+                Đăng nhập
+            </button>
+        }
+        <div class="social-auth">
+            <a href="#"><i class="fab fa-facebook"></i></a>
+            <a href="#"><i class="fab fa-google"></i></a>
+        </div>
+        <div class="links">
+            <a href="forgot-password.html">Quên mật khẩu?</a>
+            <a href="@Url.Action("Index", "Register")">Đăng ký tài khoản mới</a>
         </div>
     </div>
+</div>

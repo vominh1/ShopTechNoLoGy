@@ -1,0 +1,36 @@
+﻿@model ShopTechNoLoGy.Models.NhapKho
+
+<h2>Nhập Kho Sản Phẩm</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.maSP, "Mã Sản Phẩm")
+        @Html.DropDownListFor(m => m.maSP, new SelectList(ViewBag.SanPhamList, "maSP", "tenSP"), "Chọn sản phẩm", new { @class = "form-control" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.SoLuongNhap, "Số Lượng Nhập")
+        @Html.TextBoxFor(m => m.SoLuongNhap, new { @class = "form-control", @placeholder = "Số lượng" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.GiaNhap, "Giá Nhập")
+        @Html.TextBoxFor(m => m.GiaNhap, new { @class = "form-control", @placeholder = "Giá nhập" })
+    </div>
+
+    <div class="form-group">
+        @Html.HiddenFor(m => m.taiKhoan)
+        <input type="text" class="form-control" value="@User.Identity.Name" readonly />
+    </div>
+
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.GhiChu, "Ghi Chú")
+        @Html.TextBoxFor(m => m.GhiChu, new { @class = "form-control", @placeholder = "Ghi chú" })
+    </div>
+
+    <input type="submit" value="Nhập Kho" class="btn btn-success" />
+}

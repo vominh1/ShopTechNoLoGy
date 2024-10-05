@@ -35,5 +35,8 @@ namespace ShopTechNoLoGy.Models
         public virtual DbSet<sanPham> sanPhams { get; set; }
         public virtual DbSet<taiKhoanTV> taiKhoanTVs { get; set; }
         public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
+        public virtual DbSet<NhapKho> NhapKhoes { get; set; }
+        public virtual DbSet<TonKho> TonKhoes { get; set; }
+        public virtual DbSet<XuatKho> XuatKhoes { get; set; }
     }
 }

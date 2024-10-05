@@ -20,6 +20,8 @@ namespace ShopTechNoLoGy.Models
             this.baiViets = new HashSet<baiViet>();
             this.donHangs = new HashSet<donHang>();
             this.sanPhams = new HashSet<sanPham>();
+            this.NhapKhoes = new HashSet<NhapKho>();
+            this.XuatKhoes = new HashSet<XuatKho>();
         }
     
         public string taiKhoan { get; set; }
@@ -45,5 +47,9 @@ namespace ShopTechNoLoGy.Models
         public virtual quanHuyen quanHuyen { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<sanPham> sanPhams { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<NhapKho> NhapKhoes { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<XuatKho> XuatKhoes { get; set; }
     }
 }

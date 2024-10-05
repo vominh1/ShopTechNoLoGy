@@ -32,7 +32,8 @@ namespace ShopTechNoLoGy.Controllers
                     return RedirectToAction("Index", "Home");
                 }
             }
-
+            ViewBag.ErrorMessage = "Tài khoản hoặc mật khẩu không đúng. Vui lòng thử lại.";
+       
             ViewBag.ReturnUrl = returnUrl;
             return View();
         }

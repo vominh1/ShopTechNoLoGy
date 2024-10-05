@@ -951,12 +951,14 @@
     <Compile Include="Areas\PrivatePages\Controllers\CategoryOfProductController.cs" />
     <Compile Include="Areas\PrivatePages\Controllers\CustomerController.cs" />
     <Compile Include="Areas\PrivatePages\Controllers\DashbroadController.cs" />
+    <Compile Include="Areas\PrivatePages\Controllers\InventoryController.cs" />
     <Compile Include="Areas\PrivatePages\Controllers\LogoutAdminController.cs" />
     <Compile Include="Areas\PrivatePages\Controllers\NewArticleController.cs" />
     <Compile Include="Areas\PrivatePages\Controllers\NewProductController.cs" />
     <Compile Include="Areas\PrivatePages\Controllers\OrdersController.cs" />
     <Compile Include="Areas\PrivatePages\Controllers\ProductsController.cs" />
     <Compile Include="Areas\PrivatePages\Controllers\RevenueController.cs" />
+    <Compile Include="Areas\PrivatePages\Controllers\WareHouseController.cs" />
     <Compile Include="Areas\PrivatePages\Models\ThuongDung.cs" />
     <Compile Include="Areas\PrivatePages\PrivatePagesAreaRegistration.cs" />
     <Compile Include="Context\DbContextLocal.cs" />
@@ -1019,6 +1021,9 @@
       <DependentUpon>BanBanhOnline.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\MaHoa.cs" />
+    <Compile Include="Models\NhapKho.cs">
+      <DependentUpon>BanBanhOnline.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\nhomTk.cs">
       <DependentUpon>BanBanhOnline.tt</DependentUpon>
     </Compile>
@@ -1032,6 +1037,12 @@
       <DependentUpon>BanBanhOnline.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\taiKhoanTV.cs">
+      <DependentUpon>BanBanhOnline.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TonKho.cs">
+      <DependentUpon>BanBanhOnline.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\XuatKho.cs">
       <DependentUpon>BanBanhOnline.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -1130,6 +1141,11 @@
     <Content Include="Views\OrderDetails\ChuaXuLy.cshtml" />
     <Content Include="Views\OrderDetails\ChiTietDonHangChuaXuLy.cshtml" />
     <Content Include="Views\Loginadmin\Index.cshtml" />
+    <Content Include="Areas\PrivatePages\Views\WareHouse\Index.cshtml" />
+    <Content Include="Areas\PrivatePages\Views\WareHouse\Create.cshtml" />
+    <Content Include="Areas\PrivatePages\Views\WareHouse\Export.cshtml" />
+    <Content Include="Areas\PrivatePages\Views\WareHouse\dsExport.cshtml" />
+    <Content Include="Areas\PrivatePages\Views\WareHouse\TonKho.cshtml" />
     <None Include="packages.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -1141,6 +1157,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\PrivatePages\Data\" />
+    <Folder Include="Areas\PrivatePages\Views\Inventory\" />
     <Folder Include="Areas\PrivatePages\Views\LogoutAdmin\" />
     <Folder Include="Areas\PrivatePages\Views\Logout\" />
     <Folder Include="Areas\PrivatePages\Views\OrderList\" />

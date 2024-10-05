@@ -1,0 +1,36 @@
+﻿@model IEnumerable<ShopTechNoLoGy.Models.NhapKho>
+
+<h2>Quản Lý Nhập Kho</h2>
+
+<p>
+    @Html.ActionLink("Thêm Phiếu Nhập", "Create", "WareHouse", null, new { @class = "btn btn-primary" })
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Mã Phiếu Nhập</th>
+            <th>Mã Sản Phẩm</th>
+            <th>Tên Sản Phẩm</th>
+            <th>Số Lượng Nhập</th>
+            <th>Giá Nhập</th>
+            <th>Ngày Nhập</th>
+            <th>Người Nhập</th>
+            <th>Ghi Chú</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.MaPhieuNhap</td>
+                <td>@item.maSP</td>
+                <td>@item.sanPham.tenSP</td>
+                <td>@item.SoLuongNhap</td>
+                <td>@item.GiaNhap.ToString("N0")</td>
+                <td>@item.NgayNhap.ToString("dd/MM/yyyy")</td>
+                <td>@item.NguoiNhap</td>
+                <td>@item.GhiChu</td>
+            </tr>
+        }
+    </tbody>
+</table>

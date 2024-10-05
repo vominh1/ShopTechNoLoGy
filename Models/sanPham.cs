@@ -18,6 +18,8 @@ namespace ShopTechNoLoGy.Models
         public sanPham()
         {
             this.ctDonHangs = new HashSet<ctDonHang>();
+            this.NhapKhoes = new HashSet<NhapKho>();
+            this.XuatKhoes = new HashSet<XuatKho>();
         }
     
         public string maSP { get; set; }
@@ -40,5 +42,10 @@ namespace ShopTechNoLoGy.Models
         public virtual ICollection<ctDonHang> ctDonHangs { get; set; }
         public virtual loaiSP loaiSP { get; set; }
         public virtual taiKhoanTV taiKhoanTV { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<NhapKho> NhapKhoes { get; set; }
+        public virtual TonKho TonKho { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<XuatKho> XuatKhoes { get; set; }
     }
 }
