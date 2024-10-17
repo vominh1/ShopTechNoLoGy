@@ -625,6 +625,7 @@
     <Content Include="Content\font-awesome.min.css" />
     <Content Include="Content\gijgo.css" />
     <Content Include="Content\icheck-bootstrap.min.css" />
+    <Content Include="Content\layout.css" />
     <Content Include="Content\magnific-popup.css" />
     <Content Include="Content\main.css" />
     <Content Include="Content\nice-select.css" />
@@ -957,6 +958,7 @@
     <Compile Include="Areas\PrivatePages\Controllers\NewProductController.cs" />
     <Compile Include="Areas\PrivatePages\Controllers\OrdersController.cs" />
     <Compile Include="Areas\PrivatePages\Controllers\ProductsController.cs" />
+    <Compile Include="Areas\PrivatePages\Controllers\PromotionController.cs" />
     <Compile Include="Areas\PrivatePages\Controllers\RevenueController.cs" />
     <Compile Include="Areas\PrivatePages\Controllers\WareHouseController.cs" />
     <Compile Include="Areas\PrivatePages\Models\ThuongDung.cs" />
@@ -1000,6 +1002,12 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>BanBanhOnline.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\binhLuanBV.cs">
+      <DependentUpon>BanBanhOnline.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\binhLuanSP.cs">
+      <DependentUpon>BanBanhOnline.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\CartShop1.cs" />
     <Compile Include="Models\ChiTietNgayModel.cs" />
     <Compile Include="Models\Common.cs" />
@@ -1015,6 +1023,9 @@
     </Compile>
     <Compile Include="Models\Forum.cs" />
     <Compile Include="Models\khachHang.cs">
+      <DependentUpon>BanBanhOnline.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\KhuyenMai.cs">
       <DependentUpon>BanBanhOnline.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\loaiSP.cs">
@@ -1146,6 +1157,11 @@
     <Content Include="Areas\PrivatePages\Views\WareHouse\Export.cshtml" />
     <Content Include="Areas\PrivatePages\Views\WareHouse\dsExport.cshtml" />
     <Content Include="Areas\PrivatePages\Views\WareHouse\TonKho.cshtml" />
+    <Content Include="Areas\PrivatePages\Views\Promotion\Index.cshtml" />
+    <Content Include="Areas\PrivatePages\Views\Promotion\Create.cshtml" />
+    <Content Include="Areas\PrivatePages\Views\Promotion\ActivePromotions.cshtml" />
+    <Content Include="Areas\PrivatePages\Views\Promotion\HiddenPromotions.cshtml" />
+    <Content Include="Areas\PrivatePages\Views\Promotion\Edit.cshtml" />
     <None Include="packages.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

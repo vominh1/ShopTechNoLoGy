@@ -20,6 +20,26 @@
           <Property Name="maLoai" Type="int" />
           <Property Name="solandoc" Type="int" />
         </EntityType>
+        <EntityType Name="binhLuanBV">
+          <Key>
+            <PropertyRef Name="MaBL" />
+          </Key>
+          <Property Name="MaBL" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MaBV" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="TaiKhoan" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="NoiDung" Type="nvarchar" MaxLength="1000" Nullable="false" />
+          <Property Name="NgayBL" Type="datetime" />
+        </EntityType>
+        <EntityType Name="binhLuanSP">
+          <Key>
+            <PropertyRef Name="MaBL" />
+          </Key>
+          <Property Name="MaBL" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MaSP" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="TaiKhoan" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="NoiDung" Type="nvarchar" MaxLength="1000" Nullable="false" />
+          <Property Name="NgayBL" Type="datetime" />
+        </EntityType>
         <EntityType Name="ctDonHang">
           <Key>
             <PropertyRef Name="soDH" />
@@ -58,6 +78,20 @@
           <Property Name="gioiTinh" Type="bit" />
           <Property Name="ghiChu" Type="ntext" />
           <Property Name="maQH" Type="int" />
+        </EntityType>
+        <EntityType Name="KhuyenMai">
+          <Key>
+            <PropertyRef Name="maKM" />
+          </Key>
+          <Property Name="maKM" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="maSP" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="taiKhoan" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="noiDung" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="ngayBatDau" Type="datetime" Nullable="false" />
+          <Property Name="ngayKetThuc" Type="datetime" Nullable="false" />
+          <Property Name="ghiChu" Type="nvarchar" MaxLength="255" />
+          <Property Name="giamGia" Type="int" />
+          <Property Name="trangThai" Type="bit" />
         </EntityType>
         <EntityType Name="loaiSP">
           <Key>
@@ -189,6 +223,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__binhLuanSP__MaSP__503BEA1C">
+          <End Role="sanPham" Type="Self.sanPham" Multiplicity="1" />
+          <End Role="binhLuanSP" Type="Self.binhLuanSP" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="sanPham">
+              <PropertyRef Name="maSP" />
+            </Principal>
+            <Dependent Role="binhLuanSP">
+              <PropertyRef Name="MaSP" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__ctDonHang__maSP__398D8EEE">
           <End Role="sanPham" Type="Self.sanPham" Multiplicity="1" />
           <End Role="ctDonHang" Type="Self.ctDonHang" Multiplicity="*" />
@@ -246,6 +292,30 @@
             </Principal>
             <Dependent Role="khachHang">
               <PropertyRef Name="maQH" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__KhuyenMai__maSP__671F4F74">
+          <End Role="sanPham" Type="Self.sanPham" Multiplicity="1" />
+          <End Role="KhuyenMai" Type="Self.KhuyenMai" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="sanPham">
+              <PropertyRef Name="maSP" />
+            </Principal>
+            <Dependent Role="KhuyenMai">
+              <PropertyRef Name="maSP" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__KhuyenMai__taiKh__681373AD">
+          <End Role="taiKhoanTV" Type="Self.taiKhoanTV" Multiplicity="1" />
+          <End Role="KhuyenMai" Type="Self.KhuyenMai" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="taiKhoanTV">
+              <PropertyRef Name="taiKhoan" />
+            </Principal>
+            <Dependent Role="KhuyenMai">
+              <PropertyRef Name="taiKhoan" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -357,11 +427,50 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_BinhLuanBV_BaiViet">
+          <End Role="baiViet" Type="Self.baiViet" Multiplicity="1" />
+          <End Role="binhLuanBV" Type="Self.binhLuanBV" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="baiViet">
+              <PropertyRef Name="maBV" />
+            </Principal>
+            <Dependent Role="binhLuanBV">
+              <PropertyRef Name="MaBV" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BinhLuanBV_TaiKhoanTV">
+          <End Role="taiKhoanTV" Type="Self.taiKhoanTV" Multiplicity="1" />
+          <End Role="binhLuanBV" Type="Self.binhLuanBV" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="taiKhoanTV">
+              <PropertyRef Name="taiKhoan" />
+            </Principal>
+            <Dependent Role="binhLuanBV">
+              <PropertyRef Name="TaiKhoan" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TaiKhoan">
+          <End Role="taiKhoanTV" Type="Self.taiKhoanTV" Multiplicity="1" />
+          <End Role="binhLuanSP" Type="Self.binhLuanSP" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="taiKhoanTV">
+              <PropertyRef Name="taiKhoan" />
+            </Principal>
+            <Dependent Role="binhLuanSP">
+              <PropertyRef Name="TaiKhoan" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="ModelsStoreContainer">
           <EntitySet Name="baiViet" EntityType="Self.baiViet" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="binhLuanBV" EntityType="Self.binhLuanBV" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="binhLuanSP" EntityType="Self.binhLuanSP" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ctDonHang" EntityType="Self.ctDonHang" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="donHang" EntityType="Self.donHang" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="khachHang" EntityType="Self.khachHang" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="KhuyenMai" EntityType="Self.KhuyenMai" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="loaiSP" EntityType="Self.loaiSP" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="NhapKho" EntityType="Self.NhapKho" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="nhomTk" EntityType="Self.nhomTk" Schema="dbo" store:Type="Tables" />
@@ -378,6 +487,10 @@
           <AssociationSet Name="FK__baiViet__taiKhoa__38996AB5" Association="Self.FK__baiViet__taiKhoa__38996AB5">
             <End Role="taiKhoanTV" EntitySet="taiKhoanTV" />
             <End Role="baiViet" EntitySet="baiViet" />
+          </AssociationSet>
+          <AssociationSet Name="FK__binhLuanSP__MaSP__503BEA1C" Association="Self.FK__binhLuanSP__MaSP__503BEA1C">
+            <End Role="sanPham" EntitySet="sanPham" />
+            <End Role="binhLuanSP" EntitySet="binhLuanSP" />
           </AssociationSet>
           <AssociationSet Name="FK__ctDonHang__maSP__398D8EEE" Association="Self.FK__ctDonHang__maSP__398D8EEE">
             <End Role="sanPham" EntitySet="sanPham" />
@@ -398,6 +511,14 @@
           <AssociationSet Name="FK__khachHang__maQH__3D5E1FD2" Association="Self.FK__khachHang__maQH__3D5E1FD2">
             <End Role="quanHuyen" EntitySet="quanHuyen" />
             <End Role="khachHang" EntitySet="khachHang" />
+          </AssociationSet>
+          <AssociationSet Name="FK__KhuyenMai__maSP__671F4F74" Association="Self.FK__KhuyenMai__maSP__671F4F74">
+            <End Role="sanPham" EntitySet="sanPham" />
+            <End Role="KhuyenMai" EntitySet="KhuyenMai" />
+          </AssociationSet>
+          <AssociationSet Name="FK__KhuyenMai__taiKh__681373AD" Association="Self.FK__KhuyenMai__taiKh__681373AD">
+            <End Role="taiKhoanTV" EntitySet="taiKhoanTV" />
+            <End Role="KhuyenMai" EntitySet="KhuyenMai" />
           </AssociationSet>
           <AssociationSet Name="FK__NhapKho__maSP__42E1EEFE" Association="Self.FK__NhapKho__maSP__42E1EEFE">
             <End Role="sanPham" EntitySet="sanPham" />
@@ -435,6 +556,18 @@
             <End Role="taiKhoanTV" EntitySet="taiKhoanTV" />
             <End Role="XuatKho" EntitySet="XuatKho" />
           </AssociationSet>
+          <AssociationSet Name="FK_BinhLuanBV_BaiViet" Association="Self.FK_BinhLuanBV_BaiViet">
+            <End Role="baiViet" EntitySet="baiViet" />
+            <End Role="binhLuanBV" EntitySet="binhLuanBV" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BinhLuanBV_TaiKhoanTV" Association="Self.FK_BinhLuanBV_TaiKhoanTV">
+            <End Role="taiKhoanTV" EntitySet="taiKhoanTV" />
+            <End Role="binhLuanBV" EntitySet="binhLuanBV" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TaiKhoan" Association="Self.FK_TaiKhoan">
+            <End Role="taiKhoanTV" EntitySet="taiKhoanTV" />
+            <End Role="binhLuanSP" EntitySet="binhLuanSP" />
+          </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -456,6 +589,7 @@
           <NavigationProperty Name="loaiSP" Relationship="Self.FK__baiViet__maLoai__37A5467C" FromRole="baiViet" ToRole="loaiSP" />
           <NavigationProperty Name="taiKhoanTV" Relationship="Self.FK__baiViet__taiKhoa__38996AB5" FromRole="baiViet" ToRole="taiKhoanTV" />
           <Property Name="solandoc" Type="Int32" />
+          <NavigationProperty Name="binhLuanBVs" Relationship="Models.FK_BinhLuanBV_BaiViet" FromRole="baiViet" ToRole="binhLuanBV" />
         </EntityType>
         <EntityType Name="ctDonHang">
           <Key>
@@ -558,6 +692,8 @@
           <NavigationProperty Name="NhapKhoes" Relationship="Models.FK__NhapKho__maSP__42E1EEFE" FromRole="sanPham" ToRole="NhapKho" />
           <NavigationProperty Name="TonKho" Relationship="Models.FK__TonKho__maSP__4B7734FF" FromRole="sanPham" ToRole="TonKho" />
           <NavigationProperty Name="XuatKhoes" Relationship="Models.FK__XuatKho__maSP__47A6A41B" FromRole="sanPham" ToRole="XuatKho" />
+          <NavigationProperty Name="binhLuanSPs" Relationship="Models.FK__binhLuanSP__MaSP__503BEA1C" FromRole="sanPham" ToRole="binhLuanSP" />
+          <NavigationProperty Name="KhuyenMais" Relationship="Models.FK__KhuyenMai__maSP__671F4F74" FromRole="sanPham" ToRole="KhuyenMai" />
         </EntityType>
         <EntityType Name="taiKhoanTV">
           <Key>
@@ -584,6 +720,9 @@
           <Property Name="quyenadmin" Type="Boolean" />
           <NavigationProperty Name="NhapKhoes" Relationship="Models.FK__NhapKho__taiKhoa__41EDCAC5" FromRole="taiKhoanTV" ToRole="NhapKho" />
           <NavigationProperty Name="XuatKhoes" Relationship="Models.FK__XuatKho__taiKhoa__46B27FE2" FromRole="taiKhoanTV" ToRole="XuatKho" />
+          <NavigationProperty Name="binhLuanSPs" Relationship="Models.FK_TaiKhoan" FromRole="taiKhoanTV" ToRole="binhLuanSP" />
+          <NavigationProperty Name="binhLuanBVs" Relationship="Models.FK_BinhLuanBV_TaiKhoanTV" FromRole="taiKhoanTV" ToRole="binhLuanBV" />
+          <NavigationProperty Name="KhuyenMais" Relationship="Models.FK__KhuyenMai__taiKh__681373AD" FromRole="taiKhoanTV" ToRole="KhuyenMai" />
         </EntityType>
         <Association Name="FK__baiViet__maLoai__37A5467C">
           <End Role="loaiSP" Type="Self.loaiSP" Multiplicity="0..1" />
@@ -795,6 +934,33 @@
             <End Role="taiKhoanTV" EntitySet="taiKhoanTVs" />
             <End Role="XuatKho" EntitySet="XuatKhoes" />
           </AssociationSet>
+          <EntitySet Name="binhLuanSPs" EntityType="Models.binhLuanSP" />
+          <AssociationSet Name="FK__binhLuanSP__MaSP__503BEA1C" Association="Models.FK__binhLuanSP__MaSP__503BEA1C">
+            <End Role="sanPham" EntitySet="sanPhams" />
+            <End Role="binhLuanSP" EntitySet="binhLuanSPs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TaiKhoan" Association="Models.FK_TaiKhoan">
+            <End Role="taiKhoanTV" EntitySet="taiKhoanTVs" />
+            <End Role="binhLuanSP" EntitySet="binhLuanSPs" />
+          </AssociationSet>
+          <EntitySet Name="binhLuanBVs" EntityType="Models.binhLuanBV" />
+          <AssociationSet Name="FK_BinhLuanBV_BaiViet" Association="Models.FK_BinhLuanBV_BaiViet">
+            <End Role="baiViet" EntitySet="baiViets" />
+            <End Role="binhLuanBV" EntitySet="binhLuanBVs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BinhLuanBV_TaiKhoanTV" Association="Models.FK_BinhLuanBV_TaiKhoanTV">
+            <End Role="taiKhoanTV" EntitySet="taiKhoanTVs" />
+            <End Role="binhLuanBV" EntitySet="binhLuanBVs" />
+          </AssociationSet>
+          <EntitySet Name="KhuyenMais" EntityType="Models.KhuyenMai" />
+          <AssociationSet Name="FK__KhuyenMai__maSP__671F4F74" Association="Models.FK__KhuyenMai__maSP__671F4F74">
+            <End Role="sanPham" EntitySet="sanPhams" />
+            <End Role="KhuyenMai" EntitySet="KhuyenMais" />
+          </AssociationSet>
+          <AssociationSet Name="FK__KhuyenMai__taiKh__681373AD" Association="Models.FK__KhuyenMai__taiKh__681373AD">
+            <End Role="taiKhoanTV" EntitySet="taiKhoanTVs" />
+            <End Role="KhuyenMai" EntitySet="KhuyenMais" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="sysdiagram">
           <Key>
@@ -899,6 +1065,118 @@
               <PropertyRef Name="taiKhoan" />
             </Principal>
             <Dependent Role="XuatKho">
+              <PropertyRef Name="taiKhoan" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="binhLuanSP">
+          <Key>
+            <PropertyRef Name="MaBL" />
+          </Key>
+          <Property Name="MaBL" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MaSP" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="TaiKhoan" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="NoiDung" Type="String" Nullable="false" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="NgayBL" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="sanPham" Relationship="Models.FK__binhLuanSP__MaSP__503BEA1C" FromRole="binhLuanSP" ToRole="sanPham" />
+          <NavigationProperty Name="taiKhoanTV" Relationship="Models.FK_TaiKhoan" FromRole="binhLuanSP" ToRole="taiKhoanTV" />
+        </EntityType>
+        <Association Name="FK__binhLuanSP__MaSP__503BEA1C">
+          <End Type="Models.sanPham" Role="sanPham" Multiplicity="1" />
+          <End Type="Models.binhLuanSP" Role="binhLuanSP" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="sanPham">
+              <PropertyRef Name="maSP" />
+            </Principal>
+            <Dependent Role="binhLuanSP">
+              <PropertyRef Name="MaSP" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TaiKhoan">
+          <End Type="Models.taiKhoanTV" Role="taiKhoanTV" Multiplicity="1" />
+          <End Type="Models.binhLuanSP" Role="binhLuanSP" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="taiKhoanTV">
+              <PropertyRef Name="taiKhoan" />
+            </Principal>
+            <Dependent Role="binhLuanSP">
+              <PropertyRef Name="TaiKhoan" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="binhLuanBV">
+          <Key>
+            <PropertyRef Name="MaBL" />
+          </Key>
+          <Property Name="MaBL" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MaBV" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="TaiKhoan" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="NoiDung" Type="String" Nullable="false" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="NgayBL" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="baiViet" Relationship="Models.FK_BinhLuanBV_BaiViet" FromRole="binhLuanBV" ToRole="baiViet" />
+          <NavigationProperty Name="taiKhoanTV" Relationship="Models.FK_BinhLuanBV_TaiKhoanTV" FromRole="binhLuanBV" ToRole="taiKhoanTV" />
+        </EntityType>
+        <Association Name="FK_BinhLuanBV_BaiViet">
+          <End Type="Models.baiViet" Role="baiViet" Multiplicity="1" />
+          <End Type="Models.binhLuanBV" Role="binhLuanBV" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="baiViet">
+              <PropertyRef Name="maBV" />
+            </Principal>
+            <Dependent Role="binhLuanBV">
+              <PropertyRef Name="MaBV" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BinhLuanBV_TaiKhoanTV">
+          <End Type="Models.taiKhoanTV" Role="taiKhoanTV" Multiplicity="1" />
+          <End Type="Models.binhLuanBV" Role="binhLuanBV" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="taiKhoanTV">
+              <PropertyRef Name="taiKhoan" />
+            </Principal>
+            <Dependent Role="binhLuanBV">
+              <PropertyRef Name="TaiKhoan" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="KhuyenMai">
+          <Key>
+            <PropertyRef Name="maKM" />
+          </Key>
+          <Property Name="maKM" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="maSP" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="taiKhoan" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="noiDung" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="ngayBatDau" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ngayKetThuc" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="giamGia" Type="Int32" />
+          <Property Name="ghiChu" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="sanPham" Relationship="Models.FK__KhuyenMai__maSP__671F4F74" FromRole="KhuyenMai" ToRole="sanPham" />
+          <NavigationProperty Name="taiKhoanTV" Relationship="Models.FK__KhuyenMai__taiKh__681373AD" FromRole="KhuyenMai" ToRole="taiKhoanTV" />
+          <Property Name="trangThai" Type="Boolean" />
+        </EntityType>
+        <Association Name="FK__KhuyenMai__maSP__671F4F74">
+          <End Type="Models.sanPham" Role="sanPham" Multiplicity="1" />
+          <End Type="Models.KhuyenMai" Role="KhuyenMai" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="sanPham">
+              <PropertyRef Name="maSP" />
+            </Principal>
+            <Dependent Role="KhuyenMai">
+              <PropertyRef Name="maSP" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__KhuyenMai__taiKh__681373AD">
+          <End Type="Models.taiKhoanTV" Role="taiKhoanTV" Multiplicity="1" />
+          <End Type="Models.KhuyenMai" Role="KhuyenMai" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="taiKhoanTV">
+              <PropertyRef Name="taiKhoan" />
+            </Principal>
+            <Dependent Role="KhuyenMai">
               <PropertyRef Name="taiKhoan" />
             </Dependent>
           </ReferentialConstraint>
@@ -1078,6 +1356,43 @@
                 <ScalarProperty Name="taiKhoan" ColumnName="taiKhoan" />
                 <ScalarProperty Name="NgayXuat" ColumnName="NgayXuat" />
                 <ScalarProperty Name="MaPhieuXuat" ColumnName="MaPhieuXuat" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="binhLuanSPs">
+            <EntityTypeMapping TypeName="Models.binhLuanSP">
+              <MappingFragment StoreEntitySet="binhLuanSP">
+                <ScalarProperty Name="NgayBL" ColumnName="NgayBL" />
+                <ScalarProperty Name="NoiDung" ColumnName="NoiDung" />
+                <ScalarProperty Name="TaiKhoan" ColumnName="TaiKhoan" />
+                <ScalarProperty Name="MaSP" ColumnName="MaSP" />
+                <ScalarProperty Name="MaBL" ColumnName="MaBL" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="binhLuanBVs">
+            <EntityTypeMapping TypeName="Models.binhLuanBV">
+              <MappingFragment StoreEntitySet="binhLuanBV">
+                <ScalarProperty Name="NgayBL" ColumnName="NgayBL" />
+                <ScalarProperty Name="NoiDung" ColumnName="NoiDung" />
+                <ScalarProperty Name="TaiKhoan" ColumnName="TaiKhoan" />
+                <ScalarProperty Name="MaBV" ColumnName="MaBV" />
+                <ScalarProperty Name="MaBL" ColumnName="MaBL" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="KhuyenMais">
+            <EntityTypeMapping TypeName="Models.KhuyenMai">
+              <MappingFragment StoreEntitySet="KhuyenMai">
+                <ScalarProperty Name="trangThai" ColumnName="trangThai" />
+                <ScalarProperty Name="ghiChu" ColumnName="ghiChu" />
+                <ScalarProperty Name="giamGia" ColumnName="giamGia" />
+                <ScalarProperty Name="ngayKetThuc" ColumnName="ngayKetThuc" />
+                <ScalarProperty Name="ngayBatDau" ColumnName="ngayBatDau" />
+                <ScalarProperty Name="noiDung" ColumnName="noiDung" />
+                <ScalarProperty Name="taiKhoan" ColumnName="taiKhoan" />
+                <ScalarProperty Name="maSP" ColumnName="maSP" />
+                <ScalarProperty Name="maKM" ColumnName="maKM" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

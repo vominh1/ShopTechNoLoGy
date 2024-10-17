@@ -27,13 +27,22 @@
         <AssociationConnector Association="Models.FK__sanPham__taiKhoa__3F466844" ManuallyRouted="false" />
         <EntityTypeShape EntityType="Models.sysdiagram" Width="1.5" PointX="7.375" PointY="6.75" />
         <EntityTypeShape EntityType="Models.NhapKho" Width="1.5" PointX="10.5" PointY="0.75" />
-        <EntityTypeShape EntityType="Models.TonKho" Width="1.5" PointX="10.5" PointY="9.125" />
+        <EntityTypeShape EntityType="Models.TonKho" Width="1.5" PointX="10.5" PointY="9.5" />
         <EntityTypeShape EntityType="Models.XuatKho" Width="1.5" PointX="13.5" PointY="2.875" />
         <AssociationConnector Association="Models.FK__NhapKho__maSP__42E1EEFE" />
         <AssociationConnector Association="Models.FK__NhapKho__taiKhoa__41EDCAC5" />
         <AssociationConnector Association="Models.FK__TonKho__maSP__4B7734FF" />
         <AssociationConnector Association="Models.FK__XuatKho__maSP__47A6A41B" />
         <AssociationConnector Association="Models.FK__XuatKho__taiKhoa__46B27FE2" />
+        <EntityTypeShape EntityType="Models.binhLuanSP" Width="1.5" PointX="10.5" PointY="12.375" />
+        <AssociationConnector Association="Models.FK__binhLuanSP__MaSP__503BEA1C" />
+        <AssociationConnector Association="Models.FK_TaiKhoan" />
+        <EntityTypeShape EntityType="Models.binhLuanBV" Width="1.5" PointX="5.875" PointY="0.5" />
+        <AssociationConnector Association="Models.FK_BinhLuanBV_BaiViet" />
+        <AssociationConnector Association="Models.FK_BinhLuanBV_TaiKhoanTV" />
+        <EntityTypeShape EntityType="Models.KhuyenMai" Width="1.5" PointX="13.375" PointY="0.5" />
+        <AssociationConnector Association="Models.FK__KhuyenMai__maSP__671F4F74" />
+        <AssociationConnector Association="Models.FK__KhuyenMai__taiKh__681373AD" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

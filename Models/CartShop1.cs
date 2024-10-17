@@ -63,6 +63,7 @@ namespace ShopTechNoLoGy.Models
                 i.soLuong = 1;
                 sanPham z = Common.getProductById(maSP);
                 i.giaBan = z.giaBan;
+              
                 i.giamGia = z.giamGia;
                 SanPhamDC.Add(maSP, i);
             }

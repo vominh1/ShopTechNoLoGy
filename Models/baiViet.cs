@@ -14,6 +14,12 @@ namespace ShopTechNoLoGy.Models
     
     public partial class baiViet
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public baiViet()
+        {
+            this.binhLuanBVs = new HashSet<binhLuanBV>();
+        }
+    
         public string maBV { get; set; }
         public string tenBV { get; set; }
         public string hinhDD { get; set; }
@@ -27,5 +33,7 @@ namespace ShopTechNoLoGy.Models
     
         public virtual loaiSP loaiSP { get; set; }
         public virtual taiKhoanTV taiKhoanTV { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<binhLuanBV> binhLuanBVs { get; set; }
     }
 }

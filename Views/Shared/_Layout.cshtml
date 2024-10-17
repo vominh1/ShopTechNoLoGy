@@ -73,6 +73,40 @@
             background: #ddd;
             color: #000;
         }
+    .submenu {
+        list-style-type: none; /* Bỏ dấu đầu dòng mặc định */
+        padding: 0;
+        margin: 0;
+        display: none; /* Ẩn danh sách con ban đầu */
+    }
+
+        .submenu li {
+            padding-left: 25px; /* Đệm cho các mục con */
+            position: relative; /* Để sử dụng vị trí cho dấu '•' */
+            transition: background-color 0.3s; /* Hiệu ứng chuyển màu nền */
+        }
+
+            .submenu li:hover {
+                background-color: #f0f0f0; /* Thay đổi màu nền khi di chuột */
+            }
+
+    #mobile-navigation li {
+        transition: background-color 0.3s; /* Hiệu ứng chuyển màu nền */
+    }
+
+        #mobile-navigation li:hover {
+            background-color: #f0f0f0; /* Màu nền khi di chuột */
+        }
+
+    .submenu li:before {
+        content: '•'; /* Dấu đầu dòng */
+        position: absolute; /* Đặt vị trí */
+        left: 0; /* Đưa dấu đầu dòng vào bên trái */
+        top: 50%; /* Căn giữa theo chiều dọc */
+        transform: translateY(-50%); /* Điều chỉnh vị trí dấu đầu dòng */
+        font-size: 20px; /* Kích thước của dấu đầu dòng */
+        color: #000; /* Màu sắc cho dấu đầu dòng */
+    }
 
 </style>
 <!DOCTYPE html>
@@ -164,8 +198,10 @@
                                             <img src="~/images/about/carts.png" />@Html.ActionLink("Giỏ Hàng", "Index", "CartShop")
                                         </li>
                                         <li class="icon_review">
-                                            <img src="~/images/about/icon_order.png" />@Html.ActionLink("Đơn hàng", "Index", "OrderDetails")
-                                            <ol class="submenu">
+                                            <img src="~/images/about/icon_order.png" />
+                                            @Html.ActionLink("Đơn hàng", "Index", "OrderDetails")
+                                            <i class="fas fa-angle-down toggle-icon" style="transition: transform 0.3s;"></i>
+                                            <ol class="submenu" style="display: none;">
                                                 <li>
                                                     @Html.ActionLink("Đơn hàng đã xử lý", "Index", "OrderDetails")
                                                 </li>
@@ -176,7 +212,7 @@
                                         </li>
 
                                         <li class="icon_manager">
-                                            <img src="~/images/about/process.png" />@Html.ActionLink("Người quản trị", "Index", "AboutUs")
+                                            <img src="~/images/about/process.png" />@Html.ActionLink("Giới thiệu", "Index", "AboutUs")
                                         </li>
                                         <li class="icon_contact">
                                             <img src="~/images/about/contact-us.png" />@Html.ActionLink("Liên hệ", "Index", "Contact")
@@ -257,11 +293,20 @@
                                 <ul id="mobile-navigation">
                                     <li><a href="@Url.Action("Index","Home")">Trang chủ</a></li>
                                     <li><a href="@Url.Action("Index","CartShop")">Giỏ hàng</a></li>
+                                    <li>
+                                        <a href="#" class="toggle-order">Đơn hàng<i class="fas fa-chevron-down toggle-icon"></i></a>
+                                        <ul class="submenu" style="display: none;">
+                                            <li><a href="@Url.Action("Index", "OrderDetails")">Đơn hàng chưa xử lý</a></li>
+                                            <li><a href="@Url.Action("ChuaXuLy", "OrderDetails")">Chi tiết đơn hàng</a></li>
+                                        </ul>
+                                    </li>
                                     <li><a href="@Url.Action("Index","AboutUs")">Người quản trị</a></li>
                                     <li><a href="@Url.Action("Index","ReviewWebSite")">Giới thiệu</a></li>
                                     <li><a href="@Url.Action("Index","Contact")">Liên hệ</a></li>
+
                                 </ul>
                             </nav>
+
 
                         </div>
                         <div class="col-xl-1 col-lg-1" style="width:20%; ">
@@ -283,7 +328,9 @@
     @RenderSection("Scripts", required: false)
     @RenderSection("QuangCao", required: false)
 
+    <!-- Renderboy hiễn thị Danh sách sản phẩm -->
     @RenderBody()
+
     <!-- footer -->
     <footer class="footer footer_bg_1">
         <div class="footer_top">
@@ -337,7 +384,7 @@
                                 <li>Chocolate</li>
                                 <li>Macaron</li>
                                 <li>Marshmallow</li>
-                               
+
                             </ul>
                         </div>
                     </div>
@@ -419,7 +466,7 @@
     <script src="~/Scripts/jquery.validate.min.js"></script>
     <script src="~/Scripts/mail-script.js"></script>
 
-   
+
     <script src="~/Scripts/main.js"></script>
     <script>
         function toggleMenu() {
@@ -456,7 +503,88 @@
         }
     </script>
 
+    <script>
+        $(document).ready(function () {
+            $('.toggle-order').click(function (e) {
+                e.preventDefault(); // Ngăn chặn hành vi mặc định của liên kết
 
+                // Đóng tất cả các submenu khác
+                $('#mobile-navigation .submenu').slideUp(300).css("opacity", "1");
 
+                // Hiện/ẩn danh sách con của mục hiện tại
+                $(this).siblings('.submenu').slideToggle(300).css("opacity", "0").animate({ opacity: 1 }, 300);
+            });
+
+            // Đóng submenu khi nhấn ra ngoài menu
+            $(document).click(function (e) {
+                if (!$(e.target).closest('.mobile-menu').length) {
+                    $('#mobile-navigation .submenu').slideUp(300).css("opacity", "1");
+                }
+            });
+        });
+
+    </script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <style>
+        .icon_review {
+            position: relative;
+            cursor: pointer;
+        }
+
+        .toggle-icon {
+            margin-left: 5px;
+        }
+
+        .icon_review:hover .toggle-icon {
+            transform: rotate(180deg);
+        }
+
+        .submenu {
+            list-style-type: none;
+            padding-left: 20px;
+        }
+    </style>
+
+    <script>
+        document.querySelector('.icon_review').addEventListener('click', function () {
+            this.querySelector('.submenu').style.display =
+                this.querySelector('.submenu').style.display === 'none' ? 'block' : 'none';
+            this.querySelector('.toggle-icon').style.transform =
+                this.querySelector('.submenu').style.display === 'none' ? 'rotate(0deg)' : 'rotate(180deg)';
+        });
+    </script>
+    
+
+    <style>
+        .toggle-order {
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .toggle-icon {
+            margin-left: 5px;
+        }
+
+        .submenu {
+            list-style-type: none;
+            padding-left: 20px;
+        }
+    </style>
+
+    <script>
+        document.querySelector('.toggle-order').addEventListener('click', function (e) {
+            e.preventDefault();
+            var submenu = this.nextElementSibling;
+            var icon = this.querySelector('.toggle-icon');
+
+            submenu.style.display = submenu.style.display === 'none' ? 'block' : 'none';
+            icon.style.transform = submenu.style.display === 'none' ? 'rotate(0deg)' : 'rotate(180deg)';
+        });
+    </script>
 </body>
 </html>
