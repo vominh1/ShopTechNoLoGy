@@ -1,0 +1,49 @@
+﻿@model List<ShopTechNoLoGy.Models.KhuyenMai>
+@{
+    ViewBag.Title = "Danh sách khuyến mãi đã dừng hoạt động";
+    Layout = "~/Areas/PrivatePages/Views/Shared/_Layout.cshtml";
+}
+<h2 class="text-center">Danh sách khuyến mãi đã dừng hoạt động</h2>
+
+<!-- Form tìm kiếm theo mã khuyến mãi -->
+<form method="get" action="@Url.Action("TimKiemKM", "Promotion")" class="form-inline mb-3">
+    <div class="form-group mx-sm-3 mb-2">
+        <input type="text" name="searchMaKM" class="form-control" placeholder="Nhập mã khuyến mãi" />
+    </div>
+    <button type="submit" class="btn btn-primary mb-2">Tìm kiếm</button>
+</form>
+
+<div class="table-responsive">
+    <table class="table table-striped table-hover table-bordered">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">Mã khuyến mãi</th>
+                <th scope="col">Nội dung</th>
+                <th scope="col">Mức giảm giá</th>
+                <th scope="col">Ngày bắt đầu</th>
+                <th scope="col">Ngày kết thúc</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model != null && Model.Count > 0)
+            {
+                foreach (var km in Model)
+                {
+            <tr>
+                <td>@km.maKM</td>
+                <td>@km.noiDung</td>
+                <td>@(km.giamGia.HasValue ? km.giamGia.Value.ToString("N0") : "0") VND</td>
+                <td>@km.ngayBatDau.ToString("dd/MM/yyyy")</td>
+                <td>@km.ngayKetThuc.ToString("dd/MM/yyyy")</td>
+            </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="5" class="text-center">Không tìm thấy khuyến mãi</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

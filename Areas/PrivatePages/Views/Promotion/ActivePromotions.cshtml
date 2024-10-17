@@ -1,0 +1,37 @@
+﻿@model List<ShopTechNoLoGy.Models.KhuyenMai>
+
+<h2 class="mt-4">Danh sách khuyến mãi đang hoạt động</h2>
+
+<table class="table table-bordered table-striped">
+    <thead class="table-dark">
+        <tr>
+            <th>Mã khuyến mãi</th>
+            <th>Nội dung</th>
+            <th>Mức giảm giá</th>
+            <th>Ngày bắt đầu</th>
+            <th>Ngày kết thúc</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null && Model.Any())
+        {
+            foreach (var km in Model)
+            {
+        <tr>
+            <td>@km.maKM</td>
+            <td>@km.noiDung</td>
+            <td>@(km.giamGia.HasValue ? km.giamGia.Value.ToString("N0") : "0") VND</td>
+
+            <td>@km.ngayBatDau.ToString("dd/MM/yyyy")</td>
+            <td>@km.ngayKetThuc.ToString("dd/MM/yyyy")</td>
+        </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="5" class="text-center">Không có khuyến mãi nào được tìm thấy.</td>
+            </tr>
+        }
+    </tbody>
+</table>

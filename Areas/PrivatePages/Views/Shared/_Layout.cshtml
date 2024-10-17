@@ -34,7 +34,7 @@
                     <a class="nav-link" data-widget="pushmenu" href="#"><i class="fas fa-bars"></i></a>
                 </li>
                 <li class="nav-item d-none d-sm-inline-block">
-                    <a href="../../index3.html" class="nav-link">Home</a>
+                    <a href="@Url.Action("Index","Dashbroad")" class="nav-link">Home</a>
                 </li>
                 <li class="nav-item d-none d-sm-inline-block">
                     <a href="#" class="nav-link">Contact</a>
@@ -199,7 +199,7 @@
                             <a href="#" class="nav-link">
                                 <i class="nav-icon fas fa-tachometer-alt"></i>
                                 <p>
-                                    Bài viết giới thiệu
+                                    Quản lý bài viết
                                     <i class="right fas fa-angle-left"></i>
                                 </p>
                             </a>
@@ -225,7 +225,7 @@
                             <a href="#" class="nav-link">
                                 <i class="nav-icon fas fa-copy"></i>
                                 <p>
-                                    Danh mục sản phẩm
+                                    Quản lý sản phẩm
                                     <i class="fas fa-angle-left right"></i>
                                     <span class="badge badge-info right">3</span>
                                 </p>
@@ -257,7 +257,7 @@
                             <a href="#" class="nav-link">
                                 <i class="nav-icon fas fa-chart-pie"></i>
                                 <p>
-                                    Danh sách khách hàng
+                                    Quản lý khách hàng
                                     <i class="right fas fa-angle-left"></i>
                                     @*<span class="badge badge-info right">3</span>*@
                                 </p>
@@ -372,9 +372,9 @@
                         </li>
                         <li class="nav-item has-treeview">
                             <a href="#" class="nav-link">
-                                <i class="nav-icon fas fa-chart-line"></i> <!-- Icon cho mục Danh thu -->
+                                <i class="nav-icon fas fa-boxes"></i> <!-- New icon for Quản lý kho -->
                                 <p>
-                                    Quản lý kho 
+                                    Quản lý kho
                                     <i class="fas fa-angle-left right"></i>
                                     @*<span class="badge badge-info right">3</span>*@
 
@@ -410,6 +410,42 @@
                             </ul>
 
                         </li>
+                        <li class="nav-item has-treeview">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fas fa-tags"></i> <!-- New icon for Quản lý khuyến mãi -->
+                                <p>
+                                    Quản lý khuyến mãi
+                                    <i class="fas fa-angle-left right"></i>
+                                    @*<span class="badge badge-info right">3</span>*@
+
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href='@Url.Action("Index","Promotion")' class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Thêm khuyến mãi</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href='@Url.Action("ActivePromotions","Promotion")' class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Khuyến mãi đang hoạt động</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href='@Url.Action("HiddenPromotions","Promotion")' class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Khuyến mãi đã dừng</p>
+                                    </a>
+                                </li>
+
+
+
+
+                            </ul>
+
+                        </li>
                     </ul>
                 </nav>
                 <!-- /.sidebar-menu -->
@@ -424,8 +460,8 @@
             <div class="float-right d-none d-sm-block">
                 <b>Version</b> 3.0.2-pre
             </div>
-            <strong>Copyright &copy; 2014-2019 <a href="http://adminlte.io">AdminLTE.io</a>.</strong> All rights
-            reserved.
+<!-- Đổi màu chữ của Võ Minh Đầy -->
+<strong>Được phát triển bởi <i><span style="color: blue;">Võ Minh Đầy</span></i></strong>
         </footer>
     </div>
 

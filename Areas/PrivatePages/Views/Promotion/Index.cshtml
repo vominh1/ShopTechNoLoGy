@@ -1,0 +1,67 @@
+﻿@model IEnumerable<ShopTechNoLoGy.Models.KhuyenMai>
+@using ShopTechNoLoGy.Models
+@{
+    ViewBag.Title = "Danh sách khuyến mãi";
+}
+
+<h2>Danh sách khuyến mãi</h2>
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["SuccessMessage"]
+    </div>
+}
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Mã khuyến mãi</th>
+            <th>Sản phẩm</th>
+            <th>Nội dung</th>
+            <th>Giảm giá </th>
+            <th>Ngày bắt đầu</th>
+            <th>Ngày kết thúc</th>
+            <th>Người đăng</th>
+            <th>Hành động</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null && Model.Any())
+        {
+            foreach (var khuyenMai in Model)
+            {
+
+        <tr>
+            <td>
+                @khuyenMai.maKM
+            </td>
+            <td>@khuyenMai.maSP</td>
+
+            <td>@khuyenMai.noiDung</td>
+            <td>@(khuyenMai.giamGia.HasValue ? khuyenMai.giamGia.Value.ToString("N0") : "0") VND</td>
+            <td>@khuyenMai.ngayBatDau.ToString("dd/MM/yyyy")</td>
+            <td>@khuyenMai.ngayKetThuc.ToString("dd/MM/yyyy")</td>
+
+            <td>@khuyenMai.taiKhoan</td>
+
+            <td>
+                <a href="@Url.Action("Edit","Promotion", new { id = khuyenMai.maKM })" class="btn btn-primary">Sửa</a>
+                <a href="@Url.Action("Hide", "Promotion",new { id = khuyenMai.maKM })" class="btn btn-warning">Ẩn</a>
+            </td>
+        </tr>
+        }
+
+    }
+    else
+    {
+        <tr>
+            <td colspan="8" class="text-center">Không có khuyến mãi nào được tìm thấy.</td>
+        </tr>
+    }
+    </tbody>
+</table>
+
+<p>
+    @Html.ActionLink("Tạo khuyến mãi mới", "Create", "Promotion", null, new { @class = "btn btn-primary" })
+</p>
