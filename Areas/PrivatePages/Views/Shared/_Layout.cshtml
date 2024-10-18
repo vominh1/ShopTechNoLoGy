@@ -1,6 +1,8 @@
-﻿
+﻿﻿
 @using ShopTechNoLoGy.Models;
-
+@{
+    var loggedInUser = Session["ttDangNhap"] as taiKhoanTV;
+}
 <!DOCTYPE html>
 <html>
 <head>
@@ -160,19 +162,17 @@
                 <span class="brand-text font-weight-light">Quản trị viên </span>
             </a>
 
-            <!-- Sidebar -->
-            <div class="sidebar">
-                <!-- Sidebar user (optional) -->
-                <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-                    @*<div class="image">
+            @if (loggedInUser != null && loggedInUser.quyenadmin == true)
+            {
+                <!-- Sidebar -->
+                <div class="sidebar">
+                    <!-- Sidebar user (optional) -->
+                    <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+                        @*<div class="image">
                         <img src="~/images/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
                     </div>*@
-                    <div class="user-info-container">
-                        @{
-                            var loggedInUser = Session["ttDangNhap"] as taiKhoanTV;
-                        }
-                        @if (loggedInUser != null)
-                        {
+                        <div class="user-info-container">
+
                             <div class="user-info">
                                 <a href="#" class="user-name">
                                     <i class="fas fa-user-circle"></i> @loggedInUser.hoDem @loggedInUser.tenTV
@@ -185,272 +185,279 @@
                                     </button>
                                 }
                             </div>
-                        }
+
+                        </div>
+
                     </div>
 
-                </div>
-
-                <!-- Sidebar Menu -->
-                <nav class="mt-2">
-                    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                        <!-- Add icons to the links using the .nav-icon class
-    with font-awesome or any other icon font library -->
-                        <li class="nav-item has-treeview">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon fas fa-tachometer-alt"></i>
-                                <p>
-                                    Quản lý bài viết
-                                    <i class="right fas fa-angle-left"></i>
-                                </p>
-                            </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href='@Url.Action("Index","NewArticle")' class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Đăng bài viết<span class="right badge badge-danger">New</span></p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href='@Url.Action("Index","Articles" )' class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Danh sách bài viết </p>
-                                    </a>
-                                </li>
+                    <!-- Sidebar Menu -->
+                    <nav class="mt-2">
+                        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                            <!-- Add icons to the links using the .nav-icon class
+                    with font-awesome or any other icon font library -->
+                            <li class="nav-item has-treeview">
+                                <a href="#" class="nav-link">
+                                    <i class="nav-icon fas fa-tachometer-alt"></i>
+                                    <p>
+                                        Quản lý bài viết
+                                        <i class="right fas fa-angle-left"></i>
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href='@Url.Action("Index", "NewArticle")' class="nav-link">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Đăng bài viết<span class="right badge badge-danger">New</span></p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href='@Url.Action("Index", "Articles")' class="nav-link">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Danh sách bài viết </p>
+                                        </a>
+                                    </li>
 
 
-                            </ul>
-                        </li>
+                                </ul>
+                            </li>
 
-                        <li class="nav-item has-treeview">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon fas fa-copy"></i>
-                                <p>
-                                    Quản lý sản phẩm
-                                    <i class="fas fa-angle-left right"></i>
-                                    <span class="badge badge-info right">3</span>
-                                </p>
-                            </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="@Url.Action("Index","Products")" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Chủng loại- ngành hàng</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href='@Url.Action("Index","NewProduct")' class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Đăng sản phẩm<span class="right badge badge-danger">New</span></p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href='@Url.Action("Index", "Categories")' class="nav-link">
+                            <li class="nav-item has-treeview">
+                                <a href="#" class="nav-link">
+                                    <i class="nav-icon fas fa-copy"></i>
+                                    <p>
+                                        Quản lý sản phẩm
+                                        <i class="fas fa-angle-left right"></i>
+                                        <span class="badge badge-info right">3</span>
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="@Url.Action("Index", "Products")" class="nav-link">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Chủng loại- ngành hàng</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href='@Url.Action("Index", "NewProduct")' class="nav-link">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Đăng sản phẩm<span class="right badge badge-danger">New</span></p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href='@Url.Action("Index", "Categories")' class="nav-link">
 
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Sản phẩm đang kinh danh</p>
-                                    </a>
-                                </li>
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Sản phẩm đang kinh danh</p>
+                                        </a>
+                                    </li>
 
-                            </ul>
-                        </li>
-                        <li class="nav-item has-treeview">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon fas fa-chart-pie"></i>
-                                <p>
-                                    Quản lý khách hàng
-                                    <i class="right fas fa-angle-left"></i>
-                                    @*<span class="badge badge-info right">3</span>*@
-                                </p>
-                            </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href='@Url.Action("NewCustomer","Customer")' class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Khách hàng mới</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href='@Url.Action("CustomerList","Customer")' class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Danh sách khách hành đã mua</p>
-                                    </a>
-                                </li>
+                                </ul>
+                            </li>
+                            <li class="nav-item has-treeview">
+                                <a href="#" class="nav-link">
+                                    <i class="nav-icon fas fa-chart-pie"></i>
+                                    <p>
+                                        Quản lý khách hàng
+                                        <i class="right fas fa-angle-left"></i>
+                                        @*<span class="badge badge-info right">3</span>*@
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href='@Url.Action("NewCustomer", "Customer")' class="nav-link">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Khách hàng mới</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href='@Url.Action("CustomerList", "Customer")' class="nav-link">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Danh sách khách hành đã mua</p>
+                                        </a>
+                                    </li>
 
-                            </ul>
-                        </li>
-                        <li class="nav-item has-treeview">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon fas fa-tree"></i>
-                                <p>
-                                    Danh sách đơn hàng
+                                </ul>
+                            </li>
+                            <li class="nav-item has-treeview">
+                                <a href="#" class="nav-link">
+                                    <i class="nav-icon fas fa-tree"></i>
+                                    <p>
+                                        Danh sách đơn hàng
 
-                                    <i class="fas fa-angle-left right"></i>
-                                    @*<span class="badge badge-info right">3</span>*@
+                                        <i class="fas fa-angle-left right"></i>
+                                        @*<span class="badge badge-info right">3</span>*@
 
-                                </p>
-                            </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href='@Url.Action("Index","Orders")' class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Đơn hàng mới </p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href='@Url.Action("Index","Customer")' class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Đơn hàng đang xử lý</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href='@Url.Action("Index","Customer","3")' class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Đơn hàng đã xử lý</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href='@Url.Action("Index", "Orders")' class="nav-link">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Đơn hàng mới </p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href='@Url.Action("Index", "Customer")' class="nav-link">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Đơn hàng đang xử lý</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href='@Url.Action("Index", "Customer", "3")' class="nav-link">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Đơn hàng đã xử lý</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href='@Url.Action("Index", "Customer", "4")' class="nav-link">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Đang giao cho khách</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href='@Url.Action("Index", "Customer", "5")' class="nav-link">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Đã giao thành công</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href='@Url.Action("Index", "Customer", "6")' class="nav-link">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Đơn hàng bị hủy </p>
+                                        </a>
+                                    </li>
+
+                                </ul>
+                            </li>
+
+                            <li class="nav-item has-treeview">
+                                <a href="#" class="nav-link">
+                                    <i class="nav-icon fas fa-chart-line"></i> <!-- Icon cho mục Danh thu -->
+                                    <p>
+                                        Danh thu
+                                        <i class="fas fa-angle-left right"></i>
+                                        @*<span class="badge badge-info right">3</span>*@
+
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href='@Url.Action("Index", "Revenue")' class="nav-link">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Doanh thu ngày</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href='@Url.Action("Doanhthuthang", "Revenue")' class="nav-link">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Doanh thu theo tháng</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href='@Url.Action("DoanhThuSanPham", "Revenue")' class="nav-link">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Doanh thu theo sản phẩm</p>
+                                        </a>
+                                    </li>
+                                    @*<li class="nav-item">
                                     <a href='@Url.Action("Index","Customer","4")' class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Đang giao cho khách</p>
                                     </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href='@Url.Action("Index","Customer","5")' class="nav-link">
+                                </li>*@
+
+
+                                </ul>
+
+                            </li>
+                            <li class="nav-item has-treeview">
+                                <a href="#" class="nav-link">
+                                    <i class="nav-icon fas fa-boxes"></i> <!-- New icon for Quản lý kho -->
+                                    <p>
+                                        Quản lý kho
+                                        <i class="fas fa-angle-left right"></i>
+                                        @*<span class="badge badge-info right">3</span>*@
+
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href='@Url.Action("Index", "WareHouse")' class="nav-link">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Quản lý nhập kho</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href='@Url.Action("dsExport", "WareHouse")' class="nav-link">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Quản lý xuất kho</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href='@Url.Action("TonKho", "WareHouse")' class="nav-link">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Hàng tồn kho</p>
+                                        </a>
+                                    </li>
+                                    @*<li class="nav-item">
+                                    <a href='@Url.Action("Index","Customer","4")' class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
-                                        <p>Đã giao thành công</p>
+                                        <p>Đang giao cho khách</p>
                                     </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href='@Url.Action("Index","Customer","6")' class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Đơn hàng bị hủy </p>
-                                    </a>
-                                </li>
-
-                            </ul>
-                        </li>
-
-                        <li class="nav-item has-treeview">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon fas fa-chart-line"></i> <!-- Icon cho mục Danh thu -->
-                                <p>
-                                    Danh thu
-                                    <i class="fas fa-angle-left right"></i>
-                                    @*<span class="badge badge-info right">3</span>*@
-
-                                </p>
-                            </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href='@Url.Action("Index","Revenue")' class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Doanh thu ngày</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href='@Url.Action("Doanhthuthang","Revenue")' class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Doanh thu theo tháng</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href='@Url.Action("DoanhThuSanPham","Revenue")' class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Doanh thu theo sản phẩm</p>
-                                    </a>
-                                </li>
-                                @*<li class="nav-item">
-                    <a href='@Url.Action("Index","Customer","4")' class="nav-link">
-                        <i class="far fa-circle nav-icon"></i>
-                        <p>Đang giao cho khách</p>
-                    </a>
-                </li>*@
+                                </li>*@
 
 
-                            </ul>
+                                </ul>
 
-                        </li>
-                        <li class="nav-item has-treeview">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon fas fa-boxes"></i> <!-- New icon for Quản lý kho -->
-                                <p>
-                                    Quản lý kho
-                                    <i class="fas fa-angle-left right"></i>
-                                    @*<span class="badge badge-info right">3</span>*@
+                            </li>
+                            <li class="nav-item has-treeview">
+                                <a href="#" class="nav-link">
+                                    <i class="nav-icon fas fa-tags"></i> <!-- New icon for Quản lý khuyến mãi -->
+                                    <p>
+                                        Quản lý khuyến mãi
+                                        <i class="fas fa-angle-left right"></i>
+                                        @*<span class="badge badge-info right">3</span>*@
 
-                                </p>
-                            </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href='@Url.Action("Index","WareHouse")' class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Quản lý nhập kho</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href='@Url.Action("dsExport","WareHouse")' class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Quản lý xuất kho</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href='@Url.Action("TonKho","WareHouse")' class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Hàng tồn kho</p>
-                                    </a>
-                                </li>
-                                @*<li class="nav-item">
-                    <a href='@Url.Action("Index","Customer","4")' class="nav-link">
-                        <i class="far fa-circle nav-icon"></i>
-                        <p>Đang giao cho khách</p>
-                    </a>
-                </li>*@
-
-
-                            </ul>
-
-                        </li>
-                        <li class="nav-item has-treeview">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon fas fa-tags"></i> <!-- New icon for Quản lý khuyến mãi -->
-                                <p>
-                                    Quản lý khuyến mãi
-                                    <i class="fas fa-angle-left right"></i>
-                                    @*<span class="badge badge-info right">3</span>*@
-
-                                </p>
-                            </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href='@Url.Action("Index","Promotion")' class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Thêm khuyến mãi</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href='@Url.Action("ActivePromotions","Promotion")' class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Khuyến mãi đang hoạt động</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href='@Url.Action("HiddenPromotions","Promotion")' class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Khuyến mãi đã dừng</p>
-                                    </a>
-                                </li>
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href='@Url.Action("Index", "Promotion")' class="nav-link">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Thêm khuyến mãi</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href='@Url.Action("ActivePromotions", "Promotion")' class="nav-link">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Khuyến mãi đang hoạt động</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href='@Url.Action("HiddenPromotions", "Promotion")' class="nav-link">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Khuyến mãi đã dừng</p>
+                                        </a>
+                                    </li>
 
 
 
 
-                            </ul>
+                                </ul>
 
-                        </li>
-                    </ul>
-                </nav>
-                <!-- /.sidebar-menu -->
-            </div>
-            <!-- /.sidebar -->
+                            </li>
+                        </ul>
+                    </nav>
+                    <!-- /.sidebar-menu -->
+                </div>
+                <!-- /.sidebar -->
+            }
+            else
+            {
+                <div class="alert alert-warning text-center mt-3">
+                    <strong>Đăng nhập để quản lý!</strong>
+                </div>
+            }
         </aside>
 
         <div class="content-wrapper">
@@ -460,8 +467,8 @@
             <div class="float-right d-none d-sm-block">
                 <b>Version</b> 3.0.2-pre
             </div>
-<!-- Đổi màu chữ của Võ Minh Đầy -->
-<strong>Được phát triển bởi <i><span style="color: blue;">Võ Minh Đầy</span></i></strong>
+            <!-- Đổi màu chữ của Võ Minh Đầy -->
+            <strong>Được phát triển bởi <i><span style="color: blue;">Võ Minh Đầy</span></i></strong>
         </footer>
     </div>
 
