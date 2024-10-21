@@ -1,113 +1,40 @@
-﻿<style >
-.trang_chu img {
-    max-width: 30px;
-    padding-bottom: 4px;
+﻿
+.slider_bg_1 {
+    background-image: url(../images/banner/banner2.jpg);
 }
 
-.logo-img {
-    padding-bottom: 4px;
+.courses_details_banner {
+    background-image: url(../images/banner/banner2.jpg);
 }
 
-.icon_cart_shop img {
-    max-width: 30px;
-    padding-bottom: 4px;
+body {
+    background-color: #bec0d3;
 }
 
-.icon_manager img {
-    max-width: 30px;
-    padding-bottom: 4px;
+.header-area .main-header-area.sticky {
+    background: linear-gradient(to right, #14071e 0%, #c07511 100%);
 }
 
-.icon_review img {
-    max-width: 30px;
-    padding-bottom: 4px;
+.footer_bg_1 {
+    background-image: url(../images/banner/banner3.jpg);
 }
 
-.icon_contact img {
-    max-width: 30px;
+element.style {
 }
 
-.bradcam_area {
-    height: 100px;
-    padding: 170px !important;
-}
-/* Style for icon_review item */
-.icon_review {
-    position: relative;
+.subscribe_newsletter {
+    background: #d2b404;
 }
 
-    .icon_review .submenu {
-        display: none;
-        list-style: none;
-        padding: 0;
-        margin-left: 60px;
-        position: absolute;
-        left: 0;
-        top: 100%;
-        background: #f8f8f8;
-        border: 1px solid #ddd;
-        z-index: 1000;
-    }
-
-        .icon_review .submenu li {
-            padding: 10px;
-            width: 230px; /* Set the width as per your requirement */
-        }
-
-            .icon_review .submenu li a {
-                color: #333;
-                text-decoration: none;
-                display: block;
-            }
-
-    .icon_review:hover .submenu {
-        display: block;
-    }
-
-
-
-    .icon_review .submenu li a:hover,
-    .icon_review .submenu li a:focus {
-        background: #ddd;
-        color: #000;
-    }
-
-.submenu {
-    list-style-type: none; /* Bỏ dấu đầu dòng mặc định */
-    padding: 0;
-    margin: 0;
-    display: none; /* Ẩn danh sách con ban đầu */
+.arrow-down {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px; /* Khoảng cách từ đoạn văn bản xuống mũi tên */
 }
 
-    .submenu li {
-        padding-left: 25px; /* Đệm cho các mục con */
-        position: relative; /* Để sử dụng vị trí cho dấu '•' */
-        transition: background-color 0.3s; /* Hiệu ứng chuyển màu nền */
-    }
+/*////*/
 
-        .submenu li:hover {
-            background-color: #f0f0f0; /* Thay đổi màu nền khi di chuột */
-        }
-
-#mobile-navigation li {
-    transition: background-color 0.3s; /* Hiệu ứng chuyển màu nền */
-}
-
-    #mobile-navigation li:hover {
-        background-color: #f0f0f0; /* Màu nền khi di chuột */
-    }
-
-.submenu li:before {
-    content: '•'; /* Dấu đầu dòng */
-    position: absolute; /* Đặt vị trí */
-    left: 0; /* Đưa dấu đầu dòng vào bên trái */
-    top: 50%; /* Căn giữa theo chiều dọc */
-    transform: translateY(-50%); /* Điều chỉnh vị trí dấu đầu dòng */
-    font-size: 20px; /* Kích thước của dấu đầu dòng */
-    color: #000; /* Màu sắc cho dấu đầu dòng */
-}
-
-</style >
 .icon_review {
     position: relative;
     cursor: pointer;
@@ -119,6 +46,25 @@
 
 .icon_review:hover .toggle-icon {
     transform: rotate(180deg);
+}
+
+.submenu {
+    list-style-type: none;
+    padding-left: 20px;
+}
+/*//*//**/
+
+
+.toggle-order {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: inherit;
+}
+
+.toggle-icon {
+    margin-left: 5px;
 }
 
 .submenu {

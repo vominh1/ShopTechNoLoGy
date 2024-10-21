@@ -636,6 +636,7 @@
     <Content Include="Content\review.css" />
     <Content Include="Content\Site.css" />
     <Content Include="Content\slicknav.css" />
+    <Content Include="Content\stylepr\home.css" />
     <Content Include="Content\styles.css" />
     <Content Include="Content\style\styleproductdetail.css" />
     <Content Include="Content\theme-default.css" />
@@ -911,6 +912,7 @@
     <Content Include="Scripts\jquery.scrollUp.min.js" />
     <Content Include="Scripts\jquery.slicknav.min.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\layoutscript\layoutscript.js" />
     <Content Include="Scripts\mail-script.js" />
     <Content Include="Scripts\main.js" />
     <Content Include="Scripts\nice-select.min.js" />

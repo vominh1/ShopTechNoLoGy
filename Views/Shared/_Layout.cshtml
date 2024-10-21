@@ -136,42 +136,8 @@
     <link rel="manifest" href="site.webmanifest">
     <link rel="shortcut icon" type="image/x-icon" href="~/images/favicon.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link href="~/Content/layout.css" rel="stylesheet" />
 
-    <style>
-        .slider_bg_1 {
-            background-image: url(../images/banner/banner2.jpg);
-        }
-
-        .courses_details_banner {
-            background-image: url(../images/banner/banner2.jpg);
-        }
-
-        body {
-            background-color: #bec0d3;
-        }
-
-        .header-area .main-header-area.sticky {
-            background: linear-gradient(to right, #14071e 0%, #c07511 100%);
-        }
-
-        .footer_bg_1 {
-            background-image: url(../images/banner/banner3.jpg);
-        }
-
-        element.style {
-        }
-
-        .subscribe_newsletter {
-            background: #d2b404;
-        }
-        .arrow-down {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin-top: 20px; /* Khoảng cách từ đoạn văn bản xuống mũi tên */
-        }
-        
-    </style>
 
 </head>
 <body>
@@ -468,123 +434,11 @@
 
 
     <script src="~/Scripts/main.js"></script>
-    <script>
-        function toggleMenu() {
-            var mobileMenu = document.querySelector('.mobile-menu');
-            mobileMenu.classList.toggle('open');
-        }
 
-    </script>
-    <script>
-        // JavaScript to handle dropdown toggle
-        $(document).ready(function () {
-            // Hide dropdown menu initially
-            $('#dropdownMenu').hide();
-
-            // Toggle dropdown menu when clicking on dropdown toggle
-            $('#dropdownMenuLink').on('click', function (e) {
-                e.preventDefault();
-                $('#dropdownMenu').toggle();
-            });
-
-            // Close dropdown menu when clicking outside of it
-            $(document).on('click', function (e) {
-                if (!$(e.target).closest('.dropdown').length) {
-                    $('#dropdownMenu').hide();
-                }
-            });
-        });
-    </script>
-    <script>
-        // JavaScript to handle form submission for logout
-        function submitLogoutForm() {
-            document.getElementById('logoutForm').submit();
-            return false;
-        }
-    </script>
-
-    <script>
-        $(document).ready(function () {
-            $('.toggle-order').click(function (e) {
-                e.preventDefault(); // Ngăn chặn hành vi mặc định của liên kết
-
-                // Đóng tất cả các submenu khác
-                $('#mobile-navigation .submenu').slideUp(300).css("opacity", "1");
-
-                // Hiện/ẩn danh sách con của mục hiện tại
-                $(this).siblings('.submenu').slideToggle(300).css("opacity", "0").animate({ opacity: 1 }, 300);
-            });
-
-            // Đóng submenu khi nhấn ra ngoài menu
-            $(document).click(function (e) {
-                if (!$(e.target).closest('.mobile-menu').length) {
-                    $('#mobile-navigation .submenu').slideUp(300).css("opacity", "1");
-                }
-            });
-        });
-
-    </script>
+    <script src="~/Scripts/layoutscript/layoutscript.js"></script>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
-    <style>
-        .icon_review {
-            position: relative;
-            cursor: pointer;
-        }
 
-        .toggle-icon {
-            margin-left: 5px;
-        }
-
-        .icon_review:hover .toggle-icon {
-            transform: rotate(180deg);
-        }
-
-        .submenu {
-            list-style-type: none;
-            padding-left: 20px;
-        }
-    </style>
-
-    <script>
-        document.querySelector('.icon_review').addEventListener('click', function () {
-            this.querySelector('.submenu').style.display =
-                this.querySelector('.submenu').style.display === 'none' ? 'block' : 'none';
-            this.querySelector('.toggle-icon').style.transform =
-                this.querySelector('.submenu').style.display === 'none' ? 'rotate(0deg)' : 'rotate(180deg)';
-        });
-    </script>
-    
-
-    <style>
-        .toggle-order {
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            text-decoration: none;
-            color: inherit;
-        }
-
-        .toggle-icon {
-            margin-left: 5px;
-        }
-
-        .submenu {
-            list-style-type: none;
-            padding-left: 20px;
-        }
-    </style>
-
-    <script>
-        document.querySelector('.toggle-order').addEventListener('click', function (e) {
-            e.preventDefault();
-            var submenu = this.nextElementSibling;
-            var icon = this.querySelector('.toggle-icon');
-
-            submenu.style.display = submenu.style.display === 'none' ? 'block' : 'none';
-            icon.style.transform = submenu.style.display === 'none' ? 'rotate(0deg)' : 'rotate(180deg)';
-        });
-    </script>
 </body>
 </html>

@@ -14,7 +14,6 @@ namespace ShopTechNoLoGy.Areas.PrivatePages.Controllers
             using (var db = new BanBanhOnline()) {
                 // Gọi phương thức để cập nhật giá trị giảm giá
                 UpdateDiscounts();
-
                 // Lấy danh sách khuyến mãi còn hiệu lực (ngày kết thúc lớn hơn ngày hiện tại)
                 var danhSachKhuyenMai = db.KhuyenMais
                     .Where(km => km.trangThai == true && km.ngayKetThuc > DateTime.Now)
