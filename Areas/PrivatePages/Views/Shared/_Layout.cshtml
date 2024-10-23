@@ -297,15 +297,16 @@
                                         </a>
                                     </li>
                                     <li class="nav-item">
-                                        <a href='@Url.Action("Index", "Customer")' class="nav-link">
+                                        @* // index phần này nhằm đơn hàng *@
+                                        <a href='@Url.Action("dhDaXuly", "Orders")' class="nav-link">
                                             <i class="far fa-circle nav-icon"></i>
-                                            <p>Đơn hàng đang xử lý</p>
+                                            <p>Đơn hàng đã duyệt</p>
                                         </a>
                                     </li>
                                     <li class="nav-item">
-                                        <a href='@Url.Action("Index", "Customer", "3")' class="nav-link">
+                                        <a href='@Url.Action("SearchOrder", "Orders")' class="nav-link">
                                             <i class="far fa-circle nav-icon"></i>
-                                            <p>Đơn hàng đã xử lý</p>
+                                            <p>Tìm kím đơn hàng</p>
                                         </a>
                                     </li>
                                     <li class="nav-item">

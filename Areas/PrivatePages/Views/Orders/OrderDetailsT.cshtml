@@ -5,7 +5,7 @@
     Layout = "~/Areas/PrivatePages/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Chi Tiết Đơn Hàng</h2>
+<h2 class="text-center">Chi Tiết Đơn Hàng</h2>
 
 @if (Model == null)
 {
@@ -13,12 +13,25 @@
 }
 else
 {
-    <h3>Đơn hàng: @Model.soDH</h3>
-    <p>Ngày đặt: @Model.NgayDat.ToShortDateString()</p>
+    <div class="card mb-4">
+        <div class="card-header">
+            <h3>Thông tin đơn hàng</h3>
+        </div>
+        <div class="card-body">
+            <p><strong>Đơn hàng:</strong> @Model.soDH</p>
+            <p><strong>Ngày đặt:</strong> @Model.NgayDat.ToShortDateString()</p>
+
+            <h4 class="mt-4">Thông tin khách hàng</h4>
+            <p><strong>Tên khách hàng:</strong> @Model.TenKH</p>
+            <p><strong>Địa chỉ:</strong> @Model.DiaChi</p>
+            <p><strong>Số điện thoại:</strong> @Model.SoDt</p>
+            <p><strong>Email:</strong> @Model.Email</p>
+        </div>
+    </div>
 
     <h4>Chi tiết sản phẩm</h4>
-    <table class="table">
-        <thead>
+    <table class="table table-bordered">
+        <thead class="table-light">
             <tr>
                 <th>Mã Sản Phẩm</th>
                 <th>Tên Sản Phẩm</th>
@@ -39,13 +52,13 @@ else
                     <td>@string.Format("{0:#,##0 VNĐ}", item.GiamGia)</td>
                     <td>@string.Format("{0:#,##0 VNĐ}", item.ThanhTien)</td>
                 </tr>
-
             }
         </tbody>
     </table>
+
+    <h4>Tổng thành tiền: @string.Format("{0:#,##0 VNĐ}", Model.TongThanhTien)</h4>
 }
 
-
-<div class="form-group">
+<div class="form-group mt-4">
     <a href="@Url.Action("Index", "Customer")" class="btn btn-primary">Quay lại danh sách đơn hàng</a>
 </div>

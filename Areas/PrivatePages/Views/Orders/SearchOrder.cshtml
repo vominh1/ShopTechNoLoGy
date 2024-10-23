@@ -1,0 +1,75 @@
+﻿@model ShopTechNoLoGy.Models.OrderDetailsModel
+
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Tìm kiếm đơn hàng</h2>
+
+    <!-- Form tìm kiếm đơn hàng -->
+    <form action="@Url.Action("SearchOrder", "Orders", new { area = "PrivatePages" })" method="post" class="row g-3">
+        <div class="col-md-8">
+            <label for="soDonHang" class="form-label">Nhập số đơn hàng:</label>
+            <input type="text" name="soDonHang" class="form-control" placeholder="Số đơn hàng" required />
+        </div>
+        <div class="col-md-4 align-self-end">
+            <button type="submit" class="btn btn-primary w-100">Tìm kiếm</button>
+        </div>
+    </form>
+
+    <hr class="my-4" />
+
+    @if (ViewData["Message"] != null)
+    {
+        <div class="alert alert-danger text-center">
+            @ViewData["Message"]
+        </div>
+    }
+    else if (Model != null)
+    {
+        <div>
+            <h3 class="text-center">Thông tin đơn hàng</h3>
+            <div class="row my-4">
+                <div class="col-md-6">
+                    <p><strong>Số đơn hàng:</strong> @Model.soDH</p>
+                    <p><strong>Ngày đặt:</strong> @Model.NgayDat.ToString("dd/MM/yyyy")</p>
+                </div>
+                <div class="col-md-6">
+                    <p><strong>Tên khách hàng:</strong> @Model.TenKH</p>
+                    <p><strong>Địa chỉ:</strong> @Model.DiaChi</p>
+                    <p><strong>Số điện thoại:</strong> @Model.SoDt</p>
+                    <p><strong>Email:</strong> @Model.Email</p>
+                </div>
+            </div>
+
+            <h3 class="text-center">Chi tiết sản phẩm</h3>
+            <table class="table table-bordered table-hover mt-4">
+                <thead class="table-primary">
+                    <tr>
+                        <th>Mã sản phẩm</th>
+                        <th>Tên sản phẩm</th>
+                        <th>Số lượng</th>
+                        <th>Giá bán</th>
+                        <th>Giảm giá</th>
+                        <th>Thành tiền</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.OrderItems)
+                    {
+                        <tr>
+                            <td>@item.MaSP</td>
+                            <td>@item.TenSP</td>
+                            <td>@item.SoLuong</td>
+                            <td>@String.Format("{0:N0}", item.GiaBan) VND</td>
+                            <td>@String.Format("{0:P0}", item.GiamGia)</td>
+                            <td>@String.Format("{0:N0}", item.ThanhTien) VND</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+            <!-- Hiển thị tổng thành tiền -->
+            <div class="text-end mt-3">
+                <h5><strong>Tổng thành tiền:</strong> @String.Format("{0:N0}", Model.TongThanhTien) VND</h5>
+            </div>
+        </div>
+    }
+</div>

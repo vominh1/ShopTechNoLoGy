@@ -5,46 +5,61 @@
     Layout = "~/Areas/PrivatePages/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Chi Tiết Đơn Hàng</h2>
+<div class="container mt-4">
+    <h2 class="text-center">Chi Tiết Đơn Hàng</h2>
 
-@if (Model == null)
-{
-    <p>Không có đơn hàng nào.</p>
-}
-else
-{
-    <h3>Đơn hàng: @Model.soDH</h3>
-    <p>Ngày đặt: @Model.NgayDat.ToShortDateString()</p>
+    @if (Model == null)
+    {
+        <div class="alert alert-warning" role="alert">
+            Không có đơn hàng nào.
+        </div>
+    }
+    else
+    {
+        <h3>Đơn hàng: <span class="text-primary">@Model.soDH</span></h3>
+        <p><strong>Ngày đặt:</strong> @Model.NgayDat.ToShortDateString()</p>
 
-    <h4>Chi tiết sản phẩm</h4>
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Mã Sản Phẩm</th>
-                <th>Tên Sản Phẩm</th>
-                <th>Số Lượng</th>
-                <th>Giá Bán</th>
-                <th>Giảm Giá</th>
-                <th>Thành Tiền</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model.OrderItems)
-            {
+        <h4>Thông tin khách hàng</h4>
+        <div class="card mb-3">
+            <div class="card-body">
+                <p><strong>Tên khách hàng:</strong> @Model.TenKH</p>
+                <p><strong>Địa chỉ:</strong> @Model.DiaChi</p>
+                <p><strong>Số điện thoại:</strong> @Model.SoDt</p>
+                <p><strong>Email:</strong> @Model.Email</p>
+            </div>
+        </div>
+
+        <h4>Chi tiết sản phẩm</h4>
+        <table class="table table-striped table-bordered">
+            <thead class="table-light">
                 <tr>
-                    <td>@item.MaSP</td>
-                    <td>@item.TenSP</td>
-                    <td>@item.SoLuong</td>
-                    <td>@string.Format("{0:#,##0 VNĐ}", item.GiaBan)</td>
-                    <td>@string.Format("{0:#,##0 VNĐ}", item.GiamGia)</td>
-                    <td>@string.Format("{0:#,##0 VNĐ}", item.ThanhTien)</td>
+                    <th>Mã Sản Phẩm</th>
+                    <th>Tên Sản Phẩm</th>
+                    <th>Số Lượng</th>
+                    <th>Giá Bán</th>
+                    <th>Giảm Giá</th>
+                    <th>Thành Tiền</th>
                 </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.OrderItems)
+                {
+                    <tr>
+                        <td>@item.MaSP</td>
+                        <td>@item.TenSP</td>
+                        <td>@item.SoLuong</td>
+                        <td>@string.Format("{0:#,##0 VNĐ}", item.GiaBan)</td>
+                        <td>@string.Format("{0:#,##0 VNĐ}", item.GiamGia)</td>
+                        <td>@string.Format("{0:#,##0 VNĐ}", item.ThanhTien)</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
 
-            }
-        </tbody>
-    </table>
-}
+        <h4 class="mt-4">Tổng thành tiền: <span class="text-danger">@string.Format("{0:#,##0 VNĐ}", Model.TongThanhTien)</span></h4>
+    }
 
-<div class="form-group">
-    <a href="@Url.Action("Index", "Orders")" class="btn btn-primary">Quay lại danh sách đơn hàng</a>
+    <div class="form-group mt-4">
+        <a href="@Url.Action("Index", "Orders")" class="btn btn-primary">Quay lại danh sách đơn hàng</a>
+    </div>
 </div>
