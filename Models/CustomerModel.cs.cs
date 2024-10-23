@@ -20,23 +20,6 @@ namespace ShopTechNoLoGy.Models
 
         // Thêm các thuộc tính khác nếu cần thiết
     }
-    public class OrderDetailsModel
-    {
-        public donHang Order { get; set; }
-        public List<ctDonHang> OrderDetails { get; set; }
-        public string soDH { get; set; }
-       
-        public DateTime NgayDat { get; set; }
-        public List<OrderItemDetailsModel> OrderItems { get; set; }
-    }
-    public class OrderItemDetailsModel
-    {
-        public string MaSP { get; set; }
-        public string TenSP { get; set; }
-        public int SoLuong { get; set; }
-        public int GiaBan { get; set; }
-        public decimal GiamGia { get; set; }
-        public decimal ThanhTien { get; set; }
-    }
+  
 
 }

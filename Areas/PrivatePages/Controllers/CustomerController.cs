@@ -13,7 +13,7 @@ namespace ShopTechNoLoGy.Areas.PrivatePages.Controllers
         [HttpGet]
         public ActionResult Index()
         {
-            HienThiDonHangDaXuLy();
+           
             return View();
         }
 
@@ -57,7 +57,7 @@ namespace ShopTechNoLoGy.Areas.PrivatePages.Controllers
         /// <returns></returns>
         // Hàm kết hợp đa bảng
         // Cần tạo model để lấy dữ liệu lên 
-        public ActionResult OrderDetails(string id) 
+        public ActionResult OrderDetails(string id)
         {
             var orders = db.donHangs
                 .Where(dh => dh.maKH == id)
@@ -72,7 +72,7 @@ namespace ShopTechNoLoGy.Areas.PrivatePages.Controllers
                             SoLuong = (int)ct.soLuong,
                             GiaBan = (int)ct.giaBan,
                             GiamGia = (decimal)ct.giamGia,
-                            ThanhTien=(decimal)ct.ThanhTien
+                            ThanhTien = (decimal)ct.ThanhTien
                         })
                         .ToList()
                 })
