@@ -246,7 +246,7 @@ namespace ShopTechNoLoGy.Areas.PrivatePages.Controllers
             }
         }
 
-        // Hàm cập nhật giá trị giảm giá về 0 cho khuyến mãi đã hết hạn
+        // Hàm tự động cập nhật giá trị giảm giá về 0 cho khuyến mãi đã hết hạn
         private void UpdateDiscounts()
         {
             using (var db = new BanBanhOnline()) {
@@ -266,8 +266,7 @@ namespace ShopTechNoLoGy.Areas.PrivatePages.Controllers
                         db.Entry(sanPham).State = System.Data.Entity.EntityState.Modified;
                     }
                     km.trangThai = false;
-                    // Xóa hoặc đánh dấu khuyến mãi đã hết hạn nếu cần
-                    km.giamGia = 0; // Cập nhật khuyến mãi cũng về 0 nếu muốn
+                   
                     db.Entry(km).State = System.Data.Entity.EntityState.Modified;
                 }
 
