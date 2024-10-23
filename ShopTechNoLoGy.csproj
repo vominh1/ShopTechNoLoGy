@@ -713,6 +713,7 @@
     <Content Include="images\blog\single_blog_4.png" />
     <Content Include="images\blog\single_blog_5.png" />
     <Content Include="images\blog\slide_thumb_1.png" />
+    <Content Include="images\cartshop\cart.gif" />
     <Content Include="images\comment\comment_1.png" />
     <Content Include="images\comment\comment_2.png" />
     <Content Include="images\comment\comment_3.png" />
@@ -1040,6 +1041,7 @@
     <Compile Include="Models\nhomTk.cs">
       <DependentUpon>BanBanhOnline.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\OrderModel.cs" />
     <Compile Include="Models\quanHuyen.cs">
       <DependentUpon>BanBanhOnline.tt</DependentUpon>
     </Compile>
@@ -1164,6 +1166,8 @@
     <Content Include="Areas\PrivatePages\Views\Promotion\ActivePromotions.cshtml" />
     <Content Include="Areas\PrivatePages\Views\Promotion\HiddenPromotions.cshtml" />
     <Content Include="Areas\PrivatePages\Views\Promotion\Edit.cshtml" />
+    <Content Include="Areas\PrivatePages\Views\Orders\SearchOrder.cshtml" />
+    <Content Include="Areas\PrivatePages\Views\Orders\dhDaXuly.cshtml" />
     <None Include="packages.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
