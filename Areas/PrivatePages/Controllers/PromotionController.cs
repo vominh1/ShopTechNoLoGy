@@ -66,8 +66,8 @@ namespace ShopTechNoLoGy.Areas.PrivatePages.Controllers
             if (khuyenMai.giamGia <= 0) {
                 ModelState.AddModelError("giamGia", "Vui lòng nhập mức giảm giá hợp lệ.");
             }
-            if (khuyenMai.ngayKetThuc < khuyenMai.ngayBatDau) {
-                ModelState.AddModelError("ngayKetThuc", "Ngày kết thúc phải sau ngày bắt đầu.");
+            if (khuyenMai.ngayKetThuc <= DateTime.Now) {
+                ModelState.AddModelError("ngayKetThuc", "Ngày kết thúc phải sau ngày hiện tại.");
             }
 
             // Kiểm tra tài khoản từ session
@@ -81,27 +81,25 @@ namespace ShopTechNoLoGy.Areas.PrivatePages.Controllers
 
             // Nếu không có lỗi, tiến hành lưu khuyến mãi
             if (ModelState.IsValid) {
-                // Tạo mã khuyến mãi
                 khuyenMai.maKM = string.Format("{0:yyMMddhhmm}", DateTime.Now);
                 khuyenMai.ngayBatDau = DateTime.Now; // Ngày bắt đầu
                 khuyenMai.trangThai = true;
+
                 using (var db = new BanBanhOnline()) {
                     // Thêm khuyến mãi vào database
                     db.KhuyenMais.Add(khuyenMai);
-                    db.SaveChanges(); // Lưu thay đổi vào database
+                    db.SaveChanges();
 
                     // Cập nhật sản phẩm với mức giảm giá
                     var sanPham = db.sanPhams.FirstOrDefault(sp => sp.maSP == khuyenMai.maSP);
                     if (sanPham != null) {
-                        sanPham.giamGia = khuyenMai.giamGia; // Gán mức giảm giá cho sản phẩm
-                        db.SaveChanges(); // Lưu thay đổi vào database
+                        sanPham.giamGia = khuyenMai.giamGia;
+                        db.Entry(sanPham).State = System.Data.Entity.EntityState.Modified;
+                        db.SaveChanges();
                     }
                 }
 
-                // Thông báo đăng khuyến mãi thành công bằng TempData
                 TempData["SuccessMessage"] = "Đăng khuyến mãi thành công!";
-
-                // Redirect về action Index để làm mới trang
                 return RedirectToAction("Index");
             }
 
@@ -109,6 +107,7 @@ namespace ShopTechNoLoGy.Areas.PrivatePages.Controllers
             ViewBag.SanPhamList = GetSanPhamList();
             return View(khuyenMai);
         }
+
         /// <summary>
         /// hàm sửa promotion
         /// </summary>
@@ -252,7 +251,7 @@ namespace ShopTechNoLoGy.Areas.PrivatePages.Controllers
             using (var db = new BanBanhOnline()) {
                 // Lấy danh sách khuyến mãi đã kết thúc
                 var khuyenMaisDaKetThuc = db.KhuyenMais
-                    .Where(km => km.ngayKetThuc <= DateTime.Now)
+                    .Where(km => km.ngayKetThuc <= DateTime.Now && km.trangThai == true)
                     .ToList();
 
                 foreach (var km in khuyenMaisDaKetThuc) {
@@ -262,17 +261,18 @@ namespace ShopTechNoLoGy.Areas.PrivatePages.Controllers
                     if (sanPham != null) {
                         // Đặt lại mức giảm giá về 0
                         sanPham.giamGia = 0;
-                        // Lưu thay đổi vào database
                         db.Entry(sanPham).State = System.Data.Entity.EntityState.Modified;
                     }
+
+                    // Cập nhật trạng thái khuyến mãi
                     km.trangThai = false;
-                   
                     db.Entry(km).State = System.Data.Entity.EntityState.Modified;
                 }
 
                 db.SaveChanges(); // Lưu tất cả thay đổi vào database
             }
         }
+
 
     }
 }

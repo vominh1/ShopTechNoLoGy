@@ -57,7 +57,6 @@ namespace ShopTechNoLoGy.Areas.PrivatePages.Controllers
             HienThiSanPhamchoGiaodien();
             return View("Index");
         }
-
         private void HienThiSanPhamchoGiaodien()
         {
             List<sanPham> l = db.sanPhams.Where(x => x.daDuyet == true).ToList<sanPham>();
@@ -85,7 +84,6 @@ namespace ShopTechNoLoGy.Areas.PrivatePages.Controllers
 
             return View(sp);
         }
-
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(sanPham model, HttpPostedFileBase hinhdaidien)

@@ -39,7 +39,7 @@
                             <th>Mã khách hàng</th>
                             <th>Trạng thái</th>
                             <th>Ngày đặt</th>
-                            <th>Tài khoản</th>
+                            <th>Trạng thái giao hàng</th>
                             <th>Địa chỉ giao hàng</th>
                             <th>Hành động</th>
                         </tr>
@@ -49,23 +49,23 @@
                         {
                             foreach (var order in ds)
                             {
-                                <tr>
-                                    <td>@order.soDH</td>
-                                    <td>@order.maKH</td>
-                                    <td><span class="badge badge-success">Đã duyệt</span></td>
-                                    <td>@order.ngayDat</td>
-                                    <td>@order.taiKhoan</td>
-                                    <td>@order.diaChiGH</td>
-                                    <td>
-                                        @using (Html.BeginForm("ChiTietDonHang", "OrderDetails", FormMethod.Post))
-                                        {
-                                            <input type="hidden" name="soDH" value="@order.soDH" />
-                                            <button class="btn btn-info btn-sm" title="Xem chi tiết đơn hàng">
-                                                <i class="fas fa-eye"></i> Chi tiết
-                                            </button>
-                                        }
-                                    </td>
-                                </tr>
+                        <tr>
+                            <td>@order.soDH</td>
+                            <td>@order.maKH</td>
+                            <td><span class="badge badge-success">Đã duyệt</span></td>
+                            <td>@order.ngayDat</td>
+                            <td>@order.trangThaiGiaoHang</td> 
+                            <td>@order.diaChiGH</td>
+                            <td>
+                                @using (Html.BeginForm("ChiTietDonHang", "OrderDetails", FormMethod.Post))
+                                {
+                                    <input type="hidden" name="soDH" value="@order.soDH" />
+                                    <button class="btn btn-info btn-sm" title="Xem chi tiết đơn hàng">
+                                        <i class="fas fa-eye"></i> Chi tiết
+                                    </button>
+                                }
+                            </td>
+                        </tr>
                             }
                         }
                     </tbody>

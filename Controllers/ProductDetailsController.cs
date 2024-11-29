@@ -20,7 +20,7 @@ namespace ShopTechNoLoGy.Controllers
             }
 
             ViewData["spcanxem"] = x;
-             ViewData["username"] = User.Identity.Name;
+            ViewData["username"] = User.Identity.Name;
             return View();
         }
 

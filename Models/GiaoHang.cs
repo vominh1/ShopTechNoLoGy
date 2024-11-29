@@ -12,19 +12,17 @@ namespace ShopTechNoLoGy.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class KhuyenMai
+    public partial class GiaoHang
     {
-        public string maKM { get; set; }
-        public string maSP { get; set; }
-        public string taiKhoan { get; set; }
-        public string noiDung { get; set; }
-        public System.DateTime ngayBatDau { get; set; }
-        public System.DateTime ngayKetThuc { get; set; }
-        public Nullable<int> giamGia { get; set; }
+        public int maGiaoHang { get; set; }
+        public string soDH { get; set; }
+        public string maShipper { get; set; }
+        public System.DateTime ngayGiao { get; set; }
+        public int maTrangThai { get; set; }
         public string ghiChu { get; set; }
-        public Nullable<bool> trangThai { get; set; }
     
-        public virtual sanPham sanPham { get; set; }
-        public virtual taiKhoanTV taiKhoanTV { get; set; }
+        public virtual donHang donHang { get; set; }
+        public virtual Shipper Shipper { get; set; }
+        public virtual TrangThaiGiaoHang TrangThaiGiaoHang { get; set; }
     }
 }

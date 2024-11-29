@@ -1,0 +1,33 @@
+﻿@model IEnumerable<ShopTechNoLoGy.Models.khachHangThanThietModel>
+
+@{
+    ViewBag.Title = "Khách hàng thân thiết";
+}
+
+<h2>Danh Sách Tài Khoản Mua Nhiều Nhất</h2>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Mã Tài Khoản</th>
+            <th>Tên Tài Khoản</th>
+            <th>Tổng Số Lượng Sản Phẩm Mua</th>
+            <th>Tổng Tiền Đã Mua (VND)</th>
+            <th>Chi Tiết Mua Hàng</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.MaKH</td>
+                <td>@item.TenKH</td>
+                <td>@item.soluong</td>
+                <td>@item.ThanhTien.ToString("N0")</td> <!-- Định dạng tiền tệ -->
+                <td>
+                    <a href="@Url.Action("ChiTietMuaHang", new { taiKhoan = item.TaiKhoan })" class="btn btn-info">Xem Chi Tiết</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

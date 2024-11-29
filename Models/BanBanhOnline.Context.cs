@@ -41,5 +41,8 @@ namespace ShopTechNoLoGy.Models
         public virtual DbSet<binhLuanSP> binhLuanSPs { get; set; }
         public virtual DbSet<binhLuanBV> binhLuanBVs { get; set; }
         public virtual DbSet<KhuyenMai> KhuyenMais { get; set; }
+        public virtual DbSet<GiaoHang> GiaoHangs { get; set; }
+        public virtual DbSet<Shipper> Shippers { get; set; }
+        public virtual DbSet<TrangThaiGiaoHang> TrangThaiGiaoHangs { get; set; }
     }
 }

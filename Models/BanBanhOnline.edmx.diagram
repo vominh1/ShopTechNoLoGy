@@ -43,6 +43,13 @@
         <EntityTypeShape EntityType="Models.KhuyenMai" Width="1.5" PointX="13.375" PointY="0.5" />
         <AssociationConnector Association="Models.FK__KhuyenMai__maSP__671F4F74" />
         <AssociationConnector Association="Models.FK__KhuyenMai__taiKh__681373AD" />
+        <EntityTypeShape EntityType="Models.GiaoHang" Width="1.5" PointX="7.5" PointY="9.625" />
+        <EntityTypeShape EntityType="Models.Shipper" Width="1.5" PointX="5.25" PointY="13" />
+        <EntityTypeShape EntityType="Models.TrangThaiGiaoHang" Width="1.5" PointX="5.25" PointY="10.625" />
+        <AssociationConnector Association="Models.FK__GiaoHang__soDH__0D44F85C" />
+        <AssociationConnector Association="Models.FK__GiaoHang__maShip__0E391C95" />
+        <AssociationConnector Association="Models.FK__GiaoHang__maTran__0F2D40CE" />
+        <AssociationConnector Association="Models.FK_donHang_Shipper" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

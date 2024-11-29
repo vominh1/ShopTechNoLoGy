@@ -148,6 +148,15 @@
             .login-prompt a:hover {
                 text-decoration: underline;
             }
+    .original-price {
+        text-decoration: line-through;
+        color: gray;
+    }
+
+    .discount-amount {
+        color: red;
+        font-weight: bold;
+    }
 </style>
 
 <link href="~/Content/style/styleproductdetail.css" rel="stylesheet" />
@@ -178,7 +187,18 @@
 
         <!-- Product Details -->
         <div class="product-details">
-            <div class="product-price">Giá : @String.Format("{0:#,##0 VNĐ}", i.giaBan)</div>
+            <div class="product-price">
+                Giá : @String.Format("{0:#,##0 VNĐ}", i.giaBan - (i.giamGia > 0 ? i.giamGia : 0))
+            </div>
+
+            @if (i.giamGia > 0)
+            {
+                <div class="product-discount">
+                    Giá gốc: <span class="original-price">@String.Format("{0:#,##0 VNĐ}", i.giaBan)</span><br />
+                    Giảm giá: <span class="discount-amount">@String.Format("{0:#,##0 VNĐ}", i.giamGia)</span>
+                </div>
+            }
+
             <div class="product-summary">@i.ndTomTat</div>
             <div class="product-content">
                 @i.noiDung
@@ -197,6 +217,7 @@
                 }
             }
         </div>
+
     </div>
 </div>
 

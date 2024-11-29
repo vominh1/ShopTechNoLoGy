@@ -53,6 +53,9 @@
     <Reference Include="AutoMapper, Version=4.2.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
       <HintPath>packages\AutoMapper.4.2.1\lib\net45\AutoMapper.dll</HintPath>
     </Reference>
+    <Reference Include="BCrypt.Net-Next, Version=4.0.3.0, Culture=neutral, PublicKeyToken=1e11be04b6288443, processorArchitecture=MSIL">
+      <HintPath>packages\BCrypt.Net-Next.4.0.3\lib\net472\BCrypt.Net-Next.dll</HintPath>
+    </Reference>
     <Reference Include="BouncyCastle.Cryptography, Version=2.0.0.0, Culture=neutral, PublicKeyToken=072edcf4a5328938, processorArchitecture=MSIL">
       <HintPath>packages\BouncyCastle.Cryptography.2.4.0\lib\net461\BouncyCastle.Cryptography.dll</HintPath>
     </Reference>
@@ -955,6 +958,7 @@
     <Compile Include="Areas\PrivatePages\Controllers\CategoryOfProductController.cs" />
     <Compile Include="Areas\PrivatePages\Controllers\CustomerController.cs" />
     <Compile Include="Areas\PrivatePages\Controllers\DashbroadController.cs" />
+    <Compile Include="Areas\PrivatePages\Controllers\DeliveryController.cs" />
     <Compile Include="Areas\PrivatePages\Controllers\InventoryController.cs" />
     <Compile Include="Areas\PrivatePages\Controllers\LogoutAdminController.cs" />
     <Compile Include="Areas\PrivatePages\Controllers\NewArticleController.cs" />
@@ -963,6 +967,7 @@
     <Compile Include="Areas\PrivatePages\Controllers\ProductsController.cs" />
     <Compile Include="Areas\PrivatePages\Controllers\PromotionController.cs" />
     <Compile Include="Areas\PrivatePages\Controllers\RevenueController.cs" />
+    <Compile Include="Areas\PrivatePages\Controllers\ShipperController.cs" />
     <Compile Include="Areas\PrivatePages\Controllers\WareHouseController.cs" />
     <Compile Include="Areas\PrivatePages\Models\ThuongDung.cs" />
     <Compile Include="Areas\PrivatePages\PrivatePagesAreaRegistration.cs" />
@@ -1025,9 +1030,13 @@
       <DependentUpon>BanBanhOnline.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Forum.cs" />
+    <Compile Include="Models\GiaoHang.cs">
+      <DependentUpon>BanBanhOnline.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\khachHang.cs">
       <DependentUpon>BanBanhOnline.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\khachHangThanThietModel.cs" />
     <Compile Include="Models\KhuyenMai.cs">
       <DependentUpon>BanBanhOnline.tt</DependentUpon>
     </Compile>
@@ -1048,6 +1057,9 @@
     <Compile Include="Models\sanPham.cs">
       <DependentUpon>BanBanhOnline.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Shipper.cs">
+      <DependentUpon>BanBanhOnline.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\sysdiagram.cs">
       <DependentUpon>BanBanhOnline.tt</DependentUpon>
     </Compile>
@@ -1055,6 +1067,10 @@
       <DependentUpon>BanBanhOnline.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\TonKho.cs">
+      <DependentUpon>BanBanhOnline.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TopPurchaserViewModel.cs" />
+    <Compile Include="Models\TrangThaiGiaoHang.cs">
       <DependentUpon>BanBanhOnline.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\XuatKho.cs">
@@ -1168,6 +1184,13 @@
     <Content Include="Areas\PrivatePages\Views\Promotion\Edit.cshtml" />
     <Content Include="Areas\PrivatePages\Views\Orders\SearchOrder.cshtml" />
     <Content Include="Areas\PrivatePages\Views\Orders\dhDaXuly.cshtml" />
+    <Content Include="Areas\PrivatePages\Views\Delivery\Index.cshtml" />
+    <Content Include="Areas\PrivatePages\Views\Delivery\Create.cshtml" />
+    <Content Include="Areas\PrivatePages\Views\Shipper\Login.cshtml" />
+    <Content Include="Areas\PrivatePages\Views\Delivery\SelectShipper.cshtml" />
+    <Content Include="Areas\PrivatePages\Views\Customer\KhachHangThanThiet.cshtml" />
+    <Content Include="Areas\PrivatePages\Views\Customer\KhachHangMuaNhieuNhat.cshtml" />
+    <Content Include="Areas\PrivatePages\Views\Customer\ChiTietMuaHang.cshtml" />
     <None Include="packages.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

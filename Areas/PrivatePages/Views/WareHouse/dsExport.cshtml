@@ -14,22 +14,23 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.First().MaPhieuXuat)
+                Mã phiếu xuất
+            </th>
+
+            <th>
+                Tên sản phẩm
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.First().NgayXuat)
+                Ngày xuất
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.First().sanPham.tenSP)
+                Số lượng xuất
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.First().SoLuongXuat)
+                 Người xuất
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.First().NguoiXuat)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.First().LyDoXuat)
+              Lý do xuất
             </th>
         </tr>
     </thead>
@@ -41,10 +42,11 @@
                     @Html.DisplayFor(modelItem => item.MaPhieuXuat)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.NgayXuat)
+                    @Html.DisplayFor(modelItem => item.sanPham.tenSP)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.sanPham.tenSP)
+                    @Html.DisplayFor(modelItem => item.NgayXuat)
+                   
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.SoLuongXuat)

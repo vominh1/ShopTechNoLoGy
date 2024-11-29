@@ -4,19 +4,47 @@
     List<donHang> ds = ViewData["DanhSachDonHang"] as List<donHang>;
 }
 <style>
-    form {
-        display: inline;
+    body {
+        background-color: #f4f6f9;
     }
 
-    .font_size_TSP {
-        width: 350px;
+    .table-hover tbody tr:hover {
+        background-color: rgba(0,123,255,0.1);
+        transition: background-color 0.3s ease;
+    }
+
+    .btn-custom {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.3rem;
+        padding: 0.4rem 0.8rem;
+        margin: 0.1rem;
+        font-size: 0.9rem;
+        border-radius: 6px;
+        transition: all 0.3s ease;
+    }
+
+        .btn-custom:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+    .card {
+        border-radius: 10px;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+
+    .table thead {
+        background-color: #f8f9fa;
+        color: #343a40;
     }
 </style>
+
 <section class="content-header">
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1>Danh sách khách hàng đang đặt hàng</h1>
+                <h1 class="m-0 text-dark">Danh sách khách hàng đã duyệt</h1>
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
@@ -29,62 +57,85 @@
 </section>
 
 <section class="content">
-    <div class="card">
-        <div class="card-header">
-            <h3 class="card-title"></h3>
-            <div class="card-tools">
-                <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
-                    <i class="fas fa-minus"></i>
-                </button>
+    <div class="container-fluid">
+        <div class="card">
+            <div class="card-header">
+               
+                <div class="card-tools">
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+                        <i class="fas fa-minus"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="card-body p-0">
+                <div class="table-responsive">
+                    <table class="table table-striped table-hover mb-0">
+                        <thead>
+                            <tr>
+                                <th>Số đơn hàng</th>
+                                <th>Mã khách hàng</th>
+                                <th>Trạng thái</th>
+                                <th>Họ & tên</th>
+                                <th>Địa chỉ giao hàng</th>
+                                <th>Hành động</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (ds != null)
+                            {
+                                foreach (var order in ds)
+                                {
+                                    <tr>
+                                        <td>@order.soDH</td>
+                                        <td>@order.maKH</td>
+                                        <td>
+                                            <span class="badge bg-warning text-dark">
+                                                Đã duyệt
+                                            </span>
+                                        </td>
+                                        <td>@order.taiKhoanTV.hoDem @order.taiKhoanTV.tenTV</td>
+                                        <td>@order.diaChiGH</td>
+                                        <td>
+                                            @using (Html.BeginForm("Active", "Customer", FormMethod.Post, new { @class = "d-inline" }))
+                                            {
+                                                <input type="hidden" name="maDonHang" value="@order.soDH" />
+                                                <button class="btn btn-warning btn-custom" title="Cấm đơn hàng">
+                                                    <i class="fas fa-ban"></i> Cấm
+                                                </button>
+                                            }
+                                            @using (Html.BeginForm("Delete", "Customer", FormMethod.Post, new { @class = "d-inline" }))
+                                            {
+                                                <input type="hidden" name="maDonHang" value="@order.soDH" />
+                                                <button class="btn btn-danger btn-custom" title="Xóa đơn hàng">
+                                                    <i class="fas fa-trash"></i> Xóa
+                                                </button>
+                                            }
+                                            @using (Html.BeginForm("OrderDetailsT", "Orders", FormMethod.Post, new { @class = "d-inline" }))
+                                            {
+                                                <input type="hidden" name="maDonHang" value="@order.soDH" />
+                                                <button class="btn btn-info btn-custom" title="Xem chi tiết đơn hàng">
+                                                    <i class="fas fa-info-circle"></i> Chi tiết
+                                                </button>
+                                            }
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                            else
+                            {
+                                <tr>
+                                    <td colspan="6" class="text-center text-muted py-4">
+                                        Không có đơn hàng nào để hiển thị
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
-        <div class="card-body">
-            <table id="example2" class="table table-bordered table-hover">
-                <thead>
-                    <tr>
-                        <th>Số đơn hàng</th>
-                        <th>Mã khách hàng</th>
-                        <th>Đã duyệt</th>
-                        <th>Họ & tên</th>
-                        <th>Địa chỉ giao hàng</th>
-                        <th>Hành động</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @if (ds != null)
-                    {
-                        foreach (var order in ds)
-                        {
-                            <tr>
-                                <td>@order.soDH</td>
-                                <td>@order.maKH</td>
-                                <td>@order.daKichHoat</td>
-                                <td>@order.taiKhoanTV.hoDem @order.taiKhoanTV.tenTV</td>
-                                <td>@order.diaChiGH</td>
-                                <td>
-                                    @using (Html.BeginForm("Active", "Customer", FormMethod.Post))
-                                    {
-                                        <input type="hidden" name="maDonHang" value="@order.soDH" />
-                                        <button class="btn btn-success" title="Cho phép hiển thị trên tất cả các trang công khai">Cấm</button>
-                                    }
-
-                                    @using (Html.BeginForm("Delete", "Customer", FormMethod.Post))
-                                    {
-                                        <input type="hidden" name="maDonHang" value="@order.soDH" />
-                                        <button class="btn btn-danger" title="Xóa đơn hàng">Xóa</button>
-                                    }
-                                    @using (Html.BeginForm("OrderDetailsT", "Orders", FormMethod.Post))
-                                    {
-                                        <input type="hidden" name="maDonHang" value="@order.soDH" />
-                                        <button class="btn btn-info" title="Xem chi tiết đơn hàng">Chi tiết</button>
-                                    }
-                                </td>
-                            </tr>
-                        }
-                    }
-                </tbody>
-            </table>
-        </div>
-        
     </div>
 </section>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.0/js/bootstrap.bundle.min.js"></script>

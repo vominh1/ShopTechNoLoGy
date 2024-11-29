@@ -1,0 +1,45 @@
+﻿@model ShopTechNoLoGy.Models.GiaoHang
+
+@{
+    ViewBag.Title = "Tạo Giao Hàng Mới";
+}
+
+<h2>Tạo Giao Hàng Mới</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.soDH)
+        @Html.TextBoxFor(model => model.soDH, new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.soDH)
+    </div>
+
+    <div class="form-group">
+        @Html.Label("Mã Shipper")
+        @Html.DropDownList("MaShipper", (SelectList)ViewBag.MaShipper, "Chọn Shipper", new { @class = "form-control" })
+        @Html.ValidationMessage("MaShipper")
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.ngayGiao)
+        @Html.TextBoxFor(model => model.ngayGiao, "{0:yyyy-MM-dd}", new { @class = "form-control", type = "date" })
+        @Html.ValidationMessageFor(model => model.ngayGiao)
+    </div>
+
+    <div class="form-group">
+        @Html.Label("Trạng Thái Giao Hàng")
+        @Html.DropDownList("MaTrangThai", (SelectList)ViewBag.MaTrangThai, "Chọn Trạng Thái", new { @class = "form-control" })
+        @Html.ValidationMessage("MaTrangThai")
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.ghiChu)
+        @Html.TextBoxFor(model => model.ghiChu, new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.ghiChu)
+    </div>
+
+    <input type="submit" value="Lưu" class="btn btn-success" />
+    @Html.ActionLink("Quay lại", "Index", null, new { @class = "btn btn-danger" })
+}

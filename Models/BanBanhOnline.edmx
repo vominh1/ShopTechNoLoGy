@@ -64,6 +64,19 @@
           <Property Name="ngayGH" Type="datetime" />
           <Property Name="diaChiGH" Type="nvarchar" MaxLength="250" />
           <Property Name="ghiChu" Type="ntext" />
+          <Property Name="trangThaiGiaoHang" Type="varchar" MaxLength="50" />
+          <Property Name="maShipper" Type="varchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="GiaoHang">
+          <Key>
+            <PropertyRef Name="maGiaoHang" />
+          </Key>
+          <Property Name="maGiaoHang" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="soDH" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="maShipper" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="ngayGiao" Type="datetime" Nullable="false" />
+          <Property Name="maTrangThai" Type="int" Nullable="false" />
+          <Property Name="ghiChu" Type="nvarchar" MaxLength="500" />
         </EntityType>
         <EntityType Name="khachHang">
           <Key>
@@ -151,6 +164,19 @@
           <Property Name="dvt" Type="nvarchar" MaxLength="12" />
           <Property Name="SoLuongTonKho" Type="int" />
         </EntityType>
+        <EntityType Name="Shipper">
+          <Key>
+            <PropertyRef Name="maShipper" />
+          </Key>
+          <Property Name="maShipper" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="tenShipper" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="soDT" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="diaChi" Type="nvarchar" MaxLength="250" />
+          <Property Name="email" Type="varchar" MaxLength="50" />
+          <Property Name="trangThai" Type="bit" Nullable="false" />
+          <Property Name="Username" Type="nvarchar" MaxLength="20" />
+          <Property Name="Password" Type="nvarchar" MaxLength="20" />
+        </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
             <PropertyRef Name="diagram_id" />
@@ -186,6 +212,13 @@
           </Key>
           <Property Name="maSP" Type="varchar" MaxLength="10" Nullable="false" />
           <Property Name="SoLuongTonKho" Type="int" />
+        </EntityType>
+        <EntityType Name="TrangThaiGiaoHang">
+          <Key>
+            <PropertyRef Name="maTrangThai" />
+          </Key>
+          <Property Name="maTrangThai" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="tenTrangThai" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="XuatKho">
           <Key>
@@ -280,6 +313,30 @@
             </Principal>
             <Dependent Role="donHang">
               <PropertyRef Name="taiKhoan" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__GiaoHang__maShip__0E391C95">
+          <End Role="Shipper" Type="Self.Shipper" Multiplicity="1" />
+          <End Role="GiaoHang" Type="Self.GiaoHang" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Shipper">
+              <PropertyRef Name="maShipper" />
+            </Principal>
+            <Dependent Role="GiaoHang">
+              <PropertyRef Name="maShipper" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__GiaoHang__maTran__0F2D40CE">
+          <End Role="TrangThaiGiaoHang" Type="Self.TrangThaiGiaoHang" Multiplicity="1" />
+          <End Role="GiaoHang" Type="Self.GiaoHang" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TrangThaiGiaoHang">
+              <PropertyRef Name="maTrangThai" />
+            </Principal>
+            <Dependent Role="GiaoHang">
+              <PropertyRef Name="maTrangThai" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -451,6 +508,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_donHang_Shipper">
+          <End Role="Shipper" Type="Self.Shipper" Multiplicity="0..1" />
+          <End Role="donHang" Type="Self.donHang" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Shipper">
+              <PropertyRef Name="maShipper" />
+            </Principal>
+            <Dependent Role="donHang">
+              <PropertyRef Name="maShipper" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_TaiKhoan">
           <End Role="taiKhoanTV" Type="Self.taiKhoanTV" Multiplicity="1" />
           <End Role="binhLuanSP" Type="Self.binhLuanSP" Multiplicity="*" />
@@ -469,6 +538,7 @@
           <EntitySet Name="binhLuanSP" EntityType="Self.binhLuanSP" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ctDonHang" EntityType="Self.ctDonHang" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="donHang" EntityType="Self.donHang" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="GiaoHang" EntityType="Self.GiaoHang" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="khachHang" EntityType="Self.khachHang" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="KhuyenMai" EntityType="Self.KhuyenMai" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="loaiSP" EntityType="Self.loaiSP" Schema="dbo" store:Type="Tables" />
@@ -476,9 +546,11 @@
           <EntitySet Name="nhomTk" EntityType="Self.nhomTk" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="quanHuyen" EntityType="Self.quanHuyen" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sanPham" EntityType="Self.sanPham" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Shipper" EntityType="Self.Shipper" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="taiKhoanTV" EntityType="Self.taiKhoanTV" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TonKho" EntityType="Self.TonKho" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TrangThaiGiaoHang" EntityType="Self.TrangThaiGiaoHang" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="XuatKho" EntityType="Self.XuatKho" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK__baiViet__maLoai__37A5467C" Association="Self.FK__baiViet__maLoai__37A5467C">
             <End Role="loaiSP" EntitySet="loaiSP" />
@@ -507,6 +579,14 @@
           <AssociationSet Name="FK__donHang__taiKhoa__3C69FB99" Association="Self.FK__donHang__taiKhoa__3C69FB99">
             <End Role="taiKhoanTV" EntitySet="taiKhoanTV" />
             <End Role="donHang" EntitySet="donHang" />
+          </AssociationSet>
+          <AssociationSet Name="FK__GiaoHang__maShip__0E391C95" Association="Self.FK__GiaoHang__maShip__0E391C95">
+            <End Role="Shipper" EntitySet="Shipper" />
+            <End Role="GiaoHang" EntitySet="GiaoHang" />
+          </AssociationSet>
+          <AssociationSet Name="FK__GiaoHang__maTran__0F2D40CE" Association="Self.FK__GiaoHang__maTran__0F2D40CE">
+            <End Role="TrangThaiGiaoHang" EntitySet="TrangThaiGiaoHang" />
+            <End Role="GiaoHang" EntitySet="GiaoHang" />
           </AssociationSet>
           <AssociationSet Name="FK__khachHang__maQH__3D5E1FD2" Association="Self.FK__khachHang__maQH__3D5E1FD2">
             <End Role="quanHuyen" EntitySet="quanHuyen" />
@@ -564,6 +644,10 @@
             <End Role="taiKhoanTV" EntitySet="taiKhoanTV" />
             <End Role="binhLuanBV" EntitySet="binhLuanBV" />
           </AssociationSet>
+          <AssociationSet Name="FK_donHang_Shipper" Association="Self.FK_donHang_Shipper">
+            <End Role="Shipper" EntitySet="Shipper" />
+            <End Role="donHang" EntitySet="donHang" />
+          </AssociationSet>
           <AssociationSet Name="FK_TaiKhoan" Association="Self.FK_TaiKhoan">
             <End Role="taiKhoanTV" EntitySet="taiKhoanTV" />
             <End Role="binhLuanSP" EntitySet="binhLuanSP" />
@@ -620,6 +704,10 @@
           <NavigationProperty Name="ctDonHangs" Relationship="Self.FK__ctDonHang__soDH__3A81B327" FromRole="donHang" ToRole="ctDonHang" />
           <NavigationProperty Name="khachHang" Relationship="Self.FK__donHang__maKH__3B75D760" FromRole="donHang" ToRole="khachHang" />
           <NavigationProperty Name="taiKhoanTV" Relationship="Self.FK__donHang__taiKhoa__3C69FB99" FromRole="donHang" ToRole="taiKhoanTV" />
+          <NavigationProperty Name="GiaoHangs" Relationship="Models.FK__GiaoHang__soDH__0D44F85C" FromRole="donHang" ToRole="GiaoHang" />
+          <Property Name="trangThaiGiaoHang" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="maShipper" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Shipper" Relationship="Models.FK_donHang_Shipper" FromRole="donHang" ToRole="Shipper" />
         </EntityType>
         <EntityType Name="khachHang">
           <Key>
@@ -961,6 +1049,25 @@
             <End Role="taiKhoanTV" EntitySet="taiKhoanTVs" />
             <End Role="KhuyenMai" EntitySet="KhuyenMais" />
           </AssociationSet>
+          <EntitySet Name="GiaoHangs" EntityType="Models.GiaoHang" />
+          <EntitySet Name="Shippers" EntityType="Models.Shipper" />
+          <EntitySet Name="TrangThaiGiaoHangs" EntityType="Models.TrangThaiGiaoHang" />
+          <AssociationSet Name="FK__GiaoHang__soDH__0D44F85C" Association="Models.FK__GiaoHang__soDH__0D44F85C">
+            <End Role="donHang" EntitySet="donHangs" />
+            <End Role="GiaoHang" EntitySet="GiaoHangs" />
+          </AssociationSet>
+          <AssociationSet Name="FK__GiaoHang__maShip__0E391C95" Association="Models.FK__GiaoHang__maShip__0E391C95">
+            <End Role="Shipper" EntitySet="Shippers" />
+            <End Role="GiaoHang" EntitySet="GiaoHangs" />
+          </AssociationSet>
+          <AssociationSet Name="FK__GiaoHang__maTran__0F2D40CE" Association="Models.FK__GiaoHang__maTran__0F2D40CE">
+            <End Role="TrangThaiGiaoHang" EntitySet="TrangThaiGiaoHangs" />
+            <End Role="GiaoHang" EntitySet="GiaoHangs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_donHang_Shipper" Association="Models.FK_donHang_Shipper">
+            <End Role="Shipper" EntitySet="Shippers" />
+            <End Role="donHang" EntitySet="donHangs" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="sysdiagram">
           <Key>
@@ -1181,6 +1288,91 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="GiaoHang">
+          <Key>
+            <PropertyRef Name="maGiaoHang" />
+          </Key>
+          <Property Name="maGiaoHang" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="soDH" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="maShipper" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="ngayGiao" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="maTrangThai" Type="Int32" Nullable="false" />
+          <Property Name="ghiChu" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="donHang" Relationship="Models.FK__GiaoHang__soDH__0D44F85C" FromRole="GiaoHang" ToRole="donHang" />
+          <NavigationProperty Name="Shipper" Relationship="Models.FK__GiaoHang__maShip__0E391C95" FromRole="GiaoHang" ToRole="Shipper" />
+          <NavigationProperty Name="TrangThaiGiaoHang" Relationship="Models.FK__GiaoHang__maTran__0F2D40CE" FromRole="GiaoHang" ToRole="TrangThaiGiaoHang" />
+        </EntityType>
+        <EntityType Name="Shipper">
+          <Key>
+            <PropertyRef Name="maShipper" />
+          </Key>
+          <Property Name="maShipper" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="tenShipper" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="soDT" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="diaChi" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="trangThai" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="GiaoHangs" Relationship="Models.FK__GiaoHang__maShip__0E391C95" FromRole="Shipper" ToRole="GiaoHang" />
+          <NavigationProperty Name="donHangs" Relationship="Models.FK_donHang_Shipper" FromRole="Shipper" ToRole="donHang" />
+          <Property Name="Username" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="TrangThaiGiaoHang">
+          <Key>
+            <PropertyRef Name="maTrangThai" />
+          </Key>
+          <Property Name="maTrangThai" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="tenTrangThai" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="GiaoHangs" Relationship="Models.FK__GiaoHang__maTran__0F2D40CE" FromRole="TrangThaiGiaoHang" ToRole="GiaoHang" />
+        </EntityType>
+        <Association Name="FK__GiaoHang__soDH__0D44F85C">
+          <End Type="Models.donHang" Role="donHang" Multiplicity="1" />
+          <End Type="Models.GiaoHang" Role="GiaoHang" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="donHang">
+              <PropertyRef Name="soDH" />
+            </Principal>
+            <Dependent Role="GiaoHang">
+              <PropertyRef Name="soDH" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__GiaoHang__maShip__0E391C95">
+          <End Type="Models.Shipper" Role="Shipper" Multiplicity="1" />
+          <End Type="Models.GiaoHang" Role="GiaoHang" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Shipper">
+              <PropertyRef Name="maShipper" />
+            </Principal>
+            <Dependent Role="GiaoHang">
+              <PropertyRef Name="maShipper" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__GiaoHang__maTran__0F2D40CE">
+          <End Type="Models.TrangThaiGiaoHang" Role="TrangThaiGiaoHang" Multiplicity="1" />
+          <End Type="Models.GiaoHang" Role="GiaoHang" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TrangThaiGiaoHang">
+              <PropertyRef Name="maTrangThai" />
+            </Principal>
+            <Dependent Role="GiaoHang">
+              <PropertyRef Name="maTrangThai" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_donHang_Shipper">
+          <End Type="Models.Shipper" Role="Shipper" Multiplicity="0..1" />
+          <End Type="Models.donHang" Role="donHang" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Shipper">
+              <PropertyRef Name="maShipper" />
+            </Principal>
+            <Dependent Role="donHang">
+              <PropertyRef Name="maShipper" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1218,6 +1410,8 @@
           <EntitySetMapping Name="donHangs">
             <EntityTypeMapping TypeName="Models.donHang">
               <MappingFragment StoreEntitySet="donHang">
+                <ScalarProperty Name="maShipper" ColumnName="maShipper" />
+                <ScalarProperty Name="trangThaiGiaoHang" ColumnName="trangThaiGiaoHang" />
                 <ScalarProperty Name="soDH" ColumnName="soDH" />
                 <ScalarProperty Name="maKH" ColumnName="maKH" />
                 <ScalarProperty Name="taiKhoan" ColumnName="taiKhoan" />
@@ -1393,6 +1587,40 @@
                 <ScalarProperty Name="taiKhoan" ColumnName="taiKhoan" />
                 <ScalarProperty Name="maSP" ColumnName="maSP" />
                 <ScalarProperty Name="maKM" ColumnName="maKM" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="GiaoHangs">
+            <EntityTypeMapping TypeName="Models.GiaoHang">
+              <MappingFragment StoreEntitySet="GiaoHang">
+                <ScalarProperty Name="ghiChu" ColumnName="ghiChu" />
+                <ScalarProperty Name="maTrangThai" ColumnName="maTrangThai" />
+                <ScalarProperty Name="ngayGiao" ColumnName="ngayGiao" />
+                <ScalarProperty Name="maShipper" ColumnName="maShipper" />
+                <ScalarProperty Name="soDH" ColumnName="soDH" />
+                <ScalarProperty Name="maGiaoHang" ColumnName="maGiaoHang" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Shippers">
+            <EntityTypeMapping TypeName="Models.Shipper">
+              <MappingFragment StoreEntitySet="Shipper">
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="trangThai" ColumnName="trangThai" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="diaChi" ColumnName="diaChi" />
+                <ScalarProperty Name="soDT" ColumnName="soDT" />
+                <ScalarProperty Name="tenShipper" ColumnName="tenShipper" />
+                <ScalarProperty Name="maShipper" ColumnName="maShipper" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TrangThaiGiaoHangs">
+            <EntityTypeMapping TypeName="Models.TrangThaiGiaoHang">
+              <MappingFragment StoreEntitySet="TrangThaiGiaoHang">
+                <ScalarProperty Name="tenTrangThai" ColumnName="tenTrangThai" />
+                <ScalarProperty Name="maTrangThai" ColumnName="maTrangThai" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

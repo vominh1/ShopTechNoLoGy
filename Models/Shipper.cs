@@ -12,32 +12,27 @@ namespace ShopTechNoLoGy.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class donHang
+    public partial class Shipper
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public donHang()
+        public Shipper()
         {
-            this.ctDonHangs = new HashSet<ctDonHang>();
             this.GiaoHangs = new HashSet<GiaoHang>();
+            this.donHangs = new HashSet<donHang>();
         }
     
-        public string soDH { get; set; }
-        public string maKH { get; set; }
-        public string taiKhoan { get; set; }
-        public Nullable<System.DateTime> ngayDat { get; set; }
-        public Nullable<bool> daKichHoat { get; set; }
-        public Nullable<System.DateTime> ngayGH { get; set; }
-        public string diaChiGH { get; set; }
-        public string ghiChu { get; set; }
-        public string trangThaiGiaoHang { get; set; }
         public string maShipper { get; set; }
+        public string tenShipper { get; set; }
+        public string soDT { get; set; }
+        public string diaChi { get; set; }
+        public string email { get; set; }
+        public bool trangThai { get; set; }
+        public string Username { get; set; }
+        public string Password { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ctDonHang> ctDonHangs { get; set; }
-        public virtual khachHang khachHang { get; set; }
-        public virtual taiKhoanTV taiKhoanTV { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<GiaoHang> GiaoHangs { get; set; }
-        public virtual Shipper Shipper { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<donHang> donHangs { get; set; }
     }
 }

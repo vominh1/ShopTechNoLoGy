@@ -1,0 +1,39 @@
+﻿@model IEnumerable<ShopTechNoLoGy.Models.donHang>
+
+<div class="container mt-5">
+    <h2 class="mb-4">Orders Ready for Delivery</h2>
+
+    <table class="table table-bordered table-hover table-striped">
+        <thead class="thead-dark">
+            <tr>
+                <th>Order ID</th>
+                <th>Customer</th>
+                <th>Status</th>
+                <th>Shipper</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var order in Model)
+            {
+            <tr>
+                <td>@order.soDH</td>
+                <td>@order.khachHang.tenKH</td>
+                <td>@order.trangThaiGiaoHang</td>
+                <td>@(order.Shipper != null ? order.Shipper.tenShipper : "Chưa có shipper")</td>
+                <td>
+                    @if (order.daKichHoat==true)
+                    {
+                        <a href="@Url.Action("SelectShipper", new { maDonhang = order.soDH })" class="btn btn-sm btn-primary">Phân công cho shipper</a>
+                    }
+                    @if (order.trangThaiGiaoHang == "Đang giao")
+                    {
+                        <a href="@Url.Action("UpdateStatus", new { soDH = order.soDH, newStatus = "Đã giao hàng" })" class="btn btn-sm btn-success">Xác nhận đã giao</a>
+                        <a href="@Url.Action("UpdateStatus", new { soDH = order.soDH, newStatus = "Đã hủy" })" class="btn btn-sm btn-danger">Hủy đơn</a>
+                    }
+                </td>
+            </tr>
+            }
+        </tbody>
+    </table>
+</div>

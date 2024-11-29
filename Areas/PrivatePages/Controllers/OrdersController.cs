@@ -51,7 +51,7 @@ namespace ShopTechNoLoGy.Areas.PrivatePages.Controllers
         {
             donHang x = db.donHangs.Find(maDonhang);
             x.daKichHoat = true;
-
+            x.trangThaiGiaoHang = "readyfororders"; // Sẵn sàng giao hàng
             db.SaveChanges();
             HienThiDonHangChuaXuLy();
            

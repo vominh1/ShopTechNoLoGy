@@ -1,0 +1,25 @@
+﻿@model IEnumerable<ShopTechNoLoGy.Models.Shipper>
+@{
+    ViewBag.Title = "Select Shipper";
+    var orderId = ViewBag.OrderId; // Get the order ID passed from the controller
+}
+
+<div class="container mt-5">
+    <h2 class="mb-4">Chọn Shipper cho Đơn Hàng</h2>
+
+    <form action="@Url.Action("AssignShipper")" method="post">
+        <input type="hidden" name="maDonhang" value="@orderId" />
+        <div class="form-group">
+            <label for="maShipper">Chọn Shipper:</label>
+            <select name="maShipper" class="form-control" required>
+                <option value="">-- Chọn Shipper --</option>
+                @foreach (var shipper in Model)
+                {
+                    <option value="@shipper.maShipper">@shipper.tenShipper</option>
+                }
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Phân công Shipper</button>
+        <a href="@Url.Action("Index")" class="btn btn-secondary">Quay lại</a>
+    </form>
+</div>
