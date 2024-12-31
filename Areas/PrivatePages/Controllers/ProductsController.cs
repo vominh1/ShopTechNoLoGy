@@ -40,13 +40,43 @@ namespace ShopTechNoLoGy.Areas.PrivatePages.Controllers
             return View(pagedProducts);
         }
         [HttpPost]
+  
         public ActionResult Delete(string maSanPham)
         {
-            sanPham x = db.sanPhams.Find(maSanPham);
-            db.sanPhams.Remove(x);
-            db.SaveChanges();
-            HienThiSanPhamchoGiaodien();
-            return View("Index");
+            try {
+                // Kiểm tra maSanPham có tồn tại
+                if (string.IsNullOrEmpty(maSanPham)) {
+                    TempData["ErrorMessage"] = "Mã sản phẩm không hợp lệ";
+                    return RedirectToAction("Index");
+                }
+
+                // Tìm sản phẩm cần xóa
+                var sanPham = db.sanPhams.Find(maSanPham);
+
+                if (sanPham == null) {
+                    TempData["ErrorMessage"] = "Không tìm thấy sản phẩm cần xóa";
+                    return RedirectToAction("Index");
+                }
+
+                // Thực hiện xóa sản phẩm
+                db.sanPhams.Remove(sanPham);
+                db.SaveChanges();
+
+                // Xóa file hình ảnh nếu có
+                if (!string.IsNullOrEmpty(sanPham.hinhDD)) {
+                    var imagePath = Server.MapPath(sanPham.hinhDD);
+                    if (System.IO.File.Exists(imagePath)) {
+                        System.IO.File.Delete(imagePath);
+                    }
+                }
+
+                TempData["SuccessMessage"] = "Xóa sản phẩm thành công!";
+                return RedirectToAction("Index");
+            }
+            catch (Exception ex) {
+                TempData["ErrorMessage"] = "Có lỗi xảy ra khi xóa sản phẩm: " + ex.Message;
+                return RedirectToAction("Index");
+            }
         }
         public ActionResult Active(string maSanPham)
         {
