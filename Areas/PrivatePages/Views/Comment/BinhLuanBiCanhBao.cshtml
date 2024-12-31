@@ -1,0 +1,63 @@
+﻿@model IEnumerable<ShopTechNoLoGy.Models.binhLuanSP>
+
+@{
+    ViewBag.Title = "Bình luận bị cảnh báo";
+}
+
+<div class="container mt-5">
+    <h2 class="text-center mb-4 text-danger">Bình luận bị cảnh báo</h2>
+
+    <table class="table table-striped table-bordered table-hover">
+        <thead class="table-dark">
+            <tr>
+                <th>Hình ảnh</th>
+                <th>Tên sản phẩm</th>
+                <th>Tài khoản</th>
+                <th>Nội dung bình luận</th>
+                <th>Ngày bình luận</th>
+                <th>Phản hồi của Admin</th>
+                <th>Hành động</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+            <tr class="@(item.BiCanhBao ==true)">
+                <td>
+                    <img src="@Url.Content(item.sanPham.hinhDD)" alt="@item.sanPham.tenSP" class="img-fluid" style="width: 100px; height: 100px;" />
+                </td>
+                <td>@item.sanPham.tenSP</td>
+                <td>@item.taiKhoanTV.taiKhoan</td>
+                <td>@item.NoiDung</td>
+                <td>@item.NgayBL</td>
+                <td>@(string.IsNullOrEmpty(item.PhanHoi) ? "Chưa phản hồi" : item.PhanHoi)</td>
+              
+                <td>
+                  
+            <a href="@Url.Action("GoBinhLuanBiCanhCao", "Comment", new { id = item.MaBL })" class="btn btn-success btn-sm">Gỡ cảnh báo</a>
+                </td>
+            </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<style>
+    .container {
+        max-width: 1200px;
+    }
+
+    .table th, .table td {
+        vertical-align: middle;
+        text-align: center;
+    }
+
+    .table img {
+        object-fit: cover;
+        border-radius: 5px;
+    }
+
+    .table-warning {
+        background-color: #fff3cd;
+    }
+</style>

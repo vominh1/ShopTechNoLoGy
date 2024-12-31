@@ -1,0 +1,72 @@
+﻿@model IEnumerable<ShopTechNoLoGy.Models.binhLuanSP>
+
+@{
+    ViewBag.Title = "Bình luận đã phản hồi";
+}
+
+<div class="container mt-5">
+    <h2 class="text-center mb-4  text-primary">Bình luận đã phản hồi</h2>
+
+    <table class="table table-striped table-bordered table-hover">
+        <thead class="table-dark">
+            <tr>
+                <th>Hình ảnh</th>
+                <th>Tên sản phẩm</th>
+                <th>Tài khoản</th>
+                <th>Nội dung bình luận</th>
+                <th>Ngày bình luận</th>
+                <th>Phản hồi của Admin</th>
+                <th>Ngày phản hồi</th>
+                <th>Hành động</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        <img src="@Url.Content(item.sanPham.hinhDD)" alt="@item.sanPham.tenSP" class="img-fluid" style="width: 100px; height: 100px;" />
+                    </td>
+                    <td>@item.sanPham.tenSP</td>
+                    <td>@item.taiKhoanTV.taiKhoan</td>
+                    <td>@item.NoiDung</td>
+                    <td>@item.NgayBL</td>
+                    <td>@item.PhanHoi</td>
+                    <td>@item.NgayPhanHoi</td>
+                    <td>
+                        @if (!string.IsNullOrEmpty(item.PhanHoi))
+                        {
+                            <a href="@Url.Action("PhanHoiLai", "Comment", new { id = item.MaBL })" class="btn btn-secondary btn-sm">Phản hồi lại</a>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<style>
+    .container {
+        max-width: 1200px;
+    }
+
+    .table th, .table td {
+        vertical-align: middle;
+        text-align: center;
+    }
+
+    .table img {
+        object-fit: cover;
+        border-radius: 5px;
+    }
+
+    .btn-secondary {
+        background-color: #6c757d;
+        border-color: #6c757d;
+    }
+
+        .btn-secondary:hover {
+            background-color: #5a6268;
+            border-color: #545b62;
+        }
+</style>
