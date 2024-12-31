@@ -38,6 +38,19 @@ namespace ShopTechNoLoGy.Areas.PrivatePages.Controllers
         public ActionResult Create(NhapKho nhapKho)
         {
             if (ModelState.IsValid) {
+                // Kiểm tra xem số lượng nhập có phải là số âm không
+                if (nhapKho.SoLuongNhap < 0) {
+                    ModelState.AddModelError("SoLuongNhap", "Số lượng nhập không thể là số âm. Vui lòng nhập lại.");
+                }
+                if (nhapKho.GiaNhap < 0) {
+                    ModelState.AddModelError("GiaNhap", "Số lượng nhập không thể là số âm. Vui lòng nhập lại.");
+                }
+                // Nếu có lỗi trong ModelState (bao gồm cả lỗi số âm), không tiếp tục xử lý
+                if (!ModelState.IsValid) {
+                    ViewBag.SanPhamList = _context.sanPhams.ToList();
+                    return View(nhapKho);
+                }
+
                 // Lấy thông tin tài khoản từ session
                 var taiKhoanHienTai = Session["ttDangNhap"] as taiKhoanTV; // Giả sử ttDangNhap lưu đối tượng tài khoản
 
@@ -58,12 +71,14 @@ namespace ShopTechNoLoGy.Areas.PrivatePages.Controllers
                     _context.SaveChanges();
                     return RedirectToAction("Index");
                 }
+
                 ModelState.AddModelError("", "Sản phẩm không tồn tại.");
             }
 
             ViewBag.SanPhamList = _context.sanPhams.ToList();
             return View(nhapKho);
         }
+
         // GET: PrivatePages/WareHouse
         public ActionResult dsExport()
         {
@@ -109,7 +124,7 @@ namespace ShopTechNoLoGy.Areas.PrivatePages.Controllers
                         product.SoLuongTonKho -= xuatKho.SoLuongXuat ?? 0;
                         _context.XuatKhoes.Add(xuatKho); // Thêm vào bảng XuatKho
                         _context.SaveChanges(); // Lưu thay đổi
-                        return RedirectToAction("Index"); // Quay lại trang danh sách
+                        return RedirectToAction("dsExport"); // Quay lại trang danh sách
                     }
                 }
                 ModelState.AddModelError("", "Sản phẩm không tồn tại.");
