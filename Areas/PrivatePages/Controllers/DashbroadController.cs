@@ -16,5 +16,10 @@ namespace ShopTechNoLoGy.Areas.PrivatePages.Controllers
            
             return View();
         }
+        public ActionResult demo()
+        {
+
+            return View();
+        }
     }
 }
