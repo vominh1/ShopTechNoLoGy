@@ -136,7 +136,7 @@ namespace ShopTechNoLoGy.Areas.PrivatePages.Controllers
 
         private void HienThiDonHangChuaXuLy()
         {
-            List<donHang> l = db.donHangs.Where(x => x.daKichHoat == false ).OrderBy(x => x.ngayDat).ToList<donHang>();
+            List<donHang> l = db.donHangs.Where(x => x.daKichHoat == false ).OrderByDescending(x => x.ngayDat).ToList<donHang>();
             ViewData["DanhSachDonHang1"] = l;
         }
         /// <summary>
@@ -198,7 +198,7 @@ namespace ShopTechNoLoGy.Areas.PrivatePages.Controllers
         [HttpPost]
         private void HienThiDonHangDaXuLy()
         {
-            List<donHang> l = db.donHangs.Where(x => x.daKichHoat == true).OrderBy(x => x.ngayDat).ToList<donHang>();
+            List<donHang> l = db.donHangs.Where(x => x.daKichHoat == true).OrderByDescending(x => x.ngayDat).ToList<donHang>();
             ViewData["DanhSachDonHang"] = l;
         }
     }
