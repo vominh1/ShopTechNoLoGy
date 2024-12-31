@@ -27,6 +27,11 @@ namespace ShopTechNoLoGy.Areas.PrivatePages.Controllers
             CapNhatDuLieuChoGiaoDien();
             return View("Index");
         }
+        /// <summary>
+        /// hàm ghi nhầm tên active đổi thành hidden
+        /// </summary>
+        /// <param name="maBaiViet"></param>
+        /// <returns></returns>
         public ActionResult Active(string maBaiViet)
         {
             baiViet x = db.baiViets.Find(maBaiViet);
