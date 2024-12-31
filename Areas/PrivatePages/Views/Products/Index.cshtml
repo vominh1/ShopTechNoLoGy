@@ -95,7 +95,9 @@
                                             <a href="@Url.Action("Edit", new { maSanPham = i.maSP })" class="btn btn-info btn-sm" title="Sửa sản phẩm">
                                                 <i class="fas fa-edit me-1"></i> Sửa SP
                                             </a>
-                                            <form action="@Url.Action("Delete", "Products")" method="post" style="display:inline;">
+                                            <form action="@Url.Action("Delete", "Products")" method="post" style="display:inline;"
+                                                  onsubmit="return confirm('Bạn có chắc chắn muốn xóa sản phẩm này không?');">
+                                                @Html.AntiForgeryToken()
                                                 <input type="hidden" name="maSanPham" value="@i.maSP">
                                                 <button type="submit" class="btn btn-danger btn-sm" title="Xóa sản phẩm">
                                                     <i class="fas fa-trash-alt me-1"></i> Xóa

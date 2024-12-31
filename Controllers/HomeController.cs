@@ -25,5 +25,10 @@ namespace ShopTechNoLoGy.Controllers
             //--- Cập nhật giỏ hàng vòa trong session
             return View("Index");
         }
+        public ActionResult demo()
+        {
+            
+            return View("Index");
+        }
     }
 }

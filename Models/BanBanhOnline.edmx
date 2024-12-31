@@ -39,6 +39,9 @@
           <Property Name="TaiKhoan" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="NoiDung" Type="nvarchar" MaxLength="1000" Nullable="false" />
           <Property Name="NgayBL" Type="datetime" />
+          <Property Name="PhanHoi" Type="nvarchar" MaxLength="255" />
+          <Property Name="NgayPhanHoi" Type="datetime" />
+          <Property Name="BiCanhBao" Type="bit" />
         </EntityType>
         <EntityType Name="ctDonHang">
           <Key>
@@ -1187,6 +1190,9 @@
           <Property Name="NgayBL" Type="DateTime" Precision="3" />
           <NavigationProperty Name="sanPham" Relationship="Models.FK__binhLuanSP__MaSP__503BEA1C" FromRole="binhLuanSP" ToRole="sanPham" />
           <NavigationProperty Name="taiKhoanTV" Relationship="Models.FK_TaiKhoan" FromRole="binhLuanSP" ToRole="taiKhoanTV" />
+          <Property Name="PhanHoi" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="NgayPhanHoi" Type="DateTime" Precision="3" />
+          <Property Name="BiCanhBao" Type="Boolean" />
         </EntityType>
         <Association Name="FK__binhLuanSP__MaSP__503BEA1C">
           <End Type="Models.sanPham" Role="sanPham" Multiplicity="1" />
@@ -1556,6 +1562,9 @@
           <EntitySetMapping Name="binhLuanSPs">
             <EntityTypeMapping TypeName="Models.binhLuanSP">
               <MappingFragment StoreEntitySet="binhLuanSP">
+                <ScalarProperty Name="BiCanhBao" ColumnName="BiCanhBao" />
+                <ScalarProperty Name="NgayPhanHoi" ColumnName="NgayPhanHoi" />
+                <ScalarProperty Name="PhanHoi" ColumnName="PhanHoi" />
                 <ScalarProperty Name="NgayBL" ColumnName="NgayBL" />
                 <ScalarProperty Name="NoiDung" ColumnName="NoiDung" />
                 <ScalarProperty Name="TaiKhoan" ColumnName="TaiKhoan" />

@@ -1,0 +1,118 @@
+﻿@model IEnumerable<ShopTechNoLoGy.Models.binhLuanSP>
+
+@{
+    ViewBag.Title = "Quản lý Bình luận";
+}
+
+<div class="container mt-4">
+    <h2 class="text-center mb-4 text-primary">Quản lý Bình luận</h2>
+
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Hình ảnh</th>
+                    <th>Tên sản phẩm</th>
+                    <th>Tài khoản</th>
+                    <th>Nội dung bình luận</th>
+                    <th>Ngày bình luận</th>
+                    <th>Phản hồi của Admin</th>
+                    <th>Hành động</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    if (item.BiCanhBao == true) // Nếu bình luận bị cảnh báo
+                    {
+                        if (User.IsInRole("Admin")) // Chỉ admin mới thấy bình luận bị cảnh báo
+                        {
+                            <tr class="table-warning">
+                                <td>
+                                    <img src="@Url.Content(item.sanPham.hinhDD)" alt="@item.sanPham.tenSP" class="img-fluid rounded" style="width: 100px; height: 100px;" />
+                                </td>
+                                <td class="align-middle">@item.sanPham.tenSP</td>
+                                <td class="align-middle">@item.taiKhoanTV.taiKhoan</td>
+                                <td class="align-middle">@item.NoiDung</td>
+                                <td class="align-middle">@item.NgayBL</td>
+                                <td class="align-middle text-danger">
+                                    <span class="badge bg-danger">Bị cảnh báo</span>
+                                </td>
+                                <td class="align-middle text-center">
+                                    <a href="@Url.Action("DanhDauKhongPhuHop", new { id = item.MaBL })" class="btn btn-outline-danger btn-sm">Đánh dấu là bôi nhọ</a>
+                                </td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td>
+                                <img src="@Url.Content(item.sanPham.hinhDD)" alt="@item.sanPham.tenSP" class="img-fluid rounded" style="width: 100px; height: 100px;" />
+                            </td>
+                            <td class="align-middle">@item.sanPham.tenSP</td>
+                            <td class="align-middle">@item.taiKhoanTV.taiKhoan</td>
+                            <td class="align-middle">@item.NoiDung</td>
+                            <td class="align-middle">@item.NgayBL</td>
+                            <td class="align-middle">
+                                @if (string.IsNullOrEmpty(item.PhanHoi))
+                                {
+                                    <span class="text-muted">Chưa phản hồi</span>
+                                }
+                                else
+                                {
+                                    <span class="badge bg-success">@item.PhanHoi</span>
+                                }
+                            </td>
+                            <td class="align-middle text-center">
+                                @if (string.IsNullOrEmpty(item.PhanHoi))
+                                {
+                                    <a href="@Url.Action("Reply", "Comment", new { id = item.MaBL })" class="btn btn-primary btn-sm me-2">Phản hồi</a>
+                                }
+                                <a href="@Url.Action("DanhDauKhongPhuHop", new { id = item.MaBL })" class="btn btn-warning btn-sm">Đánh dấu là bôi nhọ</a>
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<style>
+    body {
+        background-color: #f8f9fa;
+    }
+
+    table {
+        background-color: #ffffff;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    th {
+        background-color: #343a40;
+        color: #ffffff;
+    }
+
+    td {
+        vertical-align: middle;
+    }
+
+    .text-primary {
+        font-weight: bold;
+    }
+
+    .btn {
+        border-radius: 20px;
+    }
+
+    .btn-sm {
+        padding: 0.25rem 0.5rem;
+    }
+
+    .table-warning {
+        background-color: #fff3cd;
+    }
+</style>

@@ -1,75 +1,253 @@
-﻿@model ShopTechNoLoGy.Models.OrderDetailsModel
+﻿<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f7fafc;
+            margin: 0;
+            padding: 0;
+        }
 
-<div class="container mt-5">
-    <h2 class="text-center mb-4">Tìm kiếm đơn hàng</h2>
+        .order-container {
+            max-width: 1200px;
+            margin: 3rem auto;
+            padding: 2rem;
+            background: #ffffff;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
 
-    <!-- Form tìm kiếm đơn hàng -->
-    <form action="@Url.Action("SearchOrder", "Orders", new { area = "PrivatePages" })" method="post" class="row g-3">
-        <div class="col-md-8">
-            <label for="soDonHang" class="form-label">Nhập số đơn hàng:</label>
-            <input type="text" name="soDonHang" class="form-control" placeholder="Số đơn hàng" required />
+        .search-section {
+            background: linear-gradient(135deg, #4f46e5, #6366f1);
+            padding: 2.5rem;
+            border-radius: 12px;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+            .search-section h2 {
+                color: white;
+                font-size: 2.2rem;
+                margin-bottom: 1.5rem;
+                text-align: center;
+            }
+
+        .search-form {
+            display: flex;
+            gap: 1rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .search-input {
+            flex: 1;
+            padding: 1rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            transition: border 0.3s ease;
+        }
+
+            .search-input:focus {
+                border-color: #6366f1;
+                outline: none;
+            }
+
+        .search-button {
+            padding: 1rem 2rem;
+            background: #10b981;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+            .search-button:hover {
+                background: #059669;
+            }
+
+        .order-details {
+            background: #f8fafc;
+            padding: 2rem;
+            border-radius: 12px;
+            margin-top: 2rem;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        }
+
+        .order-header {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            padding: 1.5rem;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .detail-group {
+            margin-bottom: 1rem;
+        }
+
+        .detail-label {
+            color: #6b7280;
+            font-size: 0.875rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .detail-value {
+            font-weight: 600;
+            color: #1f2937;
+        }
+
+        .products-table {
+            width: 100%;
+            margin-top: 2rem;
+            border-collapse: separate;
+            border-spacing: 0;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+            .products-table th {
+                background: #f1f5f9;
+                padding: 1rem;
+                text-align: left;
+                font-weight: 600;
+            }
+
+            .products-table td {
+                padding: 1rem;
+                border-top: 1px solid #e2e8f0;
+            }
+
+            .products-table tr:hover {
+                background: #f8fafc;
+            }
+
+        .total-amount {
+            text-align: right;
+            margin-top: 2rem;
+            padding: 1rem;
+            background: #f1f5f9;
+            border-radius: 8px;
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
+
+        .alert {
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+            background: #fee2e2;
+            color: #991b1b;
+            text-align: center;
+        }
+
+        .icon {
+            margin-right: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="order-container">
+        <div class="search-section">
+            <h2><i class="fas fa-search icon"></i>Tìm kiếm đơn hàng</h2>
+            <form action="@Url.Action("SearchOrder", "Orders", new { area = "PrivatePages" })" method="post" class="search-form">
+                <input type="text" name="soDonHang" class="search-input" placeholder="Nhập số đơn hàng của bạn" required />
+                <button type="submit" class="search-button">
+                    <i class="fas fa-search icon"></i> Tìm kiếm
+                </button>
+            </form>
         </div>
-        <div class="col-md-4 align-self-end">
-            <button type="submit" class="btn btn-primary w-100">Tìm kiếm</button>
-        </div>
-    </form>
 
-    <hr class="my-4" />
-
-    @if (ViewData["Message"] != null)
-    {
-        <div class="alert alert-danger text-center">
-            @ViewData["Message"]
-        </div>
-    }
-    else if (Model != null)
-    {
-        <div>
-            <h3 class="text-center">Thông tin đơn hàng</h3>
-            <div class="row my-4">
-                <div class="col-md-6">
-                    <p><strong>Số đơn hàng:</strong> @Model.soDH</p>
-                    <p><strong>Ngày đặt:</strong> @Model.NgayDat.ToString("dd/MM/yyyy")</p>
-                </div>
-                <div class="col-md-6">
-                    <p><strong>Tên khách hàng:</strong> @Model.TenKH</p>
-                    <p><strong>Địa chỉ:</strong> @Model.DiaChi</p>
-                    <p><strong>Số điện thoại:</strong> @Model.SoDt</p>
-                    <p><strong>Email:</strong> @Model.Email</p>
-                </div>
+        @if (ViewData["Message"] != null)
+        {
+            <div class="alert">
+                <i class="fas fa-exclamation-circle icon"></i> @ViewData["Message"]
             </div>
+        }
+        else if (Model != null)
+        {
+            <div class="order-details">
+                <h3 class="text-center" style="color: #1f2937; margin-bottom: 2rem;">
+                    <i class="fas fa-info-circle icon"></i> Thông tin đơn hàng
+                </h3>
 
-            <h3 class="text-center">Chi tiết sản phẩm</h3>
-            <table class="table table-bordered table-hover mt-4">
-                <thead class="table-primary">
-                    <tr>
-                        <th>Mã sản phẩm</th>
-                        <th>Tên sản phẩm</th>
-                        <th>Số lượng</th>
-                        <th>Giá bán</th>
-                        <th>Giảm giá</th>
-                        <th>Thành tiền</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var item in Model.OrderItems)
-                    {
+                <div class="order-header">
+                    <div>
+                        <div class="detail-group">
+                            <div class="detail-label">Số đơn hàng</div>
+                            <div class="detail-value">@Model.soDH</div>
+                        </div>
+                        <div class="detail-group">
+                            <div class="detail-label">Ngày đặt</div>
+                            <div class="detail-value">@Model.NgayDat.ToString("dd/MM/yyyy")</div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="detail-group">
+                            <div class="detail-label">Tên khách hàng</div>
+                            <div class="detail-value">@Model.TenKH</div>
+                        </div>
+                        <div class="detail-group">
+                            <div class="detail-label">Địa chỉ</div>
+                            <div class="detail-value">@Model.DiaChi</div>
+                        </div>
+                        <div class="detail-group">
+                            <div class="detail-label">Số điện thoại</div>
+                            <div class="detail-value">@Model.SoDt</div>
+                        </div>
+                        <div class="detail-group">
+                            <div class="detail-label">Email</div>
+                            <div class="detail-value">@Model.Email</div>
+                        </div>
+                    </div>
+                </div>
+
+                <h3 class="text-center" style="color: #1f2937; margin: 2rem 0;">
+                    <i class="fas fa-box icon"></i> Chi tiết sản phẩm
+                </h3>
+
+                <table class="products-table">
+                    <thead>
                         <tr>
-                            <td>@item.MaSP</td>
-                            <td>@item.TenSP</td>
-                            <td>@item.SoLuong</td>
-                            <td>@String.Format("{0:N0}", item.GiaBan) VND</td>
-                            <td>@String.Format("{0:P0}", item.GiamGia)</td>
-                            <td>@String.Format("{0:N0}", item.ThanhTien) VND</td>
+                            <th>Mã SP</th>
+                            <th>Tên sản phẩm</th>
+                            <th>Số lượng</th>
+                            <th>Giá bán</th>
+                            <th>Giảm giá</th>
+                            <th>Thành tiền</th>
                         </tr>
-                    }
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.OrderItems)
+                        {
+                            <tr>
+                                <td>@item.MaSP</td>
+                                <td>@item.TenSP</td>
+                                <td>@item.SoLuong</td>
+                                <td>@String.Format("{0:N0}", item.GiaBan) VND</td>
+                                <td>@String.Format("{0:P0}", item.GiamGia)</td>
+                                <td>@String.Format("{0:N0}", item.ThanhTien) VND</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
 
-            <!-- Hiển thị tổng thành tiền -->
-            <div class="text-end mt-3">
-                <h5><strong>Tổng thành tiền:</strong> @String.Format("{0:N0}", Model.TongThanhTien) VND</h5>
+                <div class="total-amount">
+                    <i class="fas fa-money-bill-wave icon"></i> Tổng thành tiền:
+                    <span style="color: #059669">@String.Format("{0:N0}", Model.TongThanhTien) VND</span>
+                </div>
             </div>
-        </div>
-    }
-</div>
+        }
+    </div>
+</body>
+</html>

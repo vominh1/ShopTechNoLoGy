@@ -4,30 +4,75 @@
     ViewBag.Title = "Khách hàng thân thiết";
 }
 
-<h2>Danh Sách Tài Khoản Mua Nhiều Nhất</h2>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+<style>
+    body {
+        background-color: #f4f6f9;
+    }
+</style>
 
-<table class="table table-bordered">
-    <thead>
-        <tr>
-            <th>Mã Tài Khoản</th>
-            <th>Tên Tài Khoản</th>
-            <th>Tổng Số Lượng Sản Phẩm Mua</th>
-            <th>Tổng Tiền Đã Mua (VND)</th>
-            <th>Chi Tiết Mua Hàng</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>@item.MaKH</td>
-                <td>@item.TenKH</td>
-                <td>@item.soluong</td>
-                <td>@item.ThanhTien.ToString("N0")</td> <!-- Định dạng tiền tệ -->
-                <td>
-                    <a href="@Url.Action("ChiTietMuaHang", new { taiKhoan = item.TaiKhoan })" class="btn btn-info">Xem Chi Tiết</a>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+<div class="container-fluid px-4 py-8">
+    <div class="bg-white shadow-2xl rounded-xl overflow-hidden">
+        <div class="bg-gradient-to-r from-blue-600 to-purple-600 p-6">
+            <h2 class="text-3xl font-bold text-white flex items-center">
+                <i class="fas fa-users mr-4"></i>
+                Khách Hàng Thân Thiết
+            </h2>
+        </div>
+
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead class="bg-gray-100 border-b-2 border-gray-200">
+                    <tr>
+                        <th>
+                            <i class="fas fa-id-card mr-2"></i>
+                            Mã Tài Khoản
+                        </th>
+                        <th>
+                            <i class="fas fa-user mr-2"></i>
+                            Tên Tài Khoản
+                        </th>
+                        <th>
+                            <i class="fas fa-shopping-cart mr-2"></i>
+                            Tổng Sản Phẩm
+                        </th>
+                        <th>
+                            <i class="fas fa-money-bill-wave mr-2"></i>
+                            Tổng Tiền (VND)
+                        </th>
+                        <th class="text-center">
+                            <i class="fas fa-cog mr-2"></i>
+                            Hành Động
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.MaKH</td>
+                            <td>@item.TenKH</td>
+                            <td>@item.soluong</td>
+                            <td class="text-success">@item.ThanhTien.ToString("N0")</td>
+                            <td class="text-center">
+                                <a href="@Url.Action("ChiTietMuaHang", new { taiKhoan = item.TaiKhoan })"
+                                   class="btn btn-info">
+                                    <i class="fas fa-eye mr-2"></i>
+                                    Chi Tiết
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+            @if (!Model.Any())
+            {
+                <div class="text-center p-8 text-muted">
+                    <i class="fas fa-box-open fa-6x mb-4"></i>
+                    <p class="h4">Không có khách hàng thân thiết nào</p>
+                </div>
+            }
+        </div>
+    </div>
+</div>

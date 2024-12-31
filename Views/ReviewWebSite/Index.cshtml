@@ -4,60 +4,244 @@
 }
 
 <style>
-    body {
-        background-color: white;
-    }
-
-    .container {
-        
-        padding-top: 30px;
-    }
-
-    .courses_details_banner {
-        background-image: url(../images/banner/banner2.jpg);
-    }
-
     .breadcam_bg {
         background-image: url(../images/banner/banner2.jpg);
     }
-
-    .slider_bg_1 {
-        background-image: url(../images/banner/banner2.jpg);
+    :root {
+        --primary-color: #FF6B6B;
+        --secondary-color: #4ECDC4;
+        --accent-color: #FFE66D;
+        --text-color: #2C3E50;
+        --light-bg: #F7F9FC;
     }
+
+    body {
+        font-family: 'Poppins', sans-serif;
+        color: var(--text-color);
+        line-height: 1.6;
+    }
+
+    .hero-section {
+        min-height: 80vh;
+        background-size: cover;
+        color: white;
+        position: relative;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        padding: 4rem 0;
+    }
+
+    .hero-section::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: url('/api/placeholder/1200/800') center/cover;
+        opacity: 0.1;
+    }
+
+    .hero-content {
+        position: relative;
+        z-index: 1;
+    }
+
+    .hero-title {
+        font-size: 3.5rem;
+        font-weight: 800;
+        margin-bottom: 1.5rem;
+        animation: fadeInUp 1s ease;
+    }
+
+    .hero-subtitle {
+        font-size: 1.5rem;
+        margin-bottom: 2rem;
+        opacity: 0.9;
+        animation: fadeInUp 1s ease 0.2s;
+    }
+
+    .feature-card {
+        background: white;
+        border-radius: 20px;
+        padding: 2rem;
+        margin: 1rem 0;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        transition: transform 0.3s ease;
+        height: 100%;
+    }
+
+    .feature-card:hover {
+        transform: translateY(-10px);
+    }
+
+    .feature-icon {
+        font-size: 3rem;
+        color: var(--primary-color);
+        margin-bottom: 1.5rem;
+    }
+
+    .vision-section {
+        background: var(--light-bg);
+        position: relative;
+        padding: 6rem 0;
+    }
+
+    .vision-section::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 300px;
+        height: 300px;
+        background: var(--accent-color);
+        opacity: 0.1;
+        border-radius: 50%;
+        transform: translate(150px, -150px);
+    }
+
+    .team-card {
+        background: white;
+        border-radius: 20px;
+        padding: 2rem;
+        text-align: center;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        transition: transform 0.3s ease;
+    }
+
+    .team-card:hover {
+        transform: translateY(-10px);
+    }
+
+    .team-image {
+        width: 180px;
+        height: 180px;
+        border-radius: 50%;
+        margin: 0 auto 1.5rem;
+        object-fit: cover;
+        border: 5px solid var(--accent-color);
+    }
+
+    .contact-section {
+        background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+        color: white;
+        padding: 6rem 0;
+        position: relative;
+    }
+
+    .contact-card {
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        border-radius: 20px;
+        padding: 3rem;
+    }
+
+    .contact-info {
+        font-size: 1.2rem;
+        margin: 1rem 0;
+    }
+
+
 </style>
 
-<div class="bradcam_area breadcam_bg overlay1">
-    <h3 style="margin-top:0">
-        Giới thiệu website bán hàng online
-    </h3>
-</div>
+<!-- Hero Section -->
+<section class="hero-section breadcam_bg">
+    <div class="container ">
+        <div class="row">
+            <div class="col-lg-8 hero-content ">
+                <h1 class="hero-title">Thiên Đường Ngọt Ngào</h1>
+                <p class="hero-subtitle">Khám phá thế giới bánh kẹo tuyệt vời với những hương vị độc đáo từ khắp nơi trên thế giới</p>
+            </div>
+        </div>
+    </div>
+</section>
 
+<!-- Features Section -->
+<section class="py-5">
+    <div class="container">
+        <h2 class="text-center mb-5 display-4">Tại sao chọn chúng tôi?</h2>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="feature-card">
+                    <i class="bi bi-star-fill feature-icon"></i>
+                    <h3 class="h4 mb-3">Hương Vị Tuyệt Hảo</h3>
+                    <p>Mỗi sản phẩm được chọn lọc kỹ lưỡng, đảm bảo chất lượng và hương vị độc đáo nhất.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="feature-card">
+                    <i class="bi bi-truck feature-icon"></i>
+                    <h3 class="h4 mb-3">Giao Hàng Nhanh Chóng</h3>
+                    <p>Dịch vụ giao hàng chuyên nghiệp, đảm bảo sản phẩm đến tay bạn trong thời gian sớm nhất.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="feature-card">
+                    <i class="bi bi-shield-check feature-icon"></i>
+                    <h3 class="h4 mb-3">Chất Lượng Đảm Bảo</h3>
+                    <p>Cam kết về chất lượng sản phẩm và dịch vụ, mang đến trải nghiệm tuyệt vời nhất.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 
-<div class="container">
-    <h2>Giới thiệu về chúng tôi</h2>
-    <p>Chào mừng bạn đến với website bán bánh kẹo của chúng tôi! Chúng tôi tự hào là địa chỉ đáng tin cậy để bạn tìm kiếm những món bánh và kẹo tuyệt vời.</p>
+<!-- Vision Section -->
+<section class="vision-section">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8 text-center">
+                <h2 class="display-4 mb-4">Tầm Nhìn & Sứ Mệnh</h2>
+                <p class="lead">
+                    Chúng tôi không chỉ đơn thuần là nơi bán bánh kẹo, mà còn là nơi tạo ra những khoảnh khắc ngọt ngào trong cuộc sống của bạn. Sứ mệnh của chúng tôi là mang đến những trải nghiệm ẩm thực tuyệt vời nhất.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
 
-    <h3>Đam mê về bánh kẹo</h3>
-    <p>Chúng tôi đặt nền tảng trên niềm đam mê với bánh kẹo. Chúng tôi tìm kiếm và chọn lọc những món ngọt tuyệt hảo từ khắp nơi trên thế giới để mang đến cho bạn những trải nghiệm thưởng thức đáng nhớ.</p>
+<!-- Team Section -->
+<section class="py-5">
+    <div class="container">
+        <h2 class="text-center display-4 mb-5">Đội Ngũ Của Chúng Tôi</h2>
+        <div class="row justify-content-center">
+            <div class="col-md-6 col-lg-4">
+                <div class="team-card">
+                    <img src="~/images/eat.png" alt="Võ Minh Đầy" class="team-image">
+                    <h3 class="h4">Võ Minh Đầy</h3>
+                    <p class="text-muted">Người Sáng Lập</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 
-    <h3>Sự đa dạng và chất lượng</h3>
-    <p>Chúng tôi tự hào có một bộ sưu tập đa dạng các loại bánh và kẹo. Từ những chiếc bánh ngọt truyền thống đến những món bánh sáng tạo và đầy sáng tạo, từ những viên kẹo socola ngọt ngào đến những loại kẹo trái cây tươi mát - chúng tôi mang đến sự lựa chọn phong phú cho mọi khẩu vị.</p>
+<!-- Contact Section -->
+<section class="contact-section">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="contact-card">
+                    <h2 class="text-center display-4 mb-4">Liên Hệ Với Chúng Tôi</h2>
+                    <div class="row">
+                        <div class="col-md-4 text-center">
+                            <i class="bi bi-envelope-fill mb-3" style="font-size: 2rem;"></i>
+                            <p class="contact-info">vominhday1@gmail.com</p>
+                        </div>
+                        <div class="col-md-4 text-center">
+                            <i class="bi bi-telephone-fill mb-3" style="font-size: 2rem;"></i>
+                            <p class="contact-info">0363-066-401</p>
+                        </div>
+                        <div class="col-md-4 text-center">
+                            <i class="bi bi-geo-alt-fill mb-3" style="font-size: 2rem;"></i>
+                            <p class="contact-info">Hồ Chí Minh, Việt Nam</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 
-    <h3>Chất lượng và tận tâm</h3>
-    <p>Chúng tôi cam kết mang đến chất lượng tốt nhất cho sản phẩm của mình. Từ nguyên liệu tươi ngon và chọn lọc, quy trình sản xuất nghiêm ngặt, đến việc đóng gói và vận chuyển an toàn - chúng tôi chăm sóc từng chi tiết để đảm bảo bạn nhận được những món ngọt tuyệt vời và an toàn.</p>
-
-    <h3>Hãy khám phá thế giới của chúng tôi</h3>
-    <p>Hãy khám phá bộ sưu tập đa dạng và phong phú của chúng tôi và tìm kiếm những món ngọt yêu thích của bạn. Chúng tôi hy vọng rằng website của chúng tôi sẽ mang đến cho bạn niềm vui và trải nghiệm thưởng thức tuyệt vời.</p>
-
-    <h3>Liên hệ với chúng tôi</h3>
-    <p>Nếu bạn có bất kỳ câu hỏi, ý kiến hoặc yêu cầu nào, đừng ngần ngại liên hệ với chúng tôi. Đội ngũ chăm sóc khách hàng của chúng tôi sẽ sẵn lòng hỗ trợ bạn. Hãy để chúng tôi mang đến niềm vui từ những món bánh và kẹo tuyệt vời của chúng tôi cho bạn.</p>
-
-    <p>Liên hệ với chúng tôi:</p>
-    <ul>
-        <li>Email: vominhday1@gmail.com</li>
-        <li>Số điện thoại: 0363-066-401</li>
-        <li>Địa chỉ: HCM</li>
-    </ul>
-</div>
-
-
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">

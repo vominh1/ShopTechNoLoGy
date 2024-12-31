@@ -1,0 +1,29 @@
+﻿@model ShopTechNoLoGy.Models.binhLuanSP
+
+@{
+    ViewBag.Title = "Phản hồi lại bình luận";
+}
+
+<h2>Phản hồi lại bình luận</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-group">
+        <label for="PhanHoi">Phản hồi lại:</label>
+        @Html.TextAreaFor(m => m.PhanHoi, new { @class = "form-control", rows = 5 })
+    </div>
+
+    <div class="form-group">
+        <input type="submit" value="Phản hồi lại" class="btn btn-success" />
+    </div>
+}
+
+<h4>Bình luận của người dùng</h4>
+<p><strong>@Model.taiKhoanTV.taiKhoan</strong>: @Model.NoiDung</p>
+<p><em>Ngày bình luận: @Model.NgayBL?.ToString("dd/MM/yyyy HH:mm")</em></p>
+
+<h4>Phản hồi của Admin</h4>
+<p>@Model.PhanHoi</p>
+<p><em>Ngày phản hồi: @Model.NgayPhanHoi?.ToString("dd/MM/yyyy HH:mm")</em></p>

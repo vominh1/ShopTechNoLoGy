@@ -956,8 +956,10 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\PrivatePages\Controllers\ArticlesController.cs" />
     <Compile Include="Areas\PrivatePages\Controllers\CategoryOfProductController.cs" />
+    <Compile Include="Areas\PrivatePages\Controllers\CommentController.cs" />
     <Compile Include="Areas\PrivatePages\Controllers\CustomerController.cs" />
     <Compile Include="Areas\PrivatePages\Controllers\DashbroadController.cs" />
+    <Compile Include="Areas\PrivatePages\Controllers\DefaultController.cs" />
     <Compile Include="Areas\PrivatePages\Controllers\DeliveryController.cs" />
     <Compile Include="Areas\PrivatePages\Controllers\InventoryController.cs" />
     <Compile Include="Areas\PrivatePages\Controllers\LogoutAdminController.cs" />
@@ -1191,7 +1193,14 @@
     <Content Include="Areas\PrivatePages\Views\Customer\KhachHangThanThiet.cshtml" />
     <Content Include="Areas\PrivatePages\Views\Customer\KhachHangMuaNhieuNhat.cshtml" />
     <Content Include="Areas\PrivatePages\Views\Customer\ChiTietMuaHang.cshtml" />
+    <Content Include="Areas\PrivatePages\Views\Dashbroad\demo.cshtml" />
+    <Content Include="Areas\PrivatePages\Views\Comment\Index.cshtml" />
+    <Content Include="Areas\PrivatePages\Views\Comment\Reply.cshtml" />
+    <Content Include="Areas\PrivatePages\Views\Comment\BinhLuanDaPhanHoi.cshtml" />
+    <Content Include="Areas\PrivatePages\Views\Comment\PhanHoiLai.cshtml" />
+    <Content Include="Areas\PrivatePages\Views\Comment\BinhLuanBiCanhBao.cshtml" />
     <None Include="packages.config" />
+    <Content Include="Views\Home\demo.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -1202,6 +1211,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\PrivatePages\Data\" />
+    <Folder Include="Areas\PrivatePages\Views\Default\" />
     <Folder Include="Areas\PrivatePages\Views\Inventory\" />
     <Folder Include="Areas\PrivatePages\Views\LogoutAdmin\" />
     <Folder Include="Areas\PrivatePages\Views\Logout\" />

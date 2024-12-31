@@ -1,52 +1,65 @@
-﻿
-@{ ViewBag.Title = "Index"; }
-
+﻿@{ ViewBag.Title = "Quy định trang quản trị"; }
 
 <!-- Content Wrapper. Contains page content -->
-<!-- Content Header (Page header) -->
 <section class="content-header">
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1>Blank Page</h1>
+                <h1>Quy định trang quản trị</h1>
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
                     <li class="breadcrumb-item"><a href="#">Home</a></li>
-                    <li class="breadcrumb-item active">Blank Page</li>
+                    <li class="breadcrumb-item active">Quy định</li>
                 </ol>
             </div>
         </div>
-    </div><!-- /.container-fluid -->
+    </div>
 </section>
 
 <!-- Main content -->
 <section class="content">
-
-    <!-- Default box -->
-    <div class="card">
-        <div class="card-header">
-            <h3 class="card-title">Title</h3>
-
-            <div class="card-tools">
-                <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+    <div class="container">
+        <!-- Card -->
+        <div class="card shadow-lg">
+            <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+                <h3 class="card-title">Quy định sử dụng</h3>
+                <button type="button" class="btn btn-tool text-white" data-card-widget="collapse" title="Thu gọn">
                     <i class="fas fa-minus"></i>
                 </button>
-                <button type="button" class="btn btn-tool" data-card-widget="remove" data-toggle="tooltip" title="Remove">
-                    <i class="fas fa-times"></i>
-                </button>
+            </div>
+            <div class="card-body">
+                <p class="text-muted">Vui lòng tuân thủ các quy định sau để đảm bảo hệ thống hoạt động hiệu quả:</p>
+                <ul class="list-group">
+                    <li class="list-group-item">
+                        <i class="fas fa-check-circle text-success"></i> Chỉ những người được phân quyền mới được truy cập.
+                    </li>
+                    <li class="list-group-item">
+                        <i class="fas fa-check-circle text-success"></i> Bảo mật thông tin tài khoản cá nhân.
+                    </li>
+                    <li class="list-group-item">
+                        <i class="fas fa-check-circle text-success"></i> Không chia sẻ thông tin quản trị ra ngoài.
+                    </li>
+                    <li class="list-group-item">
+                        <i class="fas fa-check-circle text-success"></i> Tuân thủ các chính sách bảo mật dữ liệu của công ty.
+                    </li>
+                    <li class="list-group-item">
+                        <i class="fas fa-check-circle text-success"></i> Báo cáo ngay các lỗi hoặc sự cố cho đội hỗ trợ.
+                    </li>
+                </ul>
+            </div>
+            <div class="card-footer text-muted">
+                <p>Để biết thêm chi tiết, vui lòng liên hệ với đội ngũ hỗ trợ.</p>
             </div>
         </div>
-        <div class="card-body">
-            Start creating your amazing application!
-        </div>
-        <!-- /.card-body -->
-        <div class="card-footer">
-            Footer
-        </div>
-        <!-- /.card-footer-->
-    </div>
-    <!-- /.card -->
 
+        <!-- Additional Section -->
+        <div class="alert alert-info mt-4">
+            <h5><i class="fas fa-info-circle"></i> Lưu ý:</h5>
+            <p>Việc không tuân thủ các quy định sẽ dẫn đến các biện pháp xử lý nghiêm khắc từ ban quản trị.</p>
+        </div>
+    </div>
 </section>
-<!-- /.content -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>

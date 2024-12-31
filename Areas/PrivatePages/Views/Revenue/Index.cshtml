@@ -1,36 +1,123 @@
-﻿@model IEnumerable<ShopTechNoLoGy.Models.DoanhThuNgayModel>
+﻿    @model IEnumerable<ShopTechNoLoGy.Models.DoanhThuNgayModel>
 
-@{
-    ViewBag.Title = "Báo cáo doanh thu hàng ngày";
-    Layout = "~/Areas/PrivatePages/Views/Shared/_Layout.cshtml";
-}
-<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-<style>
-    .page-header {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        color: white;
-        padding: 2rem 0;
-        margin-bottom: 2rem;
+    @{
+        ViewBag.Title = "Báo cáo doanh thu hàng ngày";
+        Layout = "~/Areas/PrivatePages/Views/Shared/_Layout.cshtml";
     }
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        .page-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 2rem 0;
+            margin-bottom: 2rem;
+        }
 
-    .card {
-        box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
-        margin-bottom: 2rem;
-    }
+        .card {
+            box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+            margin-bottom: 2rem;
+        }
 
-    #dailyRevenueChart {
-        max-width: 100% !important;
-        height: 400px !important;
-    }
-</style>
+        #dailyRevenueChart {
+            max-width: 100% !important;
+            height: 400px !important;
+        }
+
+        /* Tùy chỉnh màu viền focus cho input */
+        .form-control:focus {
+            border-color: #0d6efd;
+            box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+        }
+
+        /* Hiệu ứng hover cho card */
+        .bg-white:hover {
+            transform: translateY(-2px);
+            transition: all 0.3s ease;
+        }
+
+        /* Hiệu ứng hover cho button */
+        .btn-primary:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(13, 110, 253, 0.2);
+            transition: all 0.3s ease;
+        }
+   
+    </style>
 
     <div class="page-header">
         <div class="container">
             <h4 class="display-7">Báo cáo doanh thu hàng ngày</h4>
         </div>
     </div>
+    <div class="row mt-4">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header bg-info text-white">
+                    <h5 class="card-title mb-0">So sánh doanh thu</h5>
+                    <button id="toggleSSButton" class="btn btn-light btn-sm " >
+                        <i class="fas fa-table"></i> Ẩn/Hiện bảng
+                    </button>
+                </div>
+                <div class="card-body bg-light p-4" id="SSContent"> 
+                    <form id="compareForm">
+                        <div class="row g-4 justify-content-center">
+                            <!-- Ngày bắt đầu -->
+                            <div class="col-md-4">
+                                <div class="bg-white p-4 rounded-3 shadow-sm h-100">
+                                    <label for="ngayBatDau" class="form-label fw-medium mb-3">
+                                        <i class="fas fa-calendar-alt text-primary me-2"></i>
+                                        Ngày bắt đầu
+                                    </label>
+                                    <div class="input-group">
+                                        <span class="input-group-text bg-primary text-white">
+                                            <i class="fas fa-calendar-day"></i>
+                                        </span>
+                                        <input type="date"
+                                               class="form-control form-control-lg border-primary"
+                                               id="ngayBatDau"
+                                               name="ngayBatDau"
+                                               required>
+                                    </div>
+                                </div>
+                            </div>
 
+                            <!-- Ngày kết thúc -->
+                            <div class="col-md-4">
+                                <div class="bg-white p-4 rounded-3 shadow-sm h-100">
+                                    <label for="ngayKetThuc" class="form-label fw-medium mb-3">
+                                        <i class="fas fa-calendar-alt text-primary me-2"></i>
+                                        Ngày kết thúc
+                                    </label>
+                                    <div class="input-group">
+                                        <span class="input-group-text bg-primary text-white">
+                                            <i class="fas fa-calendar-day"></i>
+                                        </span>
+                                        <input type="date"
+                                               class="form-control form-control-lg border-primary"
+                                               id="ngayKetThuc"
+                                               name="ngayKetThuc"
+                                               required>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Nút so sánh -->
+                            <div class="col-12 text-center mt-3">
+                                <button type="button"
+                                        id="compareButton"
+                                        class="btn btn-primary btn-lg px-5 rounded-pill">
+                                    <i class="fas fa-chart-line me-2"></i>
+                                    So sánh doanh thu
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
     <div class="container">
         <div class="row">
             <div class="col-md-12">
@@ -40,9 +127,9 @@
                         <button id="toggleTableButton" class="btn btn-light btn-sm">
                             <i class="fas fa-table"></i> Ẩn/Hiện bảng
                         </button>
-                      <a href="@Url.Action("ExportDaylyRevenueToExcel", "Revenue")" class="btn btn-success">
-    <i class="fas fa-file-excel"></i> Xuất Excel
-</a>
+                        <a href="@Url.Action("ExportDaylyRevenueToExcel", "Revenue")" class="btn btn-success">
+                            <i class="fas fa-file-excel"></i> Xuất Excel
+                        </a>
                     </div>
                     <div id="tableContent" class="card-body">
                         <div class="table-responsive">
@@ -57,7 +144,7 @@
                                     @foreach (var item in Model)
                                     {
                                         <tr>
-                                            <td>@item.Ngay.ToShortDateString()</td>
+                                            <td>@item.Ngay.ToString("dd-MM-yyyy")</td>
                                             <td>@item.DoanhThu.ToString("C0")</td>
                                         </tr>
                                     }
@@ -84,6 +171,8 @@
                 </div>
             </div>
         </div>
+
+    
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
@@ -94,7 +183,8 @@
             var chartContent = document.getElementById('chartContent');
             var toggleTableButton = document.getElementById('toggleTableButton');
             var toggleChartButton = document.getElementById('toggleChartButton');
-
+            var toggleSSButton = document.getElementById('toggleSSButton');
+            var SSContent = document.getElementById('SSContent');
             toggleTableButton.addEventListener('click', function() {
                 tableContent.style.display = tableContent.style.display === 'none' ? 'block' : 'none';
             });
@@ -103,7 +193,12 @@
                 chartContent.style.display = chartContent.style.display === 'none' ? 'block' : 'none';
             });
 
-            var labels = [@Html.Raw(string.Join(",", Model.Select(item => $"'{item.Ngay.ToShortDateString()}'")))];
+            toggleSSButton.addEventListener('click', function () {
+                SSContent.style.display = SSContent.style.display === 'none' ? 'block' : 'none';
+            });
+
+            // Ban đầu vẽ biểu đồ với dữ liệu mặc định
+            var labels = [@Html.Raw(string.Join(",", Model.Select(item => $"'{item.Ngay:dd-MM-yyyy}'")))];
             var data = [@string.Join(",", Model.Select(item => item.DoanhThu))];
 
             var ctx = document.getElementById('dailyRevenueChart').getContext('2d');
@@ -126,8 +221,11 @@
                         y: {
                             beginAtZero: true,
                             ticks: {
-                                callback: function(value, index, values) {
-                                    return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(value);
+                                callback: function(value) {
+                                    return new Intl.NumberFormat('vi-VN', {
+                                        style: 'currency',
+                                        currency: 'VND'
+                                    }).format(value);
                                 }
                             }
                         }
@@ -136,19 +234,55 @@
                         tooltip: {
                             callbacks: {
                                 label: function(context) {
-                                    var label = context.dataset.label || '';
-                                    if (label) {
-                                        label += ': ';
-                                    }
-                                    if (context.parsed.y !== null) {
-                                        label += new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(context.parsed.y);
-                                    }
-                                    return label;
+                                    return new Intl.NumberFormat('vi-VN', {
+                                        style: 'currency',
+                                        currency: 'VND'
+                                    }).format(context.parsed.y);
                                 }
                             }
                         }
                     }
                 }
+            });
+
+            // Xử lý sự kiện click vào nút "So sánh"
+            document.getElementById('compareButton').addEventListener('click', function() {
+                var ngayBatDau = document.getElementById('ngayBatDau').value;
+                var ngayKetThuc = document.getElementById('ngayKetThuc').value;
+
+                if (!ngayBatDau || !ngayKetThuc) {
+                    alert('Vui lòng chọn ngày bắt đầu và ngày kết thúc!');
+                    return;
+                }
+
+                // Gửi yêu cầu đến server để lấy dữ liệu mới
+                fetch(`/Revenue/GetChonNgaySoSanh?ngayBatDau=${ngayBatDau}&ngayKetThuc=${ngayKetThuc}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.message) {
+                            alert(data.message);
+                            return;
+                        }
+
+                        // Cập nhật lại bảng dữ liệu
+                        var tableBody = document.querySelector('table tbody');
+                        tableBody.innerHTML = '';
+                        data.forEach(function(item) {
+                            var row = `<tr><td>${item.Ngay}</td><td>${item.DoanhThu}</td></tr>`;
+                            tableBody.insertAdjacentHTML('beforeend', row);
+                        });
+
+                        // Cập nhật lại biểu đồ
+                        var newLabels = data.map(item => item.Ngay);
+                        var newData = data.map(item => {
+                            return parseFloat(item.DoanhThu.replace(/[^\d,-]/g, '').replace(',', ''));
+                        });
+
+                        myChart.data.labels = newLabels;
+                        myChart.data.datasets[0].data = newData;
+                        myChart.update();
+                    })
+                    .catch(error => console.error('Error:', error));
             });
         });
     </script>

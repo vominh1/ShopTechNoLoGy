@@ -197,7 +197,7 @@
     with font-awesome or any other icon font library -->
                             <li class="nav-item has-treeview">
                                 <a href="#" class="nav-link">
-                                    <i class="nav-icon fas fa-tachometer-alt"></i>
+                                    <i class="nav-icon fas fa-pen"></i>
                                     <p>
                                         Quản lý bài viết
                                         <i class="right fas fa-angle-left"></i>
@@ -227,7 +227,7 @@
                                     <p>
                                         Quản lý sản phẩm
                                         <i class="fas fa-angle-left right"></i>
-                                        <span class="badge badge-info right">3</span>
+                                        
                                     </p>
                                 </a>
                                 <ul class="nav nav-treeview">
@@ -255,34 +255,35 @@
                             </li>
                             <li class="nav-item has-treeview">
                                 <a href="#" class="nav-link">
-                                    <i class="nav-icon fas fa-chart-pie"></i>
+                                    <i class="nav-icon fas fa-comment"></i>
                                     <p>
-                                        Quản lý khách hàng
+                                        Quản lý bình luận
                                         <i class="right fas fa-angle-left"></i>
                                         @*<span class="badge badge-info right">3</span>*@
                                     </p>
                                 </a>
                                 <ul class="nav nav-treeview">
                                     <li class="nav-item">
-                                        <a href='@Url.Action("KhachHangThanThiet", "Customer")' class="nav-link">
+                                        <a href='@Url.Action("Index", "Comment")' class="nav-link">
                                             <i class="far fa-circle nav-icon"></i>
-                                            <p>Khách hàng thân thiết</p>
+                                            <p>Danh sách bình luận</p>
                                         </a>
                                     </li>
                                     <li class="nav-item">
-                                        <a href='@Url.Action("CustomerList", "Customer")' class="nav-link">
+                                        <a href='@Url.Action("BinhLuanDaPhanHoi", "Comment")' class="nav-link">
                                             <i class="far fa-circle nav-icon"></i>
-                                            <p>Danh sách khách hành đã mua</p>
+                                            <p>Bình luận đã phản hồi</p>
                                         </a>
                                     </li>
                                     <li class="nav-item">
-                                        <a href='@Url.Action("KhachHangMuaNhieuNhat", "Customer")' class="nav-link">
+                                        <a href='@Url.Action("BinhLuanBiCanhBao", "Comment")' class="nav-link">
                                             <i class="far fa-circle nav-icon"></i>
-                                            <p>Xếp loại khách hàng</p>
+                                            <p>Khách hàng bị cảnh báo</p>
                                         </a>
                                     </li>
 
                                 </ul>
+                                
                             </li>
                             <li class="nav-item has-treeview">
                                 <a href="#" class="nav-link">
@@ -394,12 +395,12 @@
                                             <p>Quản lý nhập kho</p>
                                         </a>
                                     </li>
-                                    <li class="nav-item">
+                                    @*<li class="nav-item">
                                         <a href='@Url.Action("dsExport", "WareHouse")' class="nav-link">
                                             <i class="far fa-circle nav-icon"></i>
                                             <p>Quản lý xuất kho</p>
                                         </a>
-                                    </li>
+                                    </li>*@
                                     <li class="nav-item">
                                         <a href='@Url.Action("TonKho", "WareHouse")' class="nav-link">
                                             <i class="far fa-circle nav-icon"></i>
@@ -453,13 +454,13 @@
                                 </ul>
 
                             </li>
-                           @* <li class="nav-item has-treeview">
+                           <li class="nav-item has-treeview">
                                 <a href="#" class="nav-link">
-                                    <i class="nav-icon fas fa-tags"></i> <!-- New icon for Quản lý khuyến mãi -->
+                                    <i class="nav-icon fas fa-truck"></i> <!-- New icon for Quản lý khuyến mãi -->
                                     <p>
                                         Quản lý giao hàng
                                         <i class="fas fa-angle-left right"></i>
-                                        <span class="badge badge-info right">3</span>
+                                      
 
                                     </p>
                                 </a>
@@ -467,10 +468,10 @@
                                     <li class="nav-item">
                                         <a href='@Url.Action("Index", "Delivery")' class="nav-link">
                                             <i class="far fa-circle nav-icon"></i>
-                                            <p>Danh sách giao hàng</p>
+                                            <p>Phân công giao hàng</p>
                                         </a>
                                     </li>
-                                    <li class="nav-item">
+                                    @*<li class="nav-item">
                                         <a href='@Url.Action("ActivePromotions", "Promotion")' class="nav-link">
                                             <i class="far fa-circle nav-icon"></i>
                                             <p>Khuyến mãi đang hoạt động</p>
@@ -481,14 +482,14 @@
                                             <i class="far fa-circle nav-icon"></i>
                                             <p>Khuyến mãi đã dừng</p>
                                         </a>
-                                    </li>
+                                    </li>*@
 
 
 
 
                                 </ul>
 
-                            </li>*@
+                            </li>
                         </ul>
                     </nav>
                     <!-- /.sidebar-menu -->

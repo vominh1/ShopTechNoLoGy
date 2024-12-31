@@ -1,0 +1,79 @@
+﻿@model ShopTechNoLoGy.Models.binhLuanSP
+
+
+@{
+    ViewBag.Title = "Phản hồi Bình luận";
+}
+
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Phản hồi Bình luận</h2>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-group mb-3">
+            <label for="PhanHoi" class="form-label">Phản hồi:</label>
+            @Html.TextAreaFor(m => m.PhanHoi, new { @class = "form-control", rows = 5, placeholder = "Nhập phản hồi của bạn..." })
+            @Html.ValidationMessageFor(m => m.PhanHoi, "", new { @class = "text-danger" })
+        </div>
+
+        <!-- Hidden field for the comment ID -->
+        @Html.HiddenFor(m => m.MaBL)
+
+        <div class="form-group">
+            <button type="submit" class="btn btn-success w-100">Phản hồi</button>
+        </div>
+    }
+
+    @* Hiển thị thông tin bình luận *@
+    <div class="mt-4">
+        <h4>Bình luận của người dùng</h4>
+        <div class="border p-3 rounded shadow-sm">
+            <p><strong>@Model.taiKhoanTV.taiKhoan</strong>: @Model.NoiDung</p>
+            <p><em>Ngày bình luận: @Model.NgayBL</em></p>
+        </div>
+    </div>
+</div>
+
+
+<script>
+        // Optional: Show a confirmation message after successful submission (client-side)
+        @if (TempData["SuccessMessage"] != null)
+        {
+            <text>
+                alert('@TempData["SuccessMessage"]');
+            </text>
+        }
+</script>
+
+
+<style>
+    .container {
+        max-width: 800px;
+    }
+
+    .form-label {
+        font-weight: bold;
+    }
+
+    .btn {
+        font-size: 16px;
+    }
+
+    .form-control {
+        font-size: 14px;
+    }
+
+    .border {
+        border: 1px solid #ddd;
+    }
+
+    .rounded {
+        border-radius: 5px;
+    }
+
+    .shadow-sm {
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    }
+</style>
