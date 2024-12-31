@@ -19,6 +19,9 @@ namespace ShopTechNoLoGy.Models
         public string TaiKhoan { get; set; }
         public string NoiDung { get; set; }
         public Nullable<System.DateTime> NgayBL { get; set; }
+        public string PhanHoi { get; set; }
+        public Nullable<System.DateTime> NgayPhanHoi { get; set; }
+        public Nullable<bool> BiCanhBao { get; set; }
     
         public virtual sanPham sanPham { get; set; }
         public virtual taiKhoanTV taiKhoanTV { get; set; }
