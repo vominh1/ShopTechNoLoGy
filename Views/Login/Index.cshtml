@@ -159,7 +159,13 @@
         margin-bottom: 20px;
     }
 </style>
-
+<!-- Hiển thị thông báo lỗi nếu có -->
+@if (!string.IsNullOrEmpty(ViewBag.ErrorMessage) || !string.IsNullOrEmpty(TempData["ErrorMessage"] as string))
+{
+<div class="error-message">
+    @ViewBag.ErrorMessage
+    @TempData["ErrorMessage"]
+</div>}
 <div class="container">
     <div class="login-box">
         <h2>Đăng nhập</h2>
@@ -191,10 +197,12 @@
                 Đăng nhập
             </button>
         }
-        <div class="social-auth">
-            <a href="#"><i class="fab fa-facebook"></i></a>
-            <a href="#"><i class="fab fa-google"></i></a>
-        </div>
+    <div class="social-auth">
+       <a href="@Url.Action("LoginFaceBook", "Login")"><i class="fab fa-facebook"></i></a>
+        <a href="@Url.Action("LoginGoogle", "Login")"><i class="fab fa-google"></i></a>
+        <!-- Đăng nhập bằng Google -->
+        
+    </div>
         <div class="links">
             <a href="forgot-password.html">Quên mật khẩu?</a>
             <a href="@Url.Action("Index", "Register")">Đăng ký tài khoản mới</a>
