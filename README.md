@@ -1,4 +1,4 @@
-# Website Thương Mại Điện Tử Bán Bánh Kẹo
+# Website Thương Mại Điện Tử 
 
 Đây là một ứng dụng web thương mại điện tử bán bánh kẹo được xây dựng bằng ASP.NET MVC với C# và SQL Server. Dự án cung cấp các chức năng quản lý sản phẩm, bài viết, đơn hàng, người dùng, và nhiều tính năng khác nhằm cải thiện trải nghiệm mua sắm trực tuyến.
 
@@ -19,6 +19,7 @@
 - **Quản lý Người dùng**:
   - Đăng ký, đăng nhập, cập nhật thông tin cá nhân.
   - Quản lý quyền truy cập và thông tin người dùng.
+  - Quản lý đăng nhập bằng tài khoản google và facebook.
 
 - **Quản lý Doanh thu**:
   - Xem doanh thu theo ngày, tháng, sản phẩm.
@@ -27,14 +28,20 @@
 - **Quản lý Khách hàng**:
   - Đăng ký, đăng nhập, cập nhật thông tin cá nhân của khách hàng.
 
-- **Giỏ hàng và Thanh toán Trực tuyến**:
+- **Giỏ hàng và Thanh toán **:
   - Thêm sản phẩm vào giỏ hàng, chỉnh sửa giỏ hàng.
-  - Thanh toán trực tuyến qua các cổng thanh toán như Stripe hoặc PayPal.
 
 - **Xem và Viết Đánh giá**:
   - Xem đánh giá của sản phẩm.
   - Viết đánh giá và nhận xét cho sản phẩm.
 
+- **Quản lý kho **:
+    - Cho phép nhập ,xuất.
+
+- **Quản lý khuyến mãi **:
+    - Thêm, sửa, xóa các loại khuyến mãi.
+
+  
 ## Công Nghệ Sử Dụng
 
 - **ASP.NET MVC**: Để xây dựng ứng dụng web theo mô hình MVC.
